@@ -1,0 +1,70 @@
+
+//引入说明文档
+
+[开源库或者本地library]
+依赖：[如有依赖，标上依赖说明]
+链接: [github 链接或者本地library]
+配置: [配置文档]
+使用: [使用说明]
+
+//copy
+    依赖：[无]
+    链接:
+    配置:
+
+    使用: 详见github
+
+
+
+RxBinding
+    依赖：[无]
+    链接: https://github.com/JakeWharton/RxBinding.git
+    配置:
+
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+
+        dependencies {
+            classpath 'me.tatarka:gradle-retrolambda:3.2.3'
+        }
+    }
+
+    // Required because retrolambda is on maven central
+    repositories {
+        mavenCentral()
+    }
+
+
+    apply plugin: 'com.android.application'
+    apply plugin: 'me.tatarka.retrolambda'
+
+    android {
+       .....................
+
+        compileOptions {
+            sourceCompatibility 1.8
+            targetCompatibility 1.8
+        }
+    }
+
+    dependencies {
+       ..............
+        compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    }
+
+
+    使用: 详见github
+
+RxPermissions
+    依赖：RxBinding
+    链接: https://github.com/tbruyelle/RxPermissions.git
+    配置:
+
+         dependencies {
+          ............
+           compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
+         }
+
+    使用: 详见github

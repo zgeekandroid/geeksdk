@@ -1,2 +1,2 @@
 # geeksdk
-geeksdk is dev fast framework , pakcing opensource and self dev 
+geeksdk is fast dev framework in andriod ..
