@@ -31,8 +31,12 @@ public class MainActivity extends AppCompatActivity {
   }
 
     public void bindClick(int resId,Fragment fragment){
-        RxView.clicks(findViewById(resId)).subscribe(v->{
-            jumpIntent(fragment);
-        });
+        try {
+            RxView.clicks(findViewById(resId)).subscribe(v->{
+                jumpIntent(fragment);
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
