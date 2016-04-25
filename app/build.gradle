@@ -48,4 +48,6 @@ dependencies {
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
     compile 'com.android.support:appcompat-v7:24.0.0-alpha1'
+    compile 'com.squareup.okhttp3:okhttp:3.0.1'
+    compile 'com.google.code.gson:gson:2.5'
 }

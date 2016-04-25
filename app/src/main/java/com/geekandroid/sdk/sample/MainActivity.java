@@ -14,25 +14,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //权限框架
-        bindClick(R.id.rxpermissions,new RxPermissionsSampleFragment());
+        bindClick(R.id.rxpermissions, new RxPermissionsSampleFragment());
 
-
-
+        bindClick(R.id.app_update, new AppUpdateSampleFragment());
 
     }
 
 
+    public void jumpIntent(Fragment fragment) {
+        ContentActivity.showFragment = fragment;
+        Intent intent = new Intent(this, ContentActivity.class);
+        startActivity(intent);
+    }
 
-
-  public void jumpIntent(Fragment fragment){
-      ContentActivity.showFragment = fragment;
-      Intent intent = new Intent(this,ContentActivity.class);
-      startActivity(intent);
-  }
-
-    public void bindClick(int resId,Fragment fragment){
+    public void bindClick(int resId, Fragment fragment) {
         try {
-            RxView.clicks(findViewById(resId)).subscribe(v->{
+            RxView.clicks(findViewById(resId)).subscribe(v -> {
                 jumpIntent(fragment);
             });
         } catch (Exception e) {
