@@ -89,11 +89,11 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
         if (callBack != null) {
             callBack.onStart();
         }
-        double random = Math.random();
+       // double random = Math.random();
         if (parameters == null) {
             parameters = new HashMap<>();
         }
-        parameters.put("r", String.valueOf(random));
+       // parameters.put("r", String.valueOf(random));
 
         String requestUrl = url + "?" + StringUtils.formatUrl(parameters);
 
@@ -166,13 +166,7 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
         }
 
 
-        if (!parameters.containsKey("fileKey")) {
-            if (callBack != null) {
-                callBack.onFailure("必须指定上传的key", new IllegalArgumentException(""));
-            }
-            return;
-        }
-
+     
 
         MultipartBody.Builder builder = new MultipartBody.Builder();
         addParams(url, parameters, files, builder);
