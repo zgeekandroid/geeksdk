@@ -1,11 +1,10 @@
 package com.geekandroid.sdk.sample.commonslibrary.net;
 
 
-import android.os.Handler;
-import android.os.Looper;
 import android.text.TextUtils;
 
 import com.geekandroid.sdk.sample.commonslibrary.config.SystemConfig;
+import com.geekandroid.sdk.sample.commonslibrary.handler.WeakHandlerNew;
 import com.geekandroid.sdk.sample.commonslibrary.utils.LogUtils;
 import com.geekandroid.sdk.sample.commonslibrary.utils.StringUtils;
 
@@ -24,6 +23,7 @@ import java.util.zip.GZIPOutputStream;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -38,18 +38,20 @@ import okhttp3.Response;
  */
 public class DefaultOkHttpIml implements IRequestRemote<String> {
 
-    private Handler mHandler;
+    private WeakHandlerNew mHandler;
     private Object tag = DefaultOkHttpIml.class;
     private static DefaultOkHttpIml mInstance;
     private OkHttpClient mOkHttpClient;
 
 
     private DefaultOkHttpIml() {
-        mHandler = new Handler(Looper.getMainLooper());
+        mHandler = new WeakHandlerNew() ;
         mOkHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .readTimeout(15, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
+//                .addInterceptor(new GzipRequestInterceptor())
+                .addInterceptor(new LoggingInterceptor())
                 .build();
     }
 
@@ -64,6 +66,22 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
         return mInstance;
     }
 
+    class LoggingInterceptor implements Interceptor {
+        @Override public Response intercept(Chain chain) throws IOException {
+            Request request = chain.request();
+
+            long t1 = System.nanoTime();
+//            LogUtils.i(String.format("okhttp request %s on %s%n%s",
+//                    request.url(), chain.connection(), request.headers()));
+
+            Response response = chain.proceed(request);
+
+            long t2 = System.nanoTime();
+            LogUtils.i(String.format("geeksdk  for %s in %.1fms%n%s", response.request().url(), (t2 - t1) / 1e6d, ""/*response.headers()*/));
+
+            return response;
+        }
+    }
 
     @Override
     public void doGet(String url, Map<String, Object> parameters, RequestCallBack<String> callBack) {
@@ -95,10 +113,10 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
         FormBody.Builder builder = new FormBody.Builder();
 
         addParams(url, parameters, builder);
-
         RequestBody body = builder.build();
 
-        Request request = new Request.Builder().url(url).post(body).tag(tag).build();
+        Request request = new Request.Builder().url(url).post(body)
+                .tag(tag).build();
         execute(callBack, request);
 
     }
@@ -206,8 +224,10 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
 
         final String destFileName = StringUtils.formatValue(parameters, "fileName");
 
-        double random = Math.random();
-        parameters.put("r", String.valueOf(random));
+        //clear 多余的参数
+        parameters.remove("fileName");
+
+
         String downLoadUrl = url + "?" + StringUtils.formatUrl(parameters);
 
         Request request = new Request.Builder()
@@ -334,7 +354,7 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
      * @return 保存的文件
      * @throws IOException
      */
-    public File saveFile(Response response, String destFileName, final RequestCallBack<String> callBack) throws IOException {
+    public void saveFile(Response response, String destFileName, final RequestCallBack<String> callBack) throws IOException {
         String destFileDir = SystemConfig.getSystemFileDir();
         InputStream is = null;
         byte[] buf = new byte[2048];
@@ -373,14 +393,11 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
                 });
             }
             fos.flush();
-            callBack.onSuccess("下载成功file  = " + file.getAbsolutePath() + "---" + StringUtils.formatKB(file.length()));
-            return file;
-
-        } catch (IOException e) {
+            sendSuccessResultCallback(response, file.getAbsolutePath(), callBack);
+        } catch (Exception e) {
             boolean deleteSuccess = file.delete();
             LogUtils.i("文件下载失败,删除" + (deleteSuccess ? "成功" : "失败"));
-            return null;
-
+            sendFailResultCallback(response,"下载失败!", new Exception(""), callBack);
         } finally {
             try {
                 if (is != null) is.close();
