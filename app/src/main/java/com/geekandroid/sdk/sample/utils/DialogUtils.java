@@ -18,6 +18,8 @@ import com.geekandroid.sdk.sample.update.views.CustomDialog;
  * Created by lenovo on 2016/4/27.
  */
 public class DialogUtils {
+    static ProgressDialog pd;
+
     public static void showUpdateDialog(Activity activity, String tiele, String dialog_certain, String dialog_cancel, String description) {
         final CustomDialog builder = new CustomDialog(activity, R.style.dialog);
         View versionDialogView = View.inflate(activity, R.layout.dialog_version_info, null);
@@ -39,18 +41,18 @@ public class DialogUtils {
         tv_sure_version.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ContentActivity) activity).setDownLoadBtn(builder);
-
+                ((ContentActivity) activity).setDownLoadBtn();
+                builder.dismiss();
             }
         });
         setDialogWH(builder, versionDialogView, activity);
     }
 
-    public static void showDownLoadDialog(Activity activity, CustomDialog builder) {
+    public static ProgressDialog showDownLoadDialog(Activity activity) {
         String netSate = DeviceUtils.getNetworkType(activity);
+        pd = new ProgressDialog(activity);
         if ("WIFI".equals(netSate)) {
             //WIFI环境,提示用户后台下载，通知Service进行下载
-            ProgressDialog pd = new ProgressDialog(activity);
             pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             pd.setTitle("正在下载，请稍候...");
             pd.setButton("点击隐藏进度对话框", new DialogInterface.OnClickListener() {
@@ -61,14 +63,15 @@ public class DialogUtils {
                 }
             });
             pd.show();
-            builder.dismiss();
+            return pd;
         } else if ("MOBILE-4G".equals(netSate) || "MOBILE-2G".equals(netSate) || "MOBILE-3G".equals(netSate)) {
             //询问用户是否4G下载
             //show4GRemindDialog();
+            return null;
         } else {
             //网络环境不好
             ToastUtils.show(activity, "您的网络状况不佳，取消下载");
-            builder.dismiss();
+            return null;
         }
     }
 

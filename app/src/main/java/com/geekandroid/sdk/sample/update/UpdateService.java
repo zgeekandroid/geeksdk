@@ -37,6 +37,7 @@ public class UpdateService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -79,12 +80,13 @@ public class UpdateService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);//反注册EventBus
     }
 
     @Subscribe
     public void onEventMainThread(VersionEvent event) {
         DownloadInfo downloadInfo = event.getDownloadInfo();
-        if (downloadInfo.isDownLoad()) {
+        if (null != downloadInfo && downloadInfo.isDownLoad()) {
             String downLoadUrl = downloadInfo.getDownLoadUrl();
             final String fileName = downloadInfo.getFileName();
             final String fileDir = downloadInfo.getFileDir();

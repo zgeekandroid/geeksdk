@@ -1,9 +1,11 @@
 package com.geekandroid.sdk.sample;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.geekandroid.common.config.SystemConfig;
 import com.geekandroid.sdk.sample.domain.VersionEvent;
@@ -22,6 +24,7 @@ import de.greenrobot.event.Subscribe;
  */
 public class ContentActivity extends AppCompatActivity {
     public static Fragment showFragment = null;
+    ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,15 +70,21 @@ public class ContentActivity extends AppCompatActivity {
             DialogUtils.showUpdateDialog(ContentActivity.this, title, dialog_certain, dialog_cancel, description);
         }
 
+        int progress = event.getProgress();
+        int contentLength = (int) event.getContentLength();
+        if (progress > 0) {
+            pd.setMax(contentLength);
+            pd.setProgress(progress);
+        }
 
     }
 
-    public void setDownLoadBtn(CustomDialog builder) {
-        DialogUtils.showDownLoadDialog(ContentActivity.this, builder);
+    public void setDownLoadBtn() {
         DownloadInfo downloadInfo = new DownloadInfo("http://www.maicaim.com//App/PurchaseAPP.apk", "maicaime" + "2" + ".apk", SystemConfig.getSystemFileDir(), true);
         //callSerViceDownload();
         VersionEvent versionEvent = new VersionEvent();
         versionEvent.setDownloadInfo(downloadInfo);
         EventBus.getDefault().post(versionEvent);
+        pd = DialogUtils.showDownLoadDialog(ContentActivity.this);
     }
 }
