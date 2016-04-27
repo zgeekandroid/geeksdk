@@ -5,6 +5,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import com.geekandroid.common.config.SystemConfig;
+import com.geekandroid.sdk.sample.domain.VersionEvent;
+import com.geekandroid.sdk.sample.update.domain.DownloadInfo;
+import com.geekandroid.sdk.sample.update.domain.VersionBean;
+import com.geekandroid.sdk.sample.update.views.CustomDialog;
+import com.geekandroid.sdk.sample.utils.DialogUtils;
+
+import de.greenrobot.event.EventBus;
+import de.greenrobot.event.Subscribe;
+
 /**
  * date        :  2016-04-20  13:46
  * author      :  Mickaecle gizthon
@@ -17,7 +27,7 @@ public class ContentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
-
+        EventBus.getDefault().register(this);
         if (showFragment != null) {
             getSupportFragmentManager().beginTransaction().add(R.id.container, showFragment).commit();
         }
@@ -36,5 +46,36 @@ public class ContentActivity extends AppCompatActivity {
                 transaction.hide(from).show(to).commit();
             }
         }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);//反注册EventBus
+    }
+
+    @Subscribe
+    public void onEventMainThread(VersionEvent event) {
+        VersionBean versionBean = event.getVersionBean();
+        String dialog_certain = "马上下载";
+        String dialog_cancel = "下次提醒";
+        String title = "有新版本：";
+        if (null != versionBean) {
+            //String description = versionBean.getBackinfo().getApp_update_description();
+            String description = "快点更新把";
+            DialogUtils.showUpdateDialog(ContentActivity.this, title, dialog_certain, dialog_cancel, description);
+        }
+
+
+    }
+
+    public void setDownLoadBtn(CustomDialog builder) {
+        DialogUtils.showDownLoadDialog(ContentActivity.this, builder);
+        DownloadInfo downloadInfo = new DownloadInfo("http://www.maicaim.com//App/PurchaseAPP.apk", "maicaime" + "2" + ".apk", SystemConfig.getSystemFileDir(), true);
+        //callSerViceDownload();
+        VersionEvent versionEvent = new VersionEvent();
+        versionEvent.setDownloadInfo(downloadInfo);
+        EventBus.getDefault().post(versionEvent);
     }
 }

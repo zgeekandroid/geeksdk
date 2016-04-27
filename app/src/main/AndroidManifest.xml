@@ -21,6 +21,7 @@
         <activity android:name=".ContentActivity" />
 
         <service android:name="com.geekandroid.sdk.sample.update.UpdateService"></service>
+        <service android:name="com.geekandroid.sdk.sample.update.UpdateNotificationService"></service>
     </application>
 
 </manifest>

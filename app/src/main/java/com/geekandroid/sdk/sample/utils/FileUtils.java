@@ -117,5 +117,12 @@ public class FileUtils {
         return builder.toString();
     }
 
-
+    public static boolean isFileExists(String filepath) {
+        if (filepath != null) {
+            File file = new File(filepath);
+            return file.exists();
+        } else {
+            return false;
+        }
+    }
 }

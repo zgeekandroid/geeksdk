@@ -5,7 +5,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
+import com.geekandroid.sdk.sample.domain.VersionEvent;
+import com.geekandroid.sdk.sample.update.domain.VersionBean;
+import com.geekandroid.sdk.sample.utils.DialogUtils;
 import com.jakewharton.rxbinding.view.RxView;
+
+import de.greenrobot.event.EventBus;
+import de.greenrobot.event.Subscribe;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -15,4 +15,8 @@ public class NetUtils<T> {
     public static void doPost(String url, Map<String, Object> parameters, RequestCallBack<String> callBack) {
         mIRequestRemote.doPost(url, parameters, callBack);
     }
+    public static void doDownLoad(String url, Map<String, Object> parameters, RequestCallBack<String> callBack) {
+        mIRequestRemote.doDownLoad(url, parameters, callBack);
+    }
+
 }

@@ -23,37 +23,27 @@ public class VersionChecker {
 
     public static final String securityCode = "txsccl8457210%#&@4";
 
-    public static int getServerVersionCode(Context context, int versionCode) {
+    public static void getServerVersionCode(Context context, int versionCode, RequestCallBack<String> callback) {
         String serverURL = "http://data.maicaim.com/Common/APPUpdate.ashx";
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("port_password", generatePortPasswordNoLogin("200" + versionCode));
         parameters.put("app_type", "200");
         parameters.put("version", versionCode + "");
-        NetUtils.doPost(serverURL, parameters, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(String result) {
-                Gson gson = new Gson();
-                VersionBean versionBean = gson.fromJson(result, VersionBean.class);
-                String app_version_new = versionBean.getBackinfo().getApp_version_new();
-                if (null != app_version_new) {
-                    serverVersionCode = Integer.parseInt(app_version_new);
-                } else {
-                    serverVersionCode = -1;
-                }
-
-            }
-
-            @Override
-            public void onFailure(String errorMessage, Exception exception) {
-                serverVersionCode = -1;
-            }
-        });
-        return serverVersionCode;
+        NetUtils.doPost(serverURL, parameters, callback);
     }
 
     public static int getLocalVersionCode(Context context) {
         localVersionCode = DeviceUtils.getAppVersionCode(context);
         return localVersionCode;
+    }
+
+
+    public static int getIsNeedUpdateCode(VersionBean versionBean) {
+        return versionBean.getBackinfo().getApp_is_update();
+    }
+
+    private static boolean isNeedUpdate(VersionBean versionBean) {
+        return getIsNeedUpdateCode(versionBean) == 1 ? true : false;
     }
 
     public static String generatePortPasswordNoLogin(String encryptionFiled) {
