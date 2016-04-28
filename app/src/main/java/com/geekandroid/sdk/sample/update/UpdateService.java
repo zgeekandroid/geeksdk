@@ -33,6 +33,7 @@ public class UpdateService extends Service {
     public String serverURL = "";
     private int serverVersionCode;
     private int localVersionCode;
+    String filepath ;
 
     @Override
     public void onCreate() {
@@ -66,7 +67,11 @@ public class UpdateService extends Service {
                         EventBus.getDefault().post(versionEvent);
                     }
                 }
-
+                if (serverVersionCode > localVersionCode && getFileIsExist(versionBean)) {
+                    VersionEvent versionEvent = new VersionEvent();
+                    versionEvent.setFileUrl(filepath);
+                    EventBus.getDefault().post(versionEvent);
+                }
             }
 
             @Override
@@ -142,7 +147,7 @@ public class UpdateService extends Service {
     private boolean getFileIsExist(VersionBean versionBean) {
         String fileName = "maicaime" + versionBean.getBackinfo().getApp_version_new() + ".apk";
         String fileDir = SystemConfig.getSystemFileDir();
-        String filepath = fileDir + fileName;
+        filepath = fileDir + fileName;
         return FileUtils.isFileExists(filepath);
     }
 }

@@ -91,4 +91,33 @@ public class DialogUtils {
     }
 
 
+    public static void showInstallDialog(Activity activity, String filePath) {
+        final CustomDialog builder = new CustomDialog(activity, R.style.dialog);
+        View versionDialogView = View.inflate(activity, R.layout.dialog_install_info, null);
+        TextView bt_cancel_version = (TextView) versionDialogView.findViewById(R.id.bt_cancel_version);
+        TextView tv_sure_version = (TextView) versionDialogView.findViewById(R.id.tv_sure_version);
+        TextView dialog_version_title = (TextView) versionDialogView.findViewById(R.id.dialog_version_title);
+        TextView dialog_version_content = (TextView) versionDialogView.findViewById(R.id.dialog_version_content);
+        dialog_version_content.setVisibility(View.GONE);
+        builder.setContentView(versionDialogView);
+        tv_sure_version.setText("立即安装");
+        bt_cancel_version.setText("稍后安装");
+        dialog_version_title.setText("新版本已下载完成，请问是否现在安装?");
+        bt_cancel_version.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builder.dismiss();
+            }
+        });
+        tv_sure_version.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //安装
+                DeviceUtils.install(activity, filePath);
+                builder.dismiss();
+            }
+        });
+        setDialogWH(builder, versionDialogView, activity);
+        builder.show();
+    }
 }

@@ -60,6 +60,29 @@ public class ContentActivity extends AppCompatActivity {
 
     @Subscribe
     public void onEventMainThread(VersionEvent event) {
+        eventShowUpdate(event);
+        eventShowProgress(event);
+        eventShowInstall(event);
+    }
+
+    private void eventShowInstall(VersionEvent event) {
+        String fileUrl = event.getFileUrl();
+        boolean isFinish = event.isFinish();
+        if (null != fileUrl) {
+            DialogUtils.showInstallDialog(this, fileUrl);
+        }
+    }
+
+    private void eventShowProgress(VersionEvent event) {
+        int progress = event.getProgress();
+        int contentLength = (int) event.getContentLength();
+        if (progress > 0) {
+            pd.setMax(contentLength);
+            pd.setProgress(progress);
+        }
+    }
+
+    private void eventShowUpdate(VersionEvent event) {
         VersionBean versionBean = event.getVersionBean();
         String dialog_certain = "马上下载";
         String dialog_cancel = "下次提醒";
@@ -69,14 +92,6 @@ public class ContentActivity extends AppCompatActivity {
             String description = "快点更新把";
             DialogUtils.showUpdateDialog(ContentActivity.this, title, dialog_certain, dialog_cancel, description);
         }
-
-        int progress = event.getProgress();
-        int contentLength = (int) event.getContentLength();
-        if (progress > 0) {
-            pd.setMax(contentLength);
-            pd.setProgress(progress);
-        }
-
     }
 
     public void setDownLoadBtn() {

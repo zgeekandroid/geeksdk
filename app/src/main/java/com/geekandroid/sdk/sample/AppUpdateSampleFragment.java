@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.geekandroid.sdk.sample.update.UpdateNotificationService;
+import com.geekandroid.sdk.sample.update.NotificationService;
 import com.geekandroid.sdk.sample.update.UpdateService;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
@@ -37,7 +37,7 @@ public class AppUpdateSampleFragment extends BaseSampleFragment implements View.
     @Override
     public void onDestroy() {
         super.onDestroy();
-       // EventBus.getDefault().unregister(this);//反注册EventBus
+        // EventBus.getDefault().unregister(this);//反注册EventBus
     }
 
     @Override
@@ -77,7 +77,7 @@ public class AppUpdateSampleFragment extends BaseSampleFragment implements View.
         } else {
             Notification noti;
             int smallIcon = getActivity().getApplicationInfo().icon;
-            Intent myIntent = new Intent(getActivity(), UpdateNotificationService.class);
+            Intent myIntent = new Intent(getActivity(), NotificationService.class);
             PendingIntent pendingIntent = PendingIntent.getService(getActivity(), 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             noti = new NotificationCompat.Builder(getActivity()).setTicker("发现新版本")
                     .setContentTitle("发现新版本").setContentText("aaaaaa").setSmallIcon(smallIcon)
