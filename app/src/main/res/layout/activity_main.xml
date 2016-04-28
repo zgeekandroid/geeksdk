@@ -19,11 +19,15 @@
             android:text="Rx Permissions"
         />
         <Button
+            android:id="@+id/common"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="common"
+        />
+        <Button
 
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text=""
-        />
-
+            />
     </LinearLayout>
 
 

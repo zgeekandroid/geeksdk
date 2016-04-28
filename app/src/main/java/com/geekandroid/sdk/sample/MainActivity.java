@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         //权限框架
         bindClick(R.id.rxpermissions,new RxPermissionsSampleFragment());
 
-
+       bindClick(R.id.common,new CommonSampleFragment());
 
 
     }
