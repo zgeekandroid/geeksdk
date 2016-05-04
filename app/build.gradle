@@ -50,5 +50,5 @@ dependencies {
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
     compile project(path: ':commonslibrary')
     compile project(path: ':paylibrary')
-    
+    compile project(path: ':imageloaderlibrary')
 }

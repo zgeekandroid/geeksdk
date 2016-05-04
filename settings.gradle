@@ -1,1 +1,1 @@
-include ':app', ':commonslibrary', ':paylibrary'
+include ':app', ':commonslibrary', ':paylibrary', ':imageloaderlibrary'
