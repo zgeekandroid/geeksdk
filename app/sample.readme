@@ -91,3 +91,23 @@ RxPermissions
          }
 
     使用: 详见github
+
+ locationlibrary 百度定位
+依赖：
+链接：http://lbsyun.baidu.com/index.php?title=android-locsdk
+
+配置：
+
+dependencies {
+   ......
+    compile project(path: ':locationlibrary')
+
+}
+或 引用 locationlibrary-release.aar
+
+使用：
+1.初始化 BDLocationImpl.getInstance().init(this);
+2.开始定位 BDLocationImpl.getInstance().star();
+3.停止定位  BDLocationImpl.getInstance().stop();
+详见github   LocationSampleFragment
+

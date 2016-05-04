@@ -18,6 +18,7 @@ public abstract  class BaseSampleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getResLayoutId(),container,false);
+
         return view;
     }
 
