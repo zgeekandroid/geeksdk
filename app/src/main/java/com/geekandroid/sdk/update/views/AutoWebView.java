@@ -1,4 +1,4 @@
-package com.geekandroid.sdk.sample.update.views;
+package com.geekandroid.sdk.update.views;
 
 import android.content.Context;
 import android.os.Build;

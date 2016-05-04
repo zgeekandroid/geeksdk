@@ -1,23 +1,16 @@
 package com.geekandroid.sdk.sample;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
-import com.geekandroid.sdk.sample.update.NotificationService;
-import com.geekandroid.sdk.sample.update.UpdateService;
-import com.tbruyelle.rxpermissions.RxPermissions;
-
-import de.greenrobot.event.EventBus;
+import com.geekandroid.common.config.SystemConfig;
+import com.geekandroid.sdk.update.NotificationService;
+import com.geekandroid.sdk.update.UpdateService;
 
 /**
  * Created by lenovo on 2016/4/25.
@@ -25,19 +18,21 @@ import de.greenrobot.event.EventBus;
 public class AppUpdateSampleFragment extends BaseSampleFragment implements View.OnClickListener {
     private static final String TYPE_DIALOG = "type_dialog";
     private static final String TYPE_NOTIFICATION = "type_notification";
+
     Button showDialog;
     Button showNotification;
+    EditText et_url;
+    EditText et_name;
+    EditText et_filePath;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //EventBus.getDefault().register(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // EventBus.getDefault().unregister(this);//反注册EventBus
     }
 
     @Override
@@ -51,6 +46,10 @@ public class AppUpdateSampleFragment extends BaseSampleFragment implements View.
         View view = super.onCreateView(inflater, container, savedInstanceState);
         showDialog = (Button) view.findViewById(R.id.showDialog);
         showNotification = (Button) view.findViewById(R.id.showNotification);
+        et_url = (EditText) view.findViewById(R.id.et_url);
+        et_name = (EditText) view.findViewById(R.id.et_name);
+        et_filePath = (EditText) view.findViewById(R.id.et_filePath);
+        et_filePath.setText(SystemConfig.getSystemFileDir());
 
         showDialog.setOnClickListener(this);
         showNotification.setOnClickListener(this);
@@ -62,30 +61,27 @@ public class AppUpdateSampleFragment extends BaseSampleFragment implements View.
         switch (v.getId()) {
             case R.id.showDialog: {
                 toUpdateService(TYPE_DIALOG);
+                break;
             }
             case R.id.showNotification: {
                 toUpdateService(TYPE_NOTIFICATION);
+                break;
             }
         }
     }
 
     private void toUpdateService(String type) {
+        String url = et_url.getText().toString().trim();
+        String name = et_name.getText().toString().trim();
+        String filePath = et_filePath.getText().toString().trim();
+
         if (type == TYPE_DIALOG) {
-            Intent intent = new Intent(getActivity(), UpdateService.class);
-            intent.putExtra("download_type", type);
-            getActivity().startService(intent);
+            UpdateService.startService(getActivity(), url, name, filePath);
         } else {
-            Notification noti;
-            int smallIcon = getActivity().getApplicationInfo().icon;
-            Intent myIntent = new Intent(getActivity(), NotificationService.class);
-            PendingIntent pendingIntent = PendingIntent.getService(getActivity(), 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            noti = new NotificationCompat.Builder(getActivity()).setTicker("发现新版本")
-                    .setContentTitle("发现新版本").setContentText("aaaaaa").setSmallIcon(smallIcon)
-                    .setContentIntent(pendingIntent).build();
-            noti.flags = android.app.Notification.FLAG_AUTO_CANCEL;
-            NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.notify(0, noti);
+            NotificationService.startService(getActivity(), url, name, filePath);
         }
 
     }
+
+
 }

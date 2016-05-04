@@ -28,10 +28,18 @@
         android:layout_height="0.5dp"
         android:background="#e0e0e0" />
 
-    <com.geekandroid.sdk.update.views.AutoWebView
-        android:id="@+id/web_view"
+    <TextView
+        android:id="@+id/dialog_version_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.geekandroid.sdk.update.views.AutoWebView>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="20dp"
+        android:text="版本更新"
+        android:textColor="#1a1a1a"
+        android:textSize="18sp" />
+
 
     <TextView
         android:id="@+id/line2"
@@ -83,6 +91,5 @@
             android:textColor="#1a1a1a"
             android:textSize="15sp" />
     </LinearLayout>
-
 
 </LinearLayout>

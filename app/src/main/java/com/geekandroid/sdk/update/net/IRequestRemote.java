@@ -1,4 +1,4 @@
-package com.geekandroid.sdk.sample.update.net;
+package com.geekandroid.sdk.update.net;
 
 
 import java.io.File;

@@ -1,15 +1,12 @@
-package com.geekandroid.sdk.sample.update;
+package com.geekandroid.sdk.update;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.geekandroid.sdk.sample.update.domain.VersionBean;
-import com.geekandroid.sdk.sample.update.net.EncryptionUtils;
-import com.geekandroid.sdk.sample.update.net.NetUtils;
-import com.geekandroid.sdk.sample.update.net.RequestCallBack;
+import com.geekandroid.sdk.update.domain.VersionBean;
+import com.geekandroid.sdk.update.net.EncryptionUtils;
+import com.geekandroid.sdk.update.net.NetUtils;
+import com.geekandroid.sdk.update.net.RequestCallBack;
 import com.geekandroid.sdk.sample.utils.DeviceUtils;
-import com.geekandroid.sdk.sample.utils.LogUtils;
-import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.Map;

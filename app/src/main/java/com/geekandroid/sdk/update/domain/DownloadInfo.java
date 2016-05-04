@@ -1,4 +1,4 @@
-package com.geekandroid.sdk.sample.update.domain;
+package com.geekandroid.sdk.update.domain;
 
 /**
  * Created by lenovo on 2016/4/27.

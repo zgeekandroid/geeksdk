@@ -8,11 +8,10 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.geekandroid.sdk.sample.ContentActivity;
-import com.geekandroid.sdk.sample.MainActivity;
 import com.geekandroid.sdk.sample.R;
-import com.geekandroid.sdk.sample.update.views.AutoWebView;
-import com.geekandroid.sdk.sample.update.views.CustomDialog;
+import com.geekandroid.sdk.update.onDialogBtnListerner;
+import com.geekandroid.sdk.update.views.AutoWebView;
+import com.geekandroid.sdk.update.views.CustomDialog;
 
 /**
  * Created by lenovo on 2016/4/27.
@@ -20,7 +19,7 @@ import com.geekandroid.sdk.sample.update.views.CustomDialog;
 public class DialogUtils {
     static ProgressDialog pd;
 
-    public static void showUpdateDialog(Activity activity, String tiele, String dialog_certain, String dialog_cancel, String description) {
+    public static void showUpdateDialog(Activity activity, String tiele, String dialog_certain, String dialog_cancel, String description,onDialogBtnListerner mOnDialogBtnListerner) {
         final CustomDialog builder = new CustomDialog(activity, R.style.dialog);
         View versionDialogView = View.inflate(activity, R.layout.dialog_version_info, null);
         TextView bt_cancel_version = (TextView) versionDialogView.findViewById(R.id.bt_cancel_version);
@@ -36,12 +35,13 @@ public class DialogUtils {
             @Override
             public void onClick(View v) {
                 builder.dismiss();
+                mOnDialogBtnListerner.cancelClick();
             }
         });
         tv_sure_version.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ContentActivity) activity).setDownLoadBtn();
+                mOnDialogBtnListerner.sureClick();
                 builder.dismiss();
             }
         });
@@ -120,4 +120,5 @@ public class DialogUtils {
         setDialogWH(builder, versionDialogView, activity);
         builder.show();
     }
+
 }
