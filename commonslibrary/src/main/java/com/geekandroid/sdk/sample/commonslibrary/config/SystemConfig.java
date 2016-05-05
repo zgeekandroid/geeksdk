@@ -18,7 +18,7 @@ import java.util.Date;
  * description :
  */
 public class SystemConfig {
-    private static String systemRootDir = "commonSDK";
+    private static String systemRootDir = "geeksdk";
     private final static String systemImageDir = "image";
     private final static String systemFileDir = "file";
     private final static String systemLogDir = "log";

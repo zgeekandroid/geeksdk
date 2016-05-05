@@ -1,0 +1,30 @@
+locationlib或project功能说明
+主要描述此lib或project的主要功能
+
+`例如：common lib 主要封装了几乎所有通用的基础工具类，如字符串工具类，手机邮箱等正则匹配的工具类，等等`
+
+###引用说明
+主要用于说明此lib或者project是自己开发的还是第三方开源的包，若有相关网址链接，必须指定，为了之后维护版本升级使用
+
+`例如：common lib 是集以往开发app经验所封装的lib，每一个工具类都具有通用性，暂无相关文档链接`
+
+###配置说明
+ 主要用于描述使用此lib或者project所需要配置的地方，若有的需要在gradle或者manifest 或者application中配置的在此说明
+
+`例如：在项目的build.gradle 中只需要引入 相关aar即可`
+
+###接口说明
+主要用于描述此lib或者project开放的接口以及如何使用，此说明最为重要
+
+`例如：主要提供了什么工具类，以及整个工具类提供的功能方法名`
+
+###使用说明
+主要用于描述如何使用此lib或者project
+
+`例如：该在什么类中调用，此说明跟接口说明一一对应，如，字符串工具类中直接调用 StringUtils.isEmpty(obj) `
+
+###注意点
+主要针对描述此lib或者project需要重点注意点地方
+
+`例如：有的工具类需要注意的地方，比如支付相关的必须要保证WXEntryPay.java在对应的包名com.xx.xx.wxapi 下，并且每一个调用支付的页面都需要在manifest中声明activity的标签下指定schema为微信申请的appid`
+

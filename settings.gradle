@@ -1,1 +1,2 @@
-include ':app', ':commonslibrary', ':locationlibrary', ':navigationlibrary'
+include ':app', ':commonslibrary', ':map_navigationlibrary'
+
