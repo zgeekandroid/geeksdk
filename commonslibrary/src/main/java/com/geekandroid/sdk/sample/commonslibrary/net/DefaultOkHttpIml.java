@@ -4,7 +4,7 @@ package com.geekandroid.sdk.sample.commonslibrary.net;
 import android.text.TextUtils;
 
 import com.geekandroid.sdk.sample.commonslibrary.config.SystemConfig;
-import com.geekandroid.sdk.sample.commonslibrary.handler.WeakHandlerNew;
+import com.geekandroid.sdk.sample.commonslibrary.handle.WeakHandlerNew;
 import com.geekandroid.sdk.sample.commonslibrary.utils.LogUtils;
 import com.geekandroid.sdk.sample.commonslibrary.utils.StringUtils;
 
