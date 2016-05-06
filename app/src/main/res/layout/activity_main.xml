@@ -25,6 +25,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="APP UPDATE(DIALOG OR NOTIFICATION)" />
+
+        <Button
+            android:id="@+id/image_crop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="IMAGE CROP" />
     </LinearLayout>
 
 

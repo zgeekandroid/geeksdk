@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 
+import com.geekandroid.sdk.sample.crop.CropSampleActivity;
 import com.jakewharton.rxbinding.view.RxView;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,6 +21,14 @@ public class MainActivity extends AppCompatActivity {
 
         bindClick(R.id.app_update, new AppUpdateSampleFragment());
 
+        Button image_crop = (Button) findViewById(R.id.image_crop);
+        image_crop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CropSampleActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
