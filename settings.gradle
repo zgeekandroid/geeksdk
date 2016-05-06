@@ -1,2 +1,2 @@
-include ':app', ':commonslibrary', ':map_navigationlibrary'
+include ':app', ':commonslibrary', ':map_navigationlibrary', ':qrcodelibrary'
 

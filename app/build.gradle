@@ -55,5 +55,6 @@ dependencies {
     compile project(path: ':commonslibrary')
     //compile project(path: ':locationlibrary')
    compile project(path: ':map_navigationlibrary')
+    compile project(path: ':qrcodelibrary')
 
 }

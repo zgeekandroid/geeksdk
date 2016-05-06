@@ -3,4 +3,18 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <!-- 扫一扫 -->
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="qrcode_square_corner">#f56a30</color>
+    <color name="viewfinder_frame">#fffcfcfc</color>
+    <color name="transparent">#ffffffff</color>
+    <color name="coupon_type_text">#999999</color>
+    <color name="et_text_hint">#c1c1c1</color>
+    <color name="general_line">#d9d8d9</color>
+    <color name="btn_desandcomment">#999999</color>
+    <color name="bg_line_area">#F0F0F2</color>
+    <color name="line_color">#BBBBBB</color>
+    <color name="block_bg_color">#ffffffff</color>
 </resources>

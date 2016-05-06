@@ -19,7 +19,8 @@
         </activity>
         <activity android:name=".ContentActivity" />
         <activity android:name=".MapActivity" />
-        <activity android:name=".RouteActivity"></activity>
+        <activity android:name=".RouteActivity" />
+        <activity android:name=".MipcaActivityCapture" />
     </application>
 
 </manifest>
