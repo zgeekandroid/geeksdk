@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,11 +9,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.geekandroid.sdk.sample.MainActivity">
 
-    <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
         <Button
             android:id="@+id/rxpermissions"
+
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text="Rx Permissions"
         />
@@ -48,6 +50,19 @@
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text="qrcode"
         />
+
+        <Button
+            android:id="@+id/app_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="APP UPDATE(DIALOG OR NOTIFICATION)" />
+
+        <Button
+            android:id="@+id/image_crop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="IMAGE CROP" />
+
     </LinearLayout>
 
 

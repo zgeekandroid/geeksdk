@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.geekandroid.sdk.sample">
 
     <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
 
     <application
         android:allowBackup="true"
@@ -14,10 +24,12 @@
         <activity android:name="com.geekandroid.sdk.sample.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".ContentActivity" />
+
         <activity android:name=".MapActivity" />
         <activity android:name=".RouteActivity" />
         <activity android:name=".MipcaActivityCapture" />
@@ -86,6 +98,24 @@
             <!--android:screenOrientation="behind"-->
             <!--android:windowSoftInputMode="adjustPan"/>-->
         <!--&lt;!&ndash;支付宝&ndash;&gt;    -->
+
+        <service android:name="com.geekandroid.sdk.update.UpdateService"></service>
+        <service android:name="com.geekandroid.sdk.update.NotificationService"></service>
+
+        <activity
+            android:name="com.geekandroid.sdk.sample.crop.ResultActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".crop.CropSampleActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+
     </application>
 
 </manifest>

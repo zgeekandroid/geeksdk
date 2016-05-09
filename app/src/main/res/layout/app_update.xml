@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="50dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="downLoadUrl:" />
+
+        <EditText
+            android:id="@+id/et_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="http://www.maicaim.com//App/PurchaseAPP.apk" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="fileName:" />
+
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="maicaime" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="filePath:" />
+
+        <EditText
+            android:id="@+id/et_filePath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="maicaime" />
+
+        <Button
+            android:id="@+id/showDialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="show Dialog" />
+
+        <Button
+            android:id="@+id/showNotification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="show Notification" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right" />
+
+</LinearLayout>
