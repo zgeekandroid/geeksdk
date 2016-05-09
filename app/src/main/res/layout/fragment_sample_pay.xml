@@ -1,0 +1,97 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".MainActivity"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+<TextView
+    android:id="@+id/tv1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="2dp"
+    android:text="paylibrary支持支付宝，微信支付"/>
+    
+<TextView
+    android:id="@+id/tv2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="2dp"
+    android:layout_marginTop="2dp"
+    android:text="一.支付宝使用方法"/>    
+<TextView
+    android:id="@+id/tv3"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="2dp"
+    android:layout_marginTop="2dp"
+    android:text="1.把paylibrary和commonslibrary拷贝到工程目录，关联为module（提示paylibrary关联commonslibrary）；"/>
+    
+<TextView
+    android:id="@+id/tv4"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="2dp"
+    android:layout_marginTop="2dp"
+    android:text="2.在工程build.gradle的文件下加上 android{ useLibrary 'org.apache.http.legacy'}和在Manifest中注册,见本工程Manifest；"/>    
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    android:layout_marginLeft="2dp"
+    android:text="3.写一个类alipay继承CHAlipay实现三个方法，callClientSuccess()返回成功的方法，getPayParam()获取服务器获取支付参数方法，pay()方法，在里面要设置setPrivate_key(private_key);和getPayParam(parameters, getParamCallBack);getPayParam()返回成功后调用doRealPay(parme);在doRealPay(parme);方法中修改必须指定参数（见demo工程目录的aliandwxpay文件夹）；"/>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    android:layout_marginLeft="2dp"
+    android:text="4.获取约定参数（后台约定）调用alipay的init()后调用pay()方法"/>
+    
+<TextView
+    android:id="@+id/tv6"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="12dp"
+    android:layout_marginLeft="2dp"
+    android:text="二.微信支付宝使用方法"/>    
+<TextView
+    android:id="@+id/tv7"
+    android:layout_marginTop="2dp"
+    android:layout_marginLeft="2dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="1.把paylibrary和commonslibrary拷贝到工程目录，关联为module（提示paylibrary关联commonslibrary）；"/>
+    
+<TextView
+    android:id="@+id/tv8"
+    android:layout_marginTop="2dp"
+    android:layout_marginLeft="2dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="2.在工程build.gradle的文件下加上 android{ useLibrary 'org.apache.http.legacy'}和在Manifest中注册,见本工程Manifest"/>    
+<TextView
+    android:layout_marginTop="2dp"
+    android:layout_marginLeft="2dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="3.写一个类WeiXinPay继承CHWeiXinPay实现三个方法，callClientSuccess()返回成功的方法，getPayParam()获取服务器获取支付参数方法，pay()方法，在里面要设置 setKeyAndID(API_KEY, APP_ID, MCH_ID);和getPayParam(parameters, getParamCallBack);getPayParam()返回成功后调用doRealPay(parme);在doRealPay(parme);方法中修改必须指定参数（见demo工程目录的aliandwxpay文件夹）；"/>    
+<TextView
+    android:layout_marginTop="2dp"
+    android:layout_marginLeft="2dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="4.在微信客户端中，调用了微信  xx.xx.xx.wxapi.WXPayEntryActivity.java 进入这个类中，进行查询是否支付成功，写一个WXPayEntryActivity继承IWXAPIEventHandler，（见demo工程目录的aliandwxpay文件夹）;"/>    
+<TextView
+    android:layout_marginTop="2dp"
+    android:layout_marginLeft="2dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="5.获取约定参数（后台约定）调用alipay的init()后调用pay()方法;"/>
+
+    </LinearLayout>
+</ScrollView>

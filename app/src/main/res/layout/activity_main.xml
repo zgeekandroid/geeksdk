@@ -19,9 +19,20 @@
             android:text="Rx Permissions"
         />
         <Button
+<<<<<<< HEAD
             android:id="@+id/common"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text="common"
+=======
+            android:id="@+id/pay"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="pay"
+        />
+        <Button
+            android:id="@+id/imageloader"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="imageloader"
+>>>>>>> remotes/origin/chengbing1212
         />
         <Button
             android:id="@+id/location"

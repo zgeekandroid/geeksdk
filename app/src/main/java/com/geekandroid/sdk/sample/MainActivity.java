@@ -1,39 +1,46 @@
 package com.geekandroid.sdk.sample;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+ 
 import com.geekandroid.sdk.sample.map_navigationlibrary.location.impl.BDLocationImpl;
+ 
+import com.geekandroid.sdk.imageloader.ImageLoaderManager;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+ 
 import com.jakewharton.rxbinding.view.RxView;
 
 public class MainActivity extends AppCompatActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+ 
         BDLocationImpl.getInstance().init(getApplication());
+          // 初始化ImageLoader
+        ImageLoaderManager.getInstance().init(this);
         //权限框架
         bindClick(R.id.rxpermissions,new RxPermissionsSampleFragment());
 
-       bindClick(R.id.common,new CommonSampleFragment());bindClick(R.id.location,new LocationSampleFragment());
-        findViewById(R.id.mapnavigation).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,MapActivity.class);
-                startActivity(intent);
-            }
-        });
-        findViewById(R.id.qrcode).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,MipcaActivityCapture.class);
-                startActivity(intent);
-            }
-        });
+        bindClick(R.id.common,new CommonSampleFragment());bindClick(R.id.location,new LocationSampleFragment());
+        //权限框架
+        bindClick(R.id.rxpermissions, new RxPermissionsSampleFragment());
+        bindClick(R.id.pay, new PaySampleFragment());
+        bindClick(R.id.imageloader, new ImageloaderFragment());
+
+        bindClick(R.id.mapnavigation, MapActivity.class);
+        bindClick(R.id.qrcode, MipcaActivityCapture.class);
+
     }
 
 
@@ -43,13 +50,30 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void bindClick(int resId,Fragment fragment){
+     public void jumpIntent(Class<?> cls) {
+        Intent intent = new Intent(this, cls);
+        startActivity(intent);
+    }
+
+    public void bindClick(int resId, Fragment fragment) {
+ 
         try {
-            RxView.clicks(findViewById(resId)).subscribe(v->{
+            RxView.clicks(findViewById(resId)).subscribe(v -> {
                 jumpIntent(fragment);
             });
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+     public void bindClick(int resId, Class<?> cls) {
+     
+            try {
+                RxView.clicks(findViewById(resId)).subscribe(v -> {
+                    jumpIntent(cls);
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
 }

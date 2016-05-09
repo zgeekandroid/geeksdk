@@ -1,2 +1,2 @@
-include ':app', ':commonslibrary', ':map_navigationlibrary', ':qrcodelibrary'
-
+include ':app', ':commonslibrary', ':paylibrary', ':imageloaderlibrary', ':map_navigationlibrary', ':qrcodelibrary','locationlibrary'
+ 
