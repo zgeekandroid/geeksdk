@@ -43,7 +43,7 @@
         }
     }
 
-### 6.You can saceCroppedImager 	
+### 6.You can saveCroppedImager 	
 	    private void saveCroppedImage() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
