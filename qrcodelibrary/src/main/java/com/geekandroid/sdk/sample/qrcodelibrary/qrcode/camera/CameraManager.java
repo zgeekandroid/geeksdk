@@ -23,7 +23,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
-
+import com.geekandroid.sdk.sample.qrcodelibrary.qrcode.camera.open.OpenCameraInterface;
 import com.google.zxing.PlanarYUVLuminanceSource;
 
 import java.io.IOException;

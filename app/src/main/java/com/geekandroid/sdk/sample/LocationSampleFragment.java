@@ -9,8 +9,8 @@ import android.widget.Button;
 
 import com.geekandroid.sdk.sample.commonslibrary.net.RequestCallBack;
 import com.geekandroid.sdk.sample.commonslibrary.utils.ToastUtils;
-import com.geekandroid.sdk.sample.map_navigationlibrary.location.Location;
-import com.geekandroid.sdk.sample.map_navigationlibrary.location.impl.BDLocationImpl;
+import com.geekandroid.sdk.sample.maplibrary.Location;
+import com.geekandroid.sdk.sample.maplibrary.impl.BDLocationImpl;
 
 
 /**

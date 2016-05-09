@@ -1,3 +1,4 @@
+/*
 package com.geekandroid.sdk.sample;
 
 import android.content.Context;
@@ -14,43 +15,59 @@ import com.geekandroid.sdk.sample.map_navigationlibrary.base.BDBaseMapActivity;
 import com.geekandroid.sdk.sample.map_navigationlibrary.location.Location;
 
 
+*/
 /**
  * 店家地图
  *
  * @author taozhishan 2015-5-14
- */
+ *//*
+
 public class MapActivity extends BDBaseMapActivity implements View.OnClickListener {
 
-    /**
+    */
+/**
      * 纬度
-     */
+     *//*
+
     private double storeLatitude;
-    /**
+    */
+/**
      * 经度
-     */
+     *//*
+
     private double storeLongitude;
-    /**
+    */
+/**
      * 店名
-     */
+     *//*
+
     private String storeName;
 
 
-    /**
+    */
+/**
      * 全局
-     */
+     *//*
+
     private Context appContext;
 
-    /**
+    */
+/**
      * 定位
-     */
+     *//*
+
     private Button btn_locate;
-    /**
+    */
+/**
      * 放大
-     */
+     *//*
+
     private Button btn_zoom_in;
-    /**
+    */
+/**
      * 缩小
-     */
+     *//*
+
     private Button btn_zoom_out;
 
 
@@ -94,9 +111,11 @@ public class MapActivity extends BDBaseMapActivity implements View.OnClickListen
 
     }
 
-    /**
+    */
+/**
      * 初始数据
-     */
+     *//*
+
     private void initData() {
 
         Intent intent = getIntent();
@@ -177,4 +196,4 @@ public class MapActivity extends BDBaseMapActivity implements View.OnClickListen
         return button;
     }
 
-}
+}*/

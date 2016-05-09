@@ -19,11 +19,11 @@
             android:text="Rx Permissions"
         />
         <Button
-<<<<<<< HEAD
             android:id="@+id/common"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text="common"
-=======
+        />
+        <Button
             android:id="@+id/pay"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text="pay"
@@ -32,23 +32,22 @@
             android:id="@+id/imageloader"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text="imageloader"
->>>>>>> remotes/origin/chengbing1212
         />
         <Button
             android:id="@+id/location"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text="location"
-            />
+        />
         <Button
             android:id="@+id/mapnavigation"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text="mapnavigation"
-            />
+        />
         <Button
             android:id="@+id/qrcode"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text="qrcode"
-            />
+        />
     </LinearLayout>
 
 
