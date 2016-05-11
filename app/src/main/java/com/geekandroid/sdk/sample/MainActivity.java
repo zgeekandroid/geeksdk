@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.geekandroid.sdk.photoprewview.dwcorephoto.PreviewMainActivity;
 import com.geekandroid.sdk.sample.crop.CropSampleActivity;
 import com.jakewharton.rxbinding.view.RxView;
 
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
         bindClick(R.id.app_update, new AppUpdateSampleFragment());
 
         Button image_crop = (Button) findViewById(R.id.image_crop);
+        Button image_preview = (Button) findViewById(R.id.image_preview);
+
         image_crop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        image_preview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PreviewMainActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 

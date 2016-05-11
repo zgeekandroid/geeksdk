@@ -13,6 +13,7 @@
 
 
     <application
+        android:name=".SampleApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -42,6 +43,26 @@
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <activity
+            android:name="com.geekandroid.sdk.photoprewview.dwcorephoto.PreviewMainActivity"
+            android:theme="@style/Theme" />
+        <activity
+            android:name="com.geekandroid.sdk.photoprewview.dwcorephoto.SingleShow"
+            android:theme="@style/Theme" />
+        <activity
+            android:name="com.geekandroid.sdk.photoprewview.dwcorephoto.PreviewImage"
+            android:theme="@style/Theme" />
+        <activity
+            android:name="com.geekandroid.sdk.photoprewview.dwcorephoto.ListViewActivity"
+            android:theme="@style/Theme"></activity>
+        <activity
+            android:name="com.geekandroid.sdk.photoprewview.dwcorephoto.GridViewActivity"
+            android:theme="@style/Theme"></activity>
+        <activity
+            android:name="com.geekandroid.sdk.photoprewview.dwcorephoto.MixShowActivity"
+            android:theme="@style/Theme"
+            android:windowSoftInputMode="adjustResize"></activity>
 
     </application>
 

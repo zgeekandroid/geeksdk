@@ -31,6 +31,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="IMAGE CROP" />
+
+        <Button
+            android:id="@+id/image_preview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="IMAGE PREW" />
     </LinearLayout>
 
 
