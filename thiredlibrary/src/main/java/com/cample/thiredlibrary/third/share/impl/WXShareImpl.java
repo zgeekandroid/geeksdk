@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.cample.thiredlibrary.third.RequestCallBack;
 import com.cample.thiredlibrary.third.share.IShare;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.ShareAction;
@@ -47,27 +48,27 @@ public class WXShareImpl implements IShare {
                 .withTitle(title)
                 .share();
     }
-//    RequestCallBack<String> callBack;
-//    public WXShareImpl addCallBack(RequestCallBack<String >callBack){
-//        this.callBack=callBack;
-//        return this;
-//    }\
+    RequestCallBack<String> callBack;
+    public WXShareImpl addCallBack(RequestCallBack<String > callBack){
+        this.callBack=callBack;
+        return this;
+    }
 
     private UMShareListener umShareListener = new UMShareListener() {
         @Override
         public void onResult(SHARE_MEDIA share_media) {
-//            callBack.onSuccess("分享成功");
+            callBack.onSuccess("分享成功");
 
         }
 
         @Override
         public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-//            callBack.onFailure("分享失败",new Exception(throwable));
+            callBack.onFailure("分享失败",new Exception(throwable));
         }
 
         @Override
         public void onCancel(SHARE_MEDIA share_media) {
-//            callBack.onCancel();
+            callBack.onCancel();
         }
     };
 

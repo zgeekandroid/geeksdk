@@ -23,7 +23,7 @@ public class WXLoginImpl implements ILogin {
         if (isInstallWeixin()){
             doOauth();
         }else {
-//            callBack.onFailure("未安装微信客户端",new Exception());
+            callBack.onFailure("未安装微信客户端",new Exception());
         }
     }
     private Activity activity;
@@ -77,6 +77,7 @@ public class WXLoginImpl implements ILogin {
         public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
             //map ->  json
             callBack.onSuccess(map);
+
         }
 
         @Override
