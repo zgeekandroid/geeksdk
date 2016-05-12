@@ -25,7 +25,6 @@ public class WXShareImpl implements IShare {
     Activity activity;
     public  WXShareImpl(Activity activity){
         this.activity=activity;
-//        PlatformConfig.setWeixin(APPID,WXAPPSECRET);
     }
     public void setConfig(String APPID,String WXAPPSECRET){
         this.APPID=APPID;

@@ -38,6 +38,7 @@ public class QQShareImpl implements IShare {
             Toast.makeText(activity,"请先设置appid和secret",Toast.LENGTH_SHORT).show();
             return;
         }
+
         UMImage image= new UMImage(activity,imageUrl);
         new ShareAction(activity)
                 .setPlatform(SHARE_MEDIA.QQ)

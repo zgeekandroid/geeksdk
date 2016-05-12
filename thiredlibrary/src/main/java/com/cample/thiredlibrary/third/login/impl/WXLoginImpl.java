@@ -2,6 +2,8 @@ package com.cample.thiredlibrary.third.login.impl;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.cample.thiredlibrary.third.RequestCallBack;
 import com.cample.thiredlibrary.third.login.ILogin;
@@ -18,6 +20,8 @@ import java.util.Map;
  * description :友盟官方开发文档链接：http://dev.umeng.com/social/android/android-update
  */
 public class WXLoginImpl implements ILogin {
+    private String APPID="";
+    private String WXAPPSECRET="";
     @Override
     public void login() {
         if (isInstallWeixin()){
@@ -26,11 +30,16 @@ public class WXLoginImpl implements ILogin {
             callBack.onFailure("未安装微信客户端",new Exception());
         }
     }
+    public void setConfig(String APPID,String WXAPPSECRET){
+        this.APPID=APPID;
+        this.WXAPPSECRET=WXAPPSECRET;
+        PlatformConfig.setWeixin(APPID,WXAPPSECRET);
+    }
     private Activity activity;
     private UMShareAPI api;
     public WXLoginImpl(Activity activity){
         this.activity=activity;
-        PlatformConfig.setWeixin("","");
+//        PlatformConfig.setWeixin("","");
         api = UMShareAPI.get(activity.getApplicationContext());
     }
     public boolean isInstallWeixin(){
@@ -42,7 +51,10 @@ public class WXLoginImpl implements ILogin {
 
 
     private  void doOauth(){
-
+        if (TextUtils.isEmpty(APPID)||TextUtils.isEmpty(WXAPPSECRET)){
+            Toast.makeText(activity,"请先设置appid和secret",Toast.LENGTH_SHORT).show();
+            return;
+        }
         api.doOauthVerify(activity, SHARE_MEDIA.WEIXIN, new UMAuthListener() {
             @Override
             public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
