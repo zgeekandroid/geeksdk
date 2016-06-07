@@ -1,2 +1,6 @@
+<<<<<<< 95779a803796e87ed465cfb6b88b887576999fb4
 include ':app', ':commonslibrary', ':paylibrary', ':imageloaderlibrary', ':map_navigationlibrary', ':qrcodelibrary', ':wigetlibrary','locationlibrary',':ucrop', ':thiredlibrary'
   
+=======
+include ':app', ':commonslibrary', ':paylibrary', ':imageloaderlibrary', ':map_navigationlibrary', ':qrcodelibrary', ':wigetlibrary', 'locationlibrary', ':ucrop'
+>>>>>>> update
