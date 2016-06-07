@@ -4,20 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-
 import com.geekandroid.sdk.imageloader.ImageLoaderManager;
+import com.geekandroid.sdk.sample.citylist.CityListActivity;
 import com.geekandroid.sdk.sample.crop.CropSampleActivity;
 import com.geekandroid.sdk.sample.maplibrary.impl.BDLocationImpl;
 import com.jakewharton.rxbinding.view.RxView;
 
-public class MainActivity extends AppCompatActivity {
 
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        
 
         BDLocationImpl.getInstance().init(getApplication());
         // 初始化ImageLoader
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         bindClick(R.id.qrcode, MipcaActivityCapture.class);
         bindClick(R.id.image_crop, CropSampleActivity.class);
         bindClick(R.id.app_update, new AppUpdateSampleFragment());
+        bindClick(R.id.citylist, CityListActivity.class);
 
     }
 
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ContentActivity.class);
         startActivity(intent);
     }
-
 
     public void jumpIntent(Class<?> cls) {
         Intent intent = new Intent(this, cls);

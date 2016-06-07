@@ -18,5 +18,23 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:backgroundDimAmount">0.6</item>
     </style>
+    
+    <style name="ui_parent_Wrap">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 
+    <style name="city_hot_header" parent="@style/ui_parent_Wrap">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">#ff8c8c8c</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
+    </style>
+    <style name="cityLocatingProgressStyle">
+        <item name="android:maxWidth">16.0dip</item>
+        <item name="android:maxHeight">24.0dip</item>
+        <item name="android:indeterminateDrawable">@drawable/city_locating_anim</item>
+        <item name="android:minWidth">16.0dip</item>
+        <item name="android:minHeight">24.0dip</item>
+    </style>
 </resources>

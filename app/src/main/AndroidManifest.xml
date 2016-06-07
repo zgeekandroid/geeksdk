@@ -4,7 +4,6 @@
     package="com.geekandroid.sdk.sample">
 
     <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -30,9 +29,10 @@
         </activity>
         <activity android:name=".ContentActivity" />
 
-        <activity android:name=".MapActivity" />
+        <!--<activity android:name=".MapActivity" />-->
         <activity android:name=".RouteActivity" />
         <activity android:name=".MipcaActivityCapture" />
+        <activity android:name=".citylist.CityListActivity" />
 
         <!--&lt;!&ndash;微信支付&ndash;&gt;-->
         <!--<activity-->

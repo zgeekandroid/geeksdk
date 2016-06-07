@@ -90,8 +90,9 @@ public abstract class CHWeiXinPay extends IPay {
                 isEmpty(parameters.get("spbill_create_ip")) ||
                 isEmpty(parameters.get("notify_url"))) {
 
-            throw new IllegalArgumentException("必须指定参数：[ detail, out_trade_no, spbill_create_ip, total_fee, notify_url]");
-        }
+                LogUtils.e("必须指定参数：[ detail, out_trade_no, spbill_create_ip, total_fee, notify_url]");
+                return;
+            }
 
         if (parameters.get("out_trade_no").toString().length() > 32){
             throw new IllegalArgumentException("订单长度不能超过 32 位");
@@ -334,6 +335,7 @@ public abstract class CHWeiXinPay extends IPay {
 
             return xml;
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
 
