@@ -1,0 +1,62 @@
+城市列表
+有定位和搜索城市功能
+
+        java文件  citylist
+
+         res文件一下文件
+
+    layout activity_citylist.xml
+            activity_citylist_search.xml
+            city_hot_item_layout.xml
+            city_locate_layout.xml
+            overlay.xml
+            public_cityhot_allcity.xml
+            public_cityhot_header_padding.xml
+            public_cityhot_header_padding_blank.xml
+            public_cityhot_item.xml
+
+   drawable city_hot_grid_item.xml
+            city_item_bg.xml
+            city_locating_anim.xml
+            city_search_bg.xml
+            topbar_bg.9.png
+
+      raw   china_city_name
+
+    mipmap  arrow_back.png
+            bookingdetail_public_close.png
+            city_locate_failed.png
+            city_locate_success.png
+            city_locating_frame1.png
+            city_locating_frame2.png
+            city_locating_frame3.png
+            empty_page_search.png
+            wb_letter_search_normal.png
+
+    values  styles   <style name="city_hot_header" parent="@style/ui_parent_Wrap">
+                     <item name="android:textSize">14.0sp</item>
+                     <item name="android:textColor">#ff8c8c8c</item>
+                     <item name="android:duplicateParentState">true</item>
+                     <item name="android:layout_alignParentLeft">true</item>
+                     </style>
+
+                      <style name="cityLocatingProgressStyle">
+                      <item name="android:maxWidth">16.0dip</item>
+                      <item name="android:maxHeight">24.0dip</item>
+                      <item name="android:indeterminateDrawable">@drawable/city_locating_anim</item>
+                      <item name="android:minWidth">16.0dip</item>
+                      <item name="android:minHeight">24.0dip</item>
+                      </style>
+
+AndroidManifest       <activity android:name=".citylist.CityListActivity" />
+
+
+拷贝上述文件到对应的res文件和java文件中
+
+用到啦locationlibrary和commonslibrary 的moudle
+   
+
+    
+
+
+
