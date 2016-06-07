@@ -65,12 +65,17 @@ public class ImageLoaderView extends ImageView {
 
     public void setCircleUrl(String url) {
         DisplayImageOptions options = new DisplayImageOptions.Builder()
-                 .cacheInMemory(true)
-//                .cacheOnDisk(true)
+                .cacheInMemory(true)
+                .//
+                showImageOnLoading(R.drawable.default_image).// 图片加载时显示的图片
+                showImageForEmptyUri(R.drawable.default_image).// Uri为空显示图片
+                showImageOnFail(R.drawable.default_image)// 图片加载失败显示图片
+                //                .cacheOnDisk(true)
                 .displayer(new CircleBitmapDisplayer())
                 .build();
         ImageLoader.getInstance().displayImage(url, this, options);
     }
+    
     public void setRoundUrl(String url) {
         DisplayImageOptions options = new DisplayImageOptions.Builder()
                  .cacheInMemory(true)

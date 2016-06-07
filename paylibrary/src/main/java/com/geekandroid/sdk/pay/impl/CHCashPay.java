@@ -1,7 +1,5 @@
 package com.geekandroid.sdk.pay.impl;
 
-
-
 import com.geekandroid.sdk.commons.net.RequestCallBack;
 import com.geekandroid.sdk.pay.IPay;
 

@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.alipay.sdk.app.PayTask;
 import com.geekandroid.sdk.commons.handler.WeakHandlerNew;
 import com.geekandroid.sdk.commons.net.RequestCallBack;
+import com.geekandroid.sdk.commons.utils.LogUtils;
 import com.geekandroid.sdk.pay.IPay;
 import com.geekandroid.sdk.pay.utils.SignUtils;
 
@@ -126,7 +127,8 @@ public abstract class CHAlipay extends IPay {
     protected void doRealPay( Map<String, Object> param) {
 
         if (TextUtils.isEmpty(private_key)){
-            throw new IllegalArgumentException("必须指定支付宝的private_key");
+            LogUtils.e("必须指定支付宝的private_key");
+            return;
         }
 
         if (isEmpty(param.get("partner")) ||
@@ -137,7 +139,8 @@ public abstract class CHAlipay extends IPay {
                 isEmpty(param.get("body"))||
                 isEmpty(param.get("notify_url"))
                 ){
-            throw new IllegalArgumentException("必须指定参数：[partner,seller_id,out_trade_no,total_fee,notify_url,subject,body]");
+            LogUtils.e("必须指定参数：[partner,seller_id,out_trade_no,total_fee,notify_url,subject,body]");
+            return;
         }
 
         String partner = param.get("partner").toString();
