@@ -5,7 +5,7 @@ import android.content.Context;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-
+import com.baidu.location.LocationClientOption.LocationMode;
 
 /**
  * date        :  2016-02-16  13:05
@@ -31,10 +31,11 @@ public class BDLocationService {
      * @param listener
      * @return
      */
-
+    BDLocationListener last;
     public boolean registerListener(BDLocationListener listener){
         boolean isSuccess = false;
-        if(listener != null){
+        if(listener != null && last != listener){
+            last = listener;
             client.registerLocationListener(listener);
             isSuccess = true;
         }
@@ -73,7 +74,7 @@ public class BDLocationService {
     public LocationClientOption getDefaultLocationClientOption(){
         if(mOption == null){
             mOption = new LocationClientOption();
-            mOption.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
+            mOption.setLocationMode(LocationMode.Hight_Accuracy);//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
             mOption.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系，如果配合百度地图使用，建议设置为bd09ll;
             mOption.setScanSpan(3000);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
             mOption.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
@@ -98,5 +99,7 @@ public class BDLocationService {
                 client.stop();
             }
     }
+
+
 
 }

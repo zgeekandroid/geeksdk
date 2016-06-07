@@ -13,6 +13,8 @@ public class Location {
     private float radius;
     private String countryCode;
     private String country;
+    private String province;
+
     private String cityCode;
     private String city;
     private String street;
@@ -23,6 +25,14 @@ public class Location {
     private int satellite;
     private double height;
     private String district;
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
 
     public String getDistrict() {
         return district;

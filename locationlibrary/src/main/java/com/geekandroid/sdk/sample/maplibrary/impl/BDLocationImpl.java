@@ -43,29 +43,28 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
         if (context != null){
             locationService = new BDLocationService(context.getApplicationContext());
             try {
-                SDKInitializer.initialize(SystemConfig.getSystemBaiduDir(),context.getApplicationContext());
+                SDKInitializer.initialize(SystemConfig.getSystemBaiduDir(), context.getApplicationContext());
             } catch (Exception e) {
                 e.printStackTrace();
                 try {
-                    SDKInitializer.initialize( context.getApplicationContext());
+                    SDKInitializer.initialize(context.getApplicationContext());
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
             }
+            locationService.registerListener(this);
         }
 
     }
 
     @Override
     public void start() {
-        locationService.registerListener(this);
         locationService.start();// 定位SDK
         // start之后会默认发起一次定位请求，开发者无须判断isstart并主动调用request
     }
 
 
     public void start(RequestCallBack<Location> callBack) {
-        locationService.registerListener(this);
         locationService.start();// 定位SDK
         // start之后会默认发起一次定位请求，开发者无须判断isstart并主动调用request
         setCallBack(callBack);
@@ -73,8 +72,17 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
 
     @Override
     public void stop() {
-        locationService.unregisterListener(this); //注销掉监听
-        locationService.stop(); //停止定位服务
+        if (locationService != null){
+            locationService.unregisterListener(this); //注销掉监听
+            locationService.stop(); //停止定位服务
+        }
+        callBack = null;
+    }
+
+    public void onPause(){
+        if (locationService != null){
+            locationService.stop(); //停止定位服务
+        }
     }
 
 
@@ -118,6 +126,7 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
             location.setDistrict(bdLocation.getDistrict());
             location.setAddress(bdLocation.getAddrStr());
             location.setStreet(bdLocation.getStreet());
+            location.setProvince(bdLocation.getProvince());
             if (bdLocation.getLocType() == BDLocation.TypeGpsLocation) {// GPS定位结果
 
                 location.setSpeed(bdLocation.getSpeed());
@@ -144,7 +153,7 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
     }
 
     private void logMessage(BDLocation bdLocation) {
-        StringBuffer sb = new StringBuffer(256);
+        StringBuffer sb = new StringBuffer(500);
         sb.append("time : ");
         /**
          * 时间也可以使用systemClock.elapsedRealtime()方法 获取的是自从开机以来，每次回调的时间；
@@ -161,6 +170,8 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
         sb.append(bdLocation.getRadius());
         sb.append("\nCountryCode : ");
         sb.append(bdLocation.getCountryCode());
+        sb.append("\nProvince : ");
+        sb.append(bdLocation.getProvince());
         sb.append("\nCountry : ");
         sb.append(bdLocation.getCountry());
         sb.append("\ncitycode : ");
