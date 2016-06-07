@@ -7,7 +7,6 @@ import org.ow2.util.base64.Base64;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 
 /**
  * @author :lenovo
@@ -15,7 +14,7 @@ import java.io.IOException;
  */
 
 public class Base64Utils {
-    public static String FileToStr(File imgFile )
+    public static String fileToStr(File imgFile )
     {//将图片文件转化为字节数组字符串，并对其进行Base64编码处理
         FileInputStream in = null;
         byte[] data = null;
@@ -27,7 +26,7 @@ public class Base64Utils {
             in.read(data);
             in.close();
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -36,7 +35,7 @@ public class Base64Utils {
         return String.valueOf(encoder.encode(data));//返回Base64编码过的字节数组字符串
     }
 
-    public static Bitmap StrToBitmap(String imgStr)
+    public static Bitmap strToBitmap(String imgStr)
     {//对字节数组字符串进行Base64解码并生成图片
         if (imgStr == null) //图像数据为空
             return null;

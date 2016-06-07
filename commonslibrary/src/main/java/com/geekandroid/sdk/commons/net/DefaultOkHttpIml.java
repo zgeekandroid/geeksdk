@@ -3,9 +3,11 @@ package com.geekandroid.sdk.commons.net;
 
 import android.text.TextUtils;
 
+
 import com.geekandroid.sdk.commons.config.SystemConfig;
 import com.geekandroid.sdk.commons.handler.WeakHandlerNew;
 import com.geekandroid.sdk.commons.utils.LogUtils;
+import com.geekandroid.sdk.commons.utils.MD5;
 import com.geekandroid.sdk.commons.utils.StringUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -45,7 +47,7 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
 
 
     private DefaultOkHttpIml() {
-        mHandler = new WeakHandlerNew() ;
+        mHandler = new WeakHandlerNew();
         mOkHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .readTimeout(15, TimeUnit.SECONDS)
@@ -67,7 +69,8 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
     }
 
     class LoggingInterceptor implements Interceptor {
-        @Override public Response intercept(Chain chain) throws IOException {
+        @Override
+        public Response intercept(Interceptor.Chain chain) throws IOException {
             Request request = chain.request();
 
             long t1 = System.nanoTime();
@@ -89,11 +92,11 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
         if (callBack != null) {
             callBack.onStart();
         }
-       // double random = Math.random();
+        double random = Math.random();
         if (parameters == null) {
             parameters = new HashMap<>();
         }
-       // parameters.put("r", String.valueOf(random));
+        parameters.put("r", String.valueOf(random));
 
         String requestUrl = url + "?" + StringUtils.formatUrl(parameters);
 
@@ -121,14 +124,14 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
 
     }
 
-    public void doPost(String url,String json, final RequestCallBack<String> callBack){
+    public void doPost(String url, String json, final RequestCallBack<String> callBack) {
         if (callBack != null) {
             callBack.onStart();
         }
         final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder().url(url).post(body).tag(tag).build();
-        OkHttpClient   mOkHttpClient = new OkHttpClient.Builder()
+        OkHttpClient mOkHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .readTimeout(15, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
@@ -145,7 +148,7 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response == null || !response.isSuccessful()) {
-                        sendFailResultCallback(response,"服务器繁忙,请稍后重试!", new Exception(""), callBack);
+                        sendFailResultCallback(response, "服务器繁忙,请稍后重试!", new Exception(""), callBack);
                         return;
                     }
                     sendSuccessResultCallback(response, response.body().string(), callBack);
@@ -160,13 +163,19 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
 
 
     @Override
-    public void doUpload(String url, Map<String, Object> parameters, Map<String,File> files, final RequestCallBack<String> callBack) {
+    public void doUpload(String url, Map<String, Object> parameters, Map<String, File> files, final RequestCallBack<String> callBack) {
         if (callBack != null) {
             callBack.onStart();
         }
 
 
-     
+        if (!parameters.containsKey("fileKey")) {
+            if (callBack != null) {
+                callBack.onFailure("必须指定上传的key", new IllegalArgumentException(""));
+            }
+            return;
+        }
+
 
         MultipartBody.Builder builder = new MultipartBody.Builder();
         addParams(url, parameters, files, builder);
@@ -215,6 +224,18 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
             LogUtils.e("必须指定下载的文件名称");
             return;
         }
+        String md5 = "";
+        if (parameters.containsKey("md5")) {
+            md5 = (String) parameters.get("md5");
+            if (md5.equals("null") || md5.trim().equals("")){
+                md5 = "";
+                LogUtils.e("没有指定文件的md5，下载完成之后不会进行md5加密校验");
+            }
+        }else {
+            LogUtils.e("没有指定文件的md5，下载完成之后不会进行md5加密校验");
+        }
+
+        final String fileMd5 = md5;
 
         final String destFileName = StringUtils.formatValue(parameters, "fileName");
 
@@ -239,11 +260,11 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response == null || !response.isSuccessful()) {
-                    sendFailResultCallback(response,"服务器繁忙,请稍后重试!", new Exception(""), callBack);
+                    sendFailResultCallback(response, "服务器繁忙,请稍后重试!", new Exception(""), callBack);
                     return;
                 }
 
-                saveFile(response, destFileName, callBack);
+                saveFile(response, destFileName, callBack, fileMd5);
             }
         });
 
@@ -268,7 +289,7 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response == null || !response.isSuccessful()) {
-                        sendFailResultCallback(response,"服务器繁忙,请稍后重试!", new Exception(""), callBack);
+                        sendFailResultCallback(response, "服务器繁忙,请稍后重试!", new Exception(""), callBack);
                         return;
                     }
                     sendSuccessResultCallback(response, response.body().string(), callBack);
@@ -288,10 +309,10 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
      * @param callBack 回调接口
      */
     public void sendFailResultCallback(final String error, final Exception e, final RequestCallBack<String> callBack) {
-        sendFailResultCallback(null,error,e,callBack);
+        sendFailResultCallback(null, error, e, callBack);
     }
 
-    public void sendFailResultCallback(Response response,final String error, final Exception e, final RequestCallBack<String> callBack) {
+    public void sendFailResultCallback(Response response, final String error, final Exception e, final RequestCallBack<String> callBack) {
         if (callBack == null) return;
         mHandler.post(new Runnable() {
             @Override
@@ -305,12 +326,12 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
         });
 
         try {
-            if (response == null){
+            if (response == null) {
                 LogUtils.i(e.toString());
-            }else{
+            } else {
                 LogUtils.i(response.body().string());
             }
-        } catch (IOException e1) {
+        } catch (Exception e1) {
             e1.printStackTrace();
             LogUtils.i(response.message());
         }
@@ -348,16 +369,17 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
      * @return 保存的文件
      * @throws IOException
      */
-    public void saveFile(Response response, String destFileName, final RequestCallBack<String> callBack) throws IOException {
+    public void saveFile(final Response response, String destFileName, final RequestCallBack<String> callBack, final String fileMd5) throws IOException {
         String destFileDir = SystemConfig.getSystemFileDir();
         InputStream is = null;
         byte[] buf = new byte[2048];
         int len;
         FileOutputStream fos = null;
         File file = null;
+        long total = 0;
         try {
             is = response.body().byteStream();
-            final long total = response.body().contentLength();
+            total = response.body().contentLength();
             long sum = 0;
 
             LogUtils.e("文件总大小:" + total);
@@ -375,6 +397,7 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
             }
 
             fos = new FileOutputStream(file);
+            final long finalTotal = total;
             while ((len = is.read(buf)) != -1) {
                 sum += len;
                 fos.write(buf, 0, len);
@@ -382,27 +405,42 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        callBack.onProgress(finalSum, total, total == finalSum);
+                        callBack.onProgress(finalSum, finalTotal, finalTotal == finalSum);
                     }
                 });
             }
             fos.flush();
-            sendSuccessResultCallback(response, file.getAbsolutePath(), callBack);
+
         } catch (Exception e) {
-            boolean deleteSuccess = file.delete();
-            LogUtils.i("文件下载失败,删除" + (deleteSuccess ? "成功" : "失败"));
-            sendFailResultCallback(response,"下载失败!", new Exception(""), callBack);
+            if (file != null) {
+                boolean deleteSuccess = file.delete();
+                LogUtils.i("文件下载失败,删除" + (deleteSuccess ? "成功" : "失败"));
+            }
         } finally {
             try {
                 if (is != null) is.close();
             } catch (Exception e) {
+                e.printStackTrace();
             }
             try {
                 if (fos != null) fos.close();
             } catch (Exception e) {
+                e.printStackTrace();
             }
-
+            if (checkFileIsDownloadSuccess(fileMd5, file, total)) {
+                sendSuccessResultCallback(response, file.getAbsolutePath(), callBack);
+            } else {
+                if (file != null) {
+                    boolean deleteSuccess = file.delete();
+                    LogUtils.i("文件下载失败,删除" + (deleteSuccess ? "成功" : "失败"));
+                }
+                sendFailResultCallback(response, "下载失败!", new Exception(""), callBack);
+            }
         }
+    }
+
+    private boolean checkFileIsDownloadSuccess(String fileMd5, File file, long total) throws IOException {
+        return (file != null && file.exists()) && (total == file.length()) && (TextUtils.isEmpty(fileMd5) || (!TextUtils.isEmpty(fileMd5) && MD5.checkPassword(MD5.getFileMD5(file), fileMd5)));
     }
 
     /**
@@ -444,7 +482,7 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
      * @param files   上传的文件
      * @param builder 上传参数构造
      */
-    private void addParams(String url, Map<String, Object> params, Map<String,File> files, MultipartBody.Builder builder) {
+    private void addParams(String url, Map<String, Object> params, Map<String, File> files, MultipartBody.Builder builder) {
 
         double random = Math.random();
         if (params == null || params.isEmpty()) {
@@ -456,18 +494,15 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
 
         printLog(url, params);//打印请求url
 
-
-        for (String key : params.keySet()) {
-            String val = (String) params.get(key);
-            builder.addFormDataPart(key, val);
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
+            builder.addFormDataPart(entry.getKey(), String.valueOf(entry.getValue()));
         }
 
-        for (String key : files.keySet()) {
-            File file = (File) files.get(key);
+        for (Map.Entry<String, File> entry : files.entrySet()) {
+            File file = entry.getValue();
             if (file.exists()) {
-                builder.addFormDataPart(key, file.getName(), RequestBody.create(MediaType.parse(guessMimeType(file.getName())), file));
+                builder.addFormDataPart(entry.getKey(), file.getName(), RequestBody.create(MediaType.parse(guessMimeType(file.getName())), file));
             }
-
         }
 
 
@@ -491,9 +526,12 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
 //        params.put("r", String.valueOf(random));
 
         printLog(url, params);//打印请求url
+
         for (String key : params.keySet()) {
             builder.add(key, String.valueOf(params.get(key)));
         }
+
+
     }
 
     /**
@@ -544,10 +582,10 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
             val = bos.toByteArray();
             bos.flush();
         } finally {
-            if (gos != null){
+            if (gos != null) {
                 //gos已经finish，不做任何处理
             }
-            if (bos != null)  {
+            if (bos != null) {
                 bos.close();
             }
         }

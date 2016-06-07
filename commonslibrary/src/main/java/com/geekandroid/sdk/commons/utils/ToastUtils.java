@@ -1,6 +1,7 @@
 package com.geekandroid.sdk.commons.utils;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.widget.Toast;
 
@@ -11,6 +12,11 @@ import android.widget.Toast;
  */
 public class ToastUtils {
     public static void show(Context context,String message) {
+
+        if (null == context || TextUtils.isEmpty(message)){
+            return;
+        }
+
         Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 10);
         toast.show();

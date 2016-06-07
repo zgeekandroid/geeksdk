@@ -15,11 +15,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 
-import com.geekandroid.sdk.sample.commonslibrary.config.SystemConfig;
-import com.geekandroid.sdk.sample.commonslibrary.utils.DateUtils;
-import com.geekandroid.sdk.sample.commonslibrary.utils.LogUtils;
-import com.geekandroid.sdk.sample.commonslibrary.utils.StringUtils;
-import com.geekandroid.sdk.sample.commonslibrary.utils.ToastUtils;
+
+import com.geekandroid.sdk.commons.config.SystemConfig;
+import com.geekandroid.sdk.commons.utils.DateUtils;
+import com.geekandroid.sdk.commons.utils.LogUtils;
+import com.geekandroid.sdk.commons.utils.StringUtils;
+import com.geekandroid.sdk.commons.utils.ToastUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;

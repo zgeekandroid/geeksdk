@@ -111,11 +111,11 @@ public class FileUtils {
                 try {
                     reader.close();
                 } catch (IOException e1) {
+                    e1.printStackTrace();
                 }
             }
         }
         return builder.toString();
     }
-
 
 }
