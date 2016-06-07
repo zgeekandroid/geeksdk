@@ -28,7 +28,7 @@ public class ProgressResponseBody extends ResponseBody {
      * @param responseBody 待包装的响应体
      * @param progressListener 回调接口
      */
-    public ProgressResponseBody(ResponseBody responseBody,  RequestCallBack<String> progressListener) {
+    public ProgressResponseBody(ResponseBody responseBody, RequestCallBack<String> progressListener) {
         this.responseBody = responseBody;
         this.progressListener = progressListener;
     }

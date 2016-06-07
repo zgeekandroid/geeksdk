@@ -7,10 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.geekandroid.sdk.sample.commonslibrary.net.BaseRemoteModel;
-import com.geekandroid.sdk.sample.commonslibrary.net.RequestCallBack;
-import com.geekandroid.sdk.sample.commonslibrary.utils.LogUtils;
-import com.geekandroid.sdk.sample.commonslibrary.utils.ToastUtils;
+import com.geekandroid.sdk.base.BaseRemoteModel;
+import com.geekandroid.sdk.commons.net.RequestCallBack;
+import com.geekandroid.sdk.commons.utils.LogUtils;
+import com.geekandroid.sdk.commons.utils.ToastUtils;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.util.Hashtable;

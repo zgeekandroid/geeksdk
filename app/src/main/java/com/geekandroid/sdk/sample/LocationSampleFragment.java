@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.geekandroid.sdk.sample.commonslibrary.net.RequestCallBack;
-import com.geekandroid.sdk.sample.commonslibrary.utils.ToastUtils;
+import com.geekandroid.sdk.commons.net.RequestCallBack;
+import com.geekandroid.sdk.commons.utils.ToastUtils;
 import com.geekandroid.sdk.sample.maplibrary.Location;
 import com.geekandroid.sdk.sample.maplibrary.impl.BDLocationImpl;
 

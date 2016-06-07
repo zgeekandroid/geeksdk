@@ -5,12 +5,14 @@ import android.os.StatFs;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+
 import com.geekandroid.sdk.commons.utils.FileUtils;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * date        :  2015-12-02  10:27
@@ -112,17 +114,19 @@ public class SystemConfig {
 
     public static void createDir(String fileDir) {
         File localFile = new File(fileDir);
+
         if (!localFile.exists()) {
-            localFile.mkdirs();
+             if (localFile.mkdirs()){
+                 //
+             }
         }
-        localFile.exists();
 
     }
 
 
     /**
      * 获取扩展SD卡存储目录
-     * <p/>
+     * <p>
      * 如果有外接的SD卡，并且已挂载，则返回这个外置SD卡目录
      * 否则：返回内置SD卡目录
      *
@@ -140,7 +144,7 @@ public class SystemConfig {
                 if (sdCardFile.isDirectory() && sdCardFile.canWrite()) {
                     path = sdCardFile.getAbsolutePath();
 
-                    String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmmss").format(new Date());
+                    String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmmss",Locale.CHINA).format(new Date());
                     File testWritable = new File(sdCardFile, "test_" + timeStamp);
 
                     if (testWritable.mkdirs()) {
@@ -174,7 +178,7 @@ public class SystemConfig {
             if (file.isDirectory() && file.canWrite()) {
                 path = file.getAbsolutePath();
 
-                String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmmss").format(new Date());
+                String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmmss", Locale.CHINA).format(new Date());
                 File testWritable = new File(path, "test_" + timeStamp);
 
                 if (testWritable.mkdirs()) {

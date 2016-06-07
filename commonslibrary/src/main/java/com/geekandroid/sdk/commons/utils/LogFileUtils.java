@@ -3,6 +3,7 @@ package com.geekandroid.sdk.commons.utils;
 
 import android.util.Log;
 
+
 import com.geekandroid.sdk.commons.config.SystemConfig;
 
 import java.io.BufferedWriter;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * 带日志文件输入的，又可控开关的日志调试
@@ -28,8 +30,8 @@ public class LogFileUtils {
     private static int SDCARD_LOG_FILE_SAVE_DAYS = 0;// sd卡中日志文件的最多保存天数
     private static String MYLOGFILEName = "Log.txt";// 本类输出的日志文件名称
     private static SimpleDateFormat myLogSdf = new SimpleDateFormat(
-            "yyyy-MM-dd HH:mm:ss");// 日志的输出格式
-    private static SimpleDateFormat logfile = new SimpleDateFormat("yyyy-MM-dd");// 日志文件格式
+            "yyyy-MM-dd HH:mm:ss", Locale.CHINA);// 日志的输出格式
+    private static SimpleDateFormat logfile = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);// 日志文件格式
 
     public static void w(String tag, Object msg) { // 警告信息
         log(tag, msg.toString(), 'w');
@@ -105,7 +107,10 @@ public class LogFileUtils {
      */
     public static void writeLogtoFile(String mylogtype, String tag, String text) {// 新建或打开日志文件
         Date nowtime = new Date();
-        String needWriteFiel = logfile.format(nowtime);
+
+        String needWriteFiel =  logfile.format(nowtime);
+
+
         String needWriteMessage = myLogSdf.format(nowtime) + "    " + mylogtype
                 + "    " + tag + "    " + text;
         File file = new File(MYLOG_PATH_SDCARD_DIR, needWriteFiel

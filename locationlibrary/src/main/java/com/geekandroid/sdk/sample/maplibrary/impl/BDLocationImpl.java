@@ -6,9 +6,10 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.Poi;
 import com.baidu.mapapi.SDKInitializer;
-import com.geekandroid.sdk.sample.commonslibrary.config.SystemConfig;
-import com.geekandroid.sdk.sample.commonslibrary.net.RequestCallBack;
-import com.geekandroid.sdk.sample.commonslibrary.utils.LogUtils;
+
+import com.geekandroid.sdk.commons.config.SystemConfig;
+import com.geekandroid.sdk.commons.net.RequestCallBack;
+import com.geekandroid.sdk.commons.utils.LogUtils;
 import com.geekandroid.sdk.sample.maplibrary.ILocation;
 import com.geekandroid.sdk.sample.maplibrary.Location;
 

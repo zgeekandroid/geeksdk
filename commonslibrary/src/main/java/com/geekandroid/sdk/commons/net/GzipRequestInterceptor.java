@@ -1,4 +1,4 @@
-package com.geekandroid.sdk.sample.commonslibrary.net;
+package com.geekandroid.sdk.commons.net;
 
 import java.io.IOException;
 

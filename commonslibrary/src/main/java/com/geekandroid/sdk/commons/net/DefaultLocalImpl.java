@@ -7,7 +7,7 @@ import java.util.Map;
  * author      :  Mickaecle gizthon
  * description :
  */
-public class DefaultLocalImpl implements IRequestLocal {
+public class DefaultLocalImpl implements IRequestLocal   {
 
 
     public <T> T doQueryLocal(Map<String, String> parameters, Class<T> cls) {

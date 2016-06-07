@@ -8,6 +8,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -20,6 +21,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.telephony.CellLocation;
 import android.telephony.TelephonyManager;
@@ -39,10 +41,7 @@ import java.util.List;
  * description :
  */
 public class DeviceUtils {
-    /**
-     * 图片默认压缩比例
-     */
-    public final static double IMG_PROPORTION = 1.88;
+
     /**
      * 电量值
      * Battery level;
@@ -55,11 +54,6 @@ public class DeviceUtils {
     }
 
 
-    public static int getDefaultImageHeight(Context mContext) {
-        // 根据宽度 按比例算出宽度
-        int width = getScreenWidth(mContext);
-        return (int) (width / IMG_PROPORTION);// 保持长宽的比例为CommonConstant.IMG_PROPORTION
-    }
 
     public static int getDefaultImageWidth(Context mContext) {
         return getScreenWidth(mContext);
@@ -592,5 +586,24 @@ public class DeviceUtils {
                 "application/vnd.android.package-archive");
         context.startActivity(intent);
     }
+    public static String getMetaValue(Context context, String metaKey) {
+        Bundle metaData = null;
+        String metaValue = null;
+        if (context == null || metaKey == null) {
+            return null;
+        }
+        try {
+            ApplicationInfo ai = context.getPackageManager().getApplicationInfo(
+                    context.getPackageName(), PackageManager.GET_META_DATA);
+            if (null != ai) {
+                metaData = ai.metaData;
+            }
+            if (null != metaData) {
+                metaValue = String.valueOf(metaData.get(metaKey));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
 
+        }
+        return metaValue;
+    }
 }
