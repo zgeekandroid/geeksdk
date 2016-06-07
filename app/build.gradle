@@ -69,5 +69,17 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.0.1'
     compile 'com.google.code.gson:gson:2.5'
     compile 'de.greenrobot:eventbus:3.0.0-beta1'
+<<<<<<< a42c3707fa51c35ec5e9f1b588775e0023901a57
     compile 'com.jakewharton:butterknife:8.0.1'
+=======
+    //***********PhotoPreview library****************
+    compile 'com.github.chrisbanes.photoview:library:1.2.3'
+    compile 'com.facebook.rebound:rebound:0.3.8'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    compile 'com.nhaarman.listviewanimations:lib-core:3.1.0@aar'
+    //***********PhotoPreview library****************
+    compile project(':ucrop')
+>>>>>>> 增加图片查看
 }

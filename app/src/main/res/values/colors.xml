@@ -3,6 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+<<<<<<< a42c3707fa51c35ec5e9f1b588775e0023901a57
     <!-- 扫一扫 -->
     <color name="result_view">#b0000000</color>
     <color name="viewfinder_mask">#60000000</color>
@@ -17,4 +18,13 @@
     <color name="bg_line_area">#F0F0F2</color>
     <color name="line_color">#BBBBBB</color>
     <color name="block_bg_color">#ffffffff</color>
+=======
+
+    <color name="material_blue_500">#009688</color>
+    <color name="material_blue_700">#00796B</color>
+    <color name="material_green_A200">#FD87A9</color>
+
+    <color name="content_bg">#f2f2f2</color>
+    <color name="content_bg_press">#b2b2b2</color>
+>>>>>>> 增加图片查看
 </resources>
