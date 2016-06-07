@@ -4,15 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-<<<<<<< a42c3707fa51c35ec5e9f1b588775e0023901a57
+ 
 import com.geekandroid.sdk.imageloader.ImageLoaderManager;
 import com.geekandroid.sdk.sample.citylist.CityListActivity;
-=======
+ 
 import android.view.View;
 import android.widget.Button;
 
 import com.geekandroid.sdk.photoprewview.dwcorephoto.PreviewMainActivity;
->>>>>>> 增加图片查看
+ 
 import com.geekandroid.sdk.sample.crop.CropSampleActivity;
 import com.geekandroid.sdk.sample.maplibrary.impl.BDLocationImpl;
 import com.jakewharton.rxbinding.view.RxView;
@@ -43,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
         bindClick(R.id.app_update, new AppUpdateSampleFragment());
         bindClick(R.id.citylist, CityListActivity.class);
 
-<<<<<<< a42c3707fa51c35ec5e9f1b588775e0023901a57
-=======
+ 
         Button image_crop = (Button) findViewById(R.id.image_crop);
         Button image_preview = (Button) findViewById(R.id.image_preview);
 
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
->>>>>>> 增加图片查看
+ 
     }
 
 

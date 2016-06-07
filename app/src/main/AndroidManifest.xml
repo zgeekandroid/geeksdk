@@ -115,9 +115,7 @@
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
-<<<<<<< a42c3707fa51c35ec5e9f1b588775e0023901a57
-=======
+ 
         <activity
             android:name="com.geekandroid.sdk.photoprewview.dwcorephoto.PreviewMainActivity"
             android:theme="@style/Theme" />
@@ -137,7 +135,7 @@
             android:name="com.geekandroid.sdk.photoprewview.dwcorephoto.MixShowActivity"
             android:theme="@style/Theme"
             android:windowSoftInputMode="adjustResize"></activity>
->>>>>>> 增加图片查看
+ 
 
     </application>
 

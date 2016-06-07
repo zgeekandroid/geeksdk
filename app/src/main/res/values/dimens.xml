@@ -2,14 +2,14 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-<<<<<<< a42c3707fa51c35ec5e9f1b588775e0023901a57
+ 
     <dimen name="city_letter_size">12.0dip</dimen>
-=======
+ 
 
 
     <!-- MainList-->
     <dimen name="main_list_height">44dp</dimen>
     <dimen name="main_text_size"> 18dp</dimen>
 
->>>>>>> 增加图片查看
+ 
 </resources>

@@ -62,21 +62,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="IMAGE CROP" />
-<<<<<<< a42c3707fa51c35ec5e9f1b588775e0023901a57
+ 
         <Button
             android:id="@+id/citylist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="citylist" />
 
-=======
-
+ 
         <Button
             android:id="@+id/image_preview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="IMAGE PREW" />
->>>>>>> 增加图片查看
+ 
     </LinearLayout>
 
 
