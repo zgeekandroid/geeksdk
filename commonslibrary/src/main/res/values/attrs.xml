@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<resources>
+
+
+    <declare-styleable name="ChartTagView">
+
+        <attr name="chartLabelText" format="string" />
+        <attr name="chartLabelColor" format="color" />
+        <attr name="chartLabelSize" format="dimension" />
+        <attr name="chartLabelPadding" format="dimension"/>
+
+        <attr name="chartValueText" format="string" />
+        <attr name="chartValueColor" format="color" />
+        <attr name="chartValueSize" format="dimension" />
+        <attr name="chartValuePadding" format="dimension"/>
+
+
+        <attr name="chartBackGroundColor" format="color" />
+        <attr name="chartLinePadding" format="dimension"/>
+    </declare-styleable>
+</resources>
