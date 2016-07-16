@@ -1,5 +1,6 @@
 package com.geekandroid.sdk.sample.maplibrary.impl;
 
+import android.Manifest;
 import android.content.Context;
 
 import com.baidu.location.BDLocation;
@@ -11,6 +12,7 @@ import com.commonslibrary.commons.net.RequestCallBack;
 import com.commonslibrary.commons.utils.LogUtils;
 import com.geekandroid.sdk.sample.maplibrary.ILocation;
 import com.geekandroid.sdk.sample.maplibrary.Location;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 
 /**
@@ -22,7 +24,7 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
 
     private BDLocationService locationService;
     private static BDLocationImpl instance;
-
+    private Context context;
 
     private BDLocationImpl() {
     }
@@ -41,6 +43,7 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
     @Override
     public void init(Context context) {
         if (context != null){
+            this.context = context;
             locationService = new BDLocationService(context.getApplicationContext());
             try {
                 SDKInitializer.initialize(SystemConfig.getSystemBaiduDir(), context.getApplicationContext());
@@ -59,15 +62,36 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
 
     @Override
     public void start() {
-        locationService.start();// 定位SDK
-        // start之后会默认发起一次定位请求，开发者无须判断isstart并主动调用request
+        start(null);
     }
 
 
     public void start(RequestCallBack<Location> callBack) {
-        locationService.start();// 定位SDK
-        // start之后会默认发起一次定位请求，开发者无须判断isstart并主动调用request
-        setCallBack(callBack);
+
+        RxPermissions.getInstance(context)
+                .requestEach(Manifest.permission.READ_PHONE_STATE)
+                .subscribe(permission -> { // will emit 2 Permission objects
+                    if (permission.granted) {
+                        // `permission.name` is granted !
+                    }
+                });
+
+
+        RxPermissions.getInstance(context)
+                .requestEach(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+                .subscribe(permission -> { // will emit 2 Permission objects
+                    if (permission.granted) {
+                        // `permission.name` is granted !
+
+                        locationService.start();// 定位SDK
+                        // start之后会默认发起一次定位请求，开发者无须判断isstart并主动调用request
+                        if (callBack != null){
+                            setCallBack(callBack);
+                        }
+                    }
+                });
+
+
     }
 
     @Override

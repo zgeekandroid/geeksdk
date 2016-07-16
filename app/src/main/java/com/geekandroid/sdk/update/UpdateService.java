@@ -8,13 +8,13 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.commonslibrary.commons.net.RequestCallBack;
 import com.geekandroid.common.config.SystemConfig;
+import com.geekandroid.sdk.sample.utils.DialogUtils;
+import com.geekandroid.sdk.sample.utils.FileUtils;
 import com.geekandroid.sdk.update.domain.DownloadInfo;
 import com.geekandroid.sdk.update.domain.VersionBean;
 import com.geekandroid.sdk.update.net.NetUtils;
-import com.geekandroid.sdk.update.net.RequestCallBack;
-import com.geekandroid.sdk.sample.utils.DialogUtils;
-import com.geekandroid.sdk.sample.utils.FileUtils;
 import com.google.gson.Gson;
 
 import java.io.File;

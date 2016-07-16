@@ -1,4 +1,23 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'me.tatarka:gradle-retrolambda:3.2.3'
+    }
+}
+
+// Required because retrolambda is on maven central
+repositories {
+    mavenCentral()
+}
+
+
+
 apply plugin: 'com.android.library'
+apply plugin: 'me.tatarka.retrolambda'
+
 
 android {
     compileSdkVersion 23
@@ -16,6 +35,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+
     lintOptions {
         abortOnError false
     }
@@ -31,6 +57,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.zgeekandroid.sdk:commonslibrary:1.0.0'
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
     //    compile project(':commonslibrary')
 //    compile(name:'commonslibrary-release', ext:'aar')
 }

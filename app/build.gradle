@@ -66,6 +66,7 @@ dependencies {
 //    compile project(path: ':paylibrary')
 
     compile 'com.zgeekandroid.sdk:commonslibrary:1.0.0'
+    compile 'com.zgeekandroid.sdk:locationlibrary:1.0.0'
 
     compile 'com.zgeekandroid.sdk:imageloaderlibrary:1.0.1'
 

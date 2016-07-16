@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.geekandroid.sdk.sample.maplibrary.impl.BDLocationImpl;
 import com.imagerloaderlibrary.imagerloader.ImageLoaderManager;
 import com.jakewharton.rxbinding.view.RxView;
 
@@ -17,9 +18,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+        BDLocationImpl.getInstance().init(getApplication());
 
-//        BDLocationImpl.getInstance().init(getApplication());
         // 初始化ImageLoader
         ImageLoaderManager.getInstance().init(this);
         //权限框架
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         bindClick(R.id.common, new CommonSampleFragment());
 //        bindClick(R.id.mapnavigation, MapActivity.class);
-//        bindClick(R.id.location, new LocationSampleFragment());
+        bindClick(R.id.location, new LocationSampleFragment());
         bindClick(R.id.pay, new PaySampleFragment());
         bindClick(R.id.imageloader, new ImageloaderFragment());
 

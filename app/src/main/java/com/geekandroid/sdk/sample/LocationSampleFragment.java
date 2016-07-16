@@ -1,4 +1,4 @@
-/*
+
 package com.geekandroid.sdk.sample;
 
 import android.os.Bundle;
@@ -10,16 +10,14 @@ import android.widget.Button;
 
 import com.commonslibrary.commons.net.RequestCallBack;
 import com.commonslibrary.commons.utils.ToastUtils;
-import com.geekandroid.sdk.sample.maplibrary.Location;
 import com.geekandroid.sdk.sample.maplibrary.impl.BDLocationImpl;
 
 
-*/
 /**
  * date        :  2016-04-20  13:39
  * author      :  Mickaecle gizthon
  * description :
- *//*
+ */
 
 public class LocationSampleFragment extends BaseSampleFragment {
     private Button button;
@@ -48,17 +46,20 @@ public class LocationSampleFragment extends BaseSampleFragment {
 
 
     private void location() {
-        BDLocationImpl.getInstance().start(new RequestCallBack<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                ToastUtils.show(getActivity(),location.toString());
-                BDLocationImpl.getInstance().stop();
 
+
+
+
+        BDLocationImpl.getInstance().start(new RequestCallBack<com.geekandroid.sdk.sample.maplibrary.Location>() {
+            @Override
+            public void onSuccess(com.geekandroid.sdk.sample.maplibrary.Location result) {
+                ToastUtils.show(getActivity(),result.toString());
+                BDLocationImpl.getInstance().stop();
             }
 
             @Override
             public void onFailure(String errorMessage, Exception exception) {
-               ToastUtils.show(getActivity(),errorMessage);
+                ToastUtils.show(getActivity(),errorMessage);
                 BDLocationImpl.getInstance().stop();
             }
         });
@@ -68,4 +69,4 @@ public class LocationSampleFragment extends BaseSampleFragment {
 
 
 
-}*/
+}
