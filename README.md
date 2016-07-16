@@ -9,7 +9,7 @@ imageloaderlibrary 将imageloader 进行再次封装得到的一个简单易用�
         ImageLoaderView circle = (ImageLoaderView) view.findViewById(R.id.circle);
         ImageLoaderView round = (ImageLoaderView) view.findViewById(R.id.round);
    
-        String url = "http://img4q.duitang.com/uploads/item/201411/04/20141104225919_ZR3h5.thumb.224_0XX.jpeg";
+        String url = "http://img4q.duitang.com/uploads/item/201411/04/20141104225919_ZR3h5.thumb.224_0.jpeg";
         normal.setUrl(url);
         circle.setCircleUrl(url);
         round.setRoundUrl(url);
