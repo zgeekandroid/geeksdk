@@ -1,3 +1,4 @@
+/*
 package com.geekandroid.sdk.sample;
 
 import android.os.Bundle;
@@ -7,17 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.geekandroid.sdk.commons.net.RequestCallBack;
-import com.geekandroid.sdk.commons.utils.ToastUtils;
+import com.commonslibrary.commons.net.RequestCallBack;
+import com.commonslibrary.commons.utils.ToastUtils;
 import com.geekandroid.sdk.sample.maplibrary.Location;
 import com.geekandroid.sdk.sample.maplibrary.impl.BDLocationImpl;
 
 
+*/
 /**
  * date        :  2016-04-20  13:39
  * author      :  Mickaecle gizthon
  * description :
- */
+ *//*
+
 public class LocationSampleFragment extends BaseSampleFragment {
     private Button button;
     @Override
@@ -65,4 +68,4 @@ public class LocationSampleFragment extends BaseSampleFragment {
 
 
 
-}
+}*/

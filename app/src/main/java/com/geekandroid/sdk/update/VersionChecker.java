@@ -2,11 +2,11 @@ package com.geekandroid.sdk.update;
 
 import android.content.Context;
 
+import com.commonslibrary.commons.utils.DeviceUtils;
 import com.geekandroid.sdk.update.domain.VersionBean;
 import com.geekandroid.sdk.update.net.EncryptionUtils;
 import com.geekandroid.sdk.update.net.NetUtils;
 import com.geekandroid.sdk.update.net.RequestCallBack;
-import com.geekandroid.sdk.sample.utils.DeviceUtils;
 
 import java.util.HashMap;
 import java.util.Map;

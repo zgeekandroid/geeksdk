@@ -8,18 +8,20 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Xml;
 
-import com.geekandroid.sdk.commons.handler.WeakHandlerNew;
-import com.geekandroid.sdk.commons.net.RequestCallBack;
-import com.geekandroid.sdk.commons.utils.LogUtils;
+import com.commonslibrary.commons.handler.WeakHandlerNew;
+import com.commonslibrary.commons.net.RequestCallBack;
+import com.commonslibrary.commons.utils.LogUtils;
 import com.geekandroid.sdk.pay.IPay;
 import com.geekandroid.sdk.pay.utils.MD5;
 import com.geekandroid.sdk.pay.utils.Util;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.xmlpull.v1.XmlPullParser;
+
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.LinkedList;

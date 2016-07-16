@@ -1,5 +1,5 @@
 package com.geekandroid.sdk.sample;
-import android.graphics.Bitmap;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -7,10 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.geekandroid.sdk.imageloader.ImageLoaderView;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.imagerloaderlibrary.imagerloader.ImageLoaderView;
 
 /**
  *
@@ -35,36 +32,12 @@ public class ImageloaderFragment extends BaseSampleFragment {
         ImageLoaderView circle = (ImageLoaderView) view.findViewById(R.id.circle);
         ImageLoaderView round = (ImageLoaderView) view.findViewById(R.id.round);
         ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
-        String url = "http://img4q.duitang.com/uploads/item/201411/04/20141104225919_ZR3h5.thumb.224_0.jpeg";
+        String url = "http://img4q.duitang.com/uploads/item/201411/04/20141104225919_ZR3h5.thumb.224_0XX.jpeg";
         normal.setUrl(url);
         circle.setCircleUrl(url);
         round.setRoundUrl(url);
         
-        ImageLoader imageLoader= ImageLoader.getInstance();
-        imageLoader.displayImage(url, imageView, new ImageLoadingListener() {
-            @Override
-            public void onLoadingStarted(String imageUri, View view) {
-                
-            }
 
-            @Override
-            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-
-            }
-
-            @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-
-            }
-
-            @Override
-            public void onLoadingCancelled(String imageUri, View view) {
-
-            }
-        });
-        
-        
-        
         
         return view;
     }

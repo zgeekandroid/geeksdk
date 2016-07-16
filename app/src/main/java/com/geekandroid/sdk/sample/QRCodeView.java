@@ -1,3 +1,4 @@
+/*
 package com.geekandroid.sdk.sample;
 
 import android.content.Context;
@@ -7,11 +8,13 @@ import android.util.AttributeSet;
 import com.geekandroid.sdk.sample.qrcodelibrary.qrcode.ViewfinderView;
 
 
+*/
 /**
  * date        :  2016-03-01  10:43
  * author      :  Mickaecle gizthon
  * description :
- */
+ *//*
+
 public class QRCodeView extends ViewfinderView {
     public QRCodeView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -43,3 +46,4 @@ public class QRCodeView extends ViewfinderView {
         return getResources().getColor(R.color.viewfinder_frame);
     }
 }
+*/

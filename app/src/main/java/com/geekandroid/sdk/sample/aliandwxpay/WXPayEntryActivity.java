@@ -1,10 +1,11 @@
+/*
 package com.geekandroid.sdk.sample.aliandwxpay;
 
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.commonslibrary.commons.utils.ToastUtils;
 import com.geekandroid.sdk.base.BaseActivity;
-import com.geekandroid.sdk.commons.utils.ToastUtils;
 import com.geekandroid.sdk.sample.R;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
@@ -13,11 +14,13 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
+*/
 /**
  * date        :  2016-04-02  18:09
  * author      :  Mickaecle gizthon
  * description :
- */
+ *//*
+
 public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandler {
 
     private IWXAPI api;
@@ -90,3 +93,4 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
 
 
 }
+*/

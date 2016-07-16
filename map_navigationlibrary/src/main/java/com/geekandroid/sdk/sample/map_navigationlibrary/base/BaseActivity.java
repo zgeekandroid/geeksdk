@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.geekandroid.sdk.commons.utils.LogUtils;
-import com.geekandroid.sdk.commons.utils.ToastUtils;
+import com.commonslibrary.commons.utils.LogUtils;
+import com.commonslibrary.commons.utils.ToastUtils;
 
 
 /**

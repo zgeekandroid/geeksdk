@@ -1,3 +1,4 @@
+/*
 package com.geekandroid.sdk.sample.crop;
 
 import android.Manifest;
@@ -28,9 +29,11 @@ import java.io.File;
 import java.util.Locale;
 import java.util.Random;
 
+*/
 /**
  * Created by Oleksii Shliama (https://github.com/shliama).
- */
+ *//*
+
 public class CropSampleActivity extends CropBaseActivity {
 
     private static final String TAG = "CropSampleActivity";
@@ -74,9 +77,11 @@ public class CropSampleActivity extends CropBaseActivity {
         }
     }
 
-    /**
+    */
+/**
      * Callback received when a permissions request has been completed.
-     */
+     *//*
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -178,7 +183,8 @@ public class CropSampleActivity extends CropBaseActivity {
                     REQUEST_STORAGE_READ_ACCESS_PERMISSION);
         } else {
             Intent intent = new Intent();
-            intent.setType("image/*");
+            intent.setType("image*/
+/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             startActivityForResult(Intent.createChooser(intent, getString(R.string.label_select_picture)), REQUEST_SELECT_PICTURE);
@@ -204,12 +210,14 @@ public class CropSampleActivity extends CropBaseActivity {
         uCrop.start(CropSampleActivity.this);
     }
 
-    /**
+    */
+/**
      * In most cases you need only to set crop aspect ration and max size for resulting image.
      *
      * @param uCrop - ucrop builder instance
      * @return - ucrop builder instance
-     */
+     *//*
+
     private UCrop basisConfig(@NonNull UCrop uCrop) {
         switch (mRadioGroupAspectRatio.getCheckedRadioButtonId()) {
             case R.id.radio_origin:
@@ -249,12 +257,14 @@ public class CropSampleActivity extends CropBaseActivity {
         return uCrop;
     }
 
-    /**
+    */
+/**
      * Sometimes you want to adjust more options, it's done via {@link UCrop.Options} class.
      *
      * @param uCrop - ucrop builder instance
      * @return - ucrop builder instance
-     */
+     *//*
+
     private UCrop advancedConfig(@NonNull UCrop uCrop) {
         UCrop.Options options = new UCrop.Options();
 
@@ -272,21 +282,26 @@ public class CropSampleActivity extends CropBaseActivity {
         options.setHideBottomControls(mCheckBoxHideBottomControls.isChecked());
         options.setFreeStyleCropEnabled(mCheckBoxFreeStyleCrop.isChecked());
 
-        /*
+        */
+/*
         If you want to configure how gestures work for all UCropActivity tabs
 
         options.setAllowedGestures(UCropActivity.SCALE, UCropActivity.ROTATE, UCropActivity.ALL);
-        * */
+        * *//*
 
-        /*
+
+        */
+/*
         This sets max size for bitmap that will be decoded from source Uri.
         More size - more memory allocation, default implementation uses screen diagonal.
 
         options.setMaxBitmapSize(640);
-        * */
+        * *//*
 
 
-       /*
+
+       */
+/*
 
         Tune everything (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
 
@@ -306,7 +321,8 @@ public class CropSampleActivity extends CropBaseActivity {
         options.setActiveWidgetColor(ContextCompat.getColor(this, R.color.your_color_res));
 		options.setToolbarWidgetColor(ContextCompat.getColor(this, R.color.your_color_res));
 
-       */
+       *//*
+
 
         return uCrop.withOptions(options);
     }
@@ -332,3 +348,4 @@ public class CropSampleActivity extends CropBaseActivity {
     }
 
 }
+*/

@@ -15,8 +15,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import com.geekandroid.sdk.commons.utils.LogUtils;
-import com.geekandroid.sdk.commons.utils.ToastUtils;
+import com.commonslibrary.commons.utils.LogUtils;
+import com.commonslibrary.commons.utils.ToastUtils;
 import com.geekandroid.sdk.sample.R;
 
 

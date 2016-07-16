@@ -1,102 +1,111 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
->   
-    <LinearLayout android:id="@+id/ll1"
-                  android:layout_width="wrap_content"
-                  android:orientation="vertical"
-                  android:layout_height="wrap_content">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+>
 
-        <TextView android:id="@+id/tv1"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="10dp"
-                  android:text="normal"/>
-        <com.geekandroid.sdk.imageloader.ImageLoaderView
-            android:id="@+id/normal"
-            android:layout_below="@+id/tv1"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-        />
-    </LinearLayout>
-    
-    <LinearLayout android:id="@+id/ll2"
-                  android:layout_width="wrap_content"
-                  android:orientation="vertical"
-                  android:layout_marginLeft="20dp"
-                  android:layout_toRightOf="@id/ll1"
-                  android:layout_height="wrap_content">
-    <TextView android:layout_width="wrap_content"
-              android:id="@+id/tv2"
-           
-              android:layout_height="wrap_content"
-              android:layout_marginTop="10dp"
-              android:text="circle"/>
-    <com.geekandroid.sdk.imageloader.ImageLoaderView
-      android:id="@+id/circle"
-      android:layout_width="80dp"
-      android:layout_height="80dp"
-    />
-    </LinearLayout>
-    <LinearLayout android:id="@+id/ll3"
-                  android:layout_width="wrap_content"
-                  android:layout_toRightOf="@id/ll2"
-                  android:layout_marginLeft="20dp"
-                  
-                  android:orientation="vertical"
-                  android:layout_height="wrap_content">
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="10dp"
-              android:text="round"/>
-    
-    <com.geekandroid.sdk.imageloader.ImageLoaderView
-        android:id="@+id/round"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-    />
-    </LinearLayout>
-    <LinearLayout android:id="@+id/ll4"
-                  android:layout_width="wrap_content"
-                  android:orientation="vertical"
-                 android:layout_below="@id/ll1"
-                  android:layout_height="wrap_content">
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="10dp"
-              android:text="imageView"/>
-    
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-    />
-    </LinearLayout>
-    <LinearLayout android:id="@+id/ll5"
-                  android:layout_width="wrap_content"
-                  android:orientation="vertical"
-                 android:layout_below="@id/ll4"
-                  android:layout_centerHorizontal="true"
-                  android:layout_height="wrap_content">
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="10dp"
-              android:text="imageloaderlibrary使用方法"/>
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="10dp"
-              android:text="1.把imageloaderlibrary和commonslibrary拷贝到工程目录，关联为module（提示imageloaderlibrary关联commonslibrary）；"/>
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="10dp"
-              android:text="2.初始化ImageLoader,ImageLoaderManager.getInstance().init(this);"/>
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="10dp"
-              android:text="3.在xml文件使用自定义view，ImageLoaderView是imageloaderlibrary包中的view，view中有ImageLoader的方法，也有封装的三个方法setUrl(string url)，setCircleUrl(url)和setRoundUrl(url)如上图demo所示"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+    >
+        <LinearLayout android:id="@+id/ll1"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical">
 
-    
-   
-    </LinearLayout>
+            <TextView android:id="@+id/tv1"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="10dp"
+                      android:text="normal"/>
+            <com.imagerloaderlibrary.imagerloader.ImageLoaderView
+                android:id="@+id/normal"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_below="@+id/tv1"
+            />
+        </LinearLayout>
 
-</RelativeLayout>
+        <LinearLayout android:id="@+id/ll2"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginLeft="20dp"
+                      android:layout_toRightOf="@id/ll1"
+                      android:orientation="vertical">
+            <TextView android:id="@+id/tv2"
+                      android:layout_width="wrap_content"
+
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="10dp"
+                      android:text="circle"/>
+            <com.imagerloaderlibrary.imagerloader.ImageLoaderView
+                android:id="@+id/circle"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+            />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/ll3"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginLeft="20dp"
+
+                      android:layout_toRightOf="@id/ll2"
+                      android:orientation="vertical">
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="10dp"
+                      android:text="round"/>
+
+            <com.imagerloaderlibrary.imagerloader.ImageLoaderView
+                android:id="@+id/round"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+            />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/ll4"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_below="@id/ll1"
+                      android:orientation="vertical">
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="10dp"
+                      android:text="imageView"/>
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+            />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/ll5"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_below="@id/ll4"
+                      android:layout_centerHorizontal="true"
+                      android:orientation="vertical">
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="10dp"
+                      android:text="imageloaderlibrary使用方法"/>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="10dp"
+                      android:text="1.依赖包
+              \ncompile 'com.zgeekandroid.sdk:imageloaderlibrary:1.0.1'
+              \ncompile 'com.zgeekandroid.sdk:commonslibrary:1.0.0'
+              \ncompile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+              "/>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="10dp"
+                      android:text="2.初始化配置ImageLoader,ImageLoaderManager.getInstance().init(this);"/>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="10dp"
+                      android:text="3.使用在xml文件使用自定义view，ImageLoaderView是imageloaderlibrary包中的view，view中有ImageLoader的方法，也有封装的三个方法setUrl(string url)，setCircleUrl(url)和setRoundUrl(url)如上图demo所示"/>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</ScrollView>

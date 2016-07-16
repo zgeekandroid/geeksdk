@@ -1,20 +1,22 @@
+/*
 package com.geekandroid.sdk.sample.aliandwxpay;
 
 
-
-import com.geekandroid.sdk.commons.net.BaseRemoteModel;
-import com.geekandroid.sdk.commons.net.RequestCallBack;
-import com.geekandroid.sdk.commons.utils.ToastUtils;
+import com.commonslibrary.commons.net.BaseRemoteModel;
+import com.commonslibrary.commons.net.RequestCallBack;
+import com.commonslibrary.commons.utils.ToastUtils;
 import com.geekandroid.sdk.pay.impl.CHWeiXinPay;
 
 import java.util.HashMap;
 import java.util.Map;
 
+*/
 /**
  * date        :  2016-04-02  17:46
  * author      :  Mickaecle gizthon
  * description :
- */
+ *//*
+
 public class WeiXinPay extends CHWeiXinPay {
     //appid
     //请同时修改  androidmanifest.xml里面，.PayActivityd里的属性<data android:scheme="wxb4ba3c02aa476ea1"/>为新设置的appid
@@ -73,11 +75,13 @@ public class WeiXinPay extends CHWeiXinPay {
     }
 
 
-    /**
+    */
+/**
      * attach 数据格式为1|2|3。1支付类型（recharge或pay）；
      * 2用户id(recharge充值时传)或(大订单id，pay支付订单时传)；
      * 3加密参数（加密key +1+2）
-     */
+     *//*
+
     private RequestCallBack<String> getParamCallBack = new RequestCallBack<String>() {
         @Override
         public void onSuccess(String result) {
@@ -119,3 +123,4 @@ public class WeiXinPay extends CHWeiXinPay {
         }
     }
 }
+*/

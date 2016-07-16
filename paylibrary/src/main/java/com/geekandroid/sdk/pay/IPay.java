@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.text.TextUtils;
 
-import com.geekandroid.sdk.commons.net.RequestCallBack;
-import com.geekandroid.sdk.commons.utils.ToastUtils;
+import com.commonslibrary.commons.net.RequestCallBack;
+import com.commonslibrary.commons.utils.ToastUtils;
 
 import java.util.Map;
 

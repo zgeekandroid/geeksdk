@@ -5,10 +5,9 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 
-
+import com.commonslibrary.commons.utils.LogUtils;
+import com.commonslibrary.commons.utils.StringUtils;
 import com.geekandroid.common.config.SystemConfig;
-import com.geekandroid.sdk.sample.utils.LogUtils;
-import com.geekandroid.sdk.sample.utils.StringUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

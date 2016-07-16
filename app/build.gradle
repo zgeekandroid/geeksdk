@@ -29,10 +29,10 @@ android {
         versionCode 1
         versionName "1.0"
 
-        ndk {
-            //设置支持的SO库架构
-            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
-        }
+//        ndk {
+//            //设置支持的SO库架构
+//            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+//        }
     }
     buildTypes {
         release {
@@ -45,41 +45,47 @@ android {
         targetCompatibility 1.8
     }
 }
-repositories{
-    flatDir{
-        dirs'libs'
-    }
-}
+//repositories{
+//    flatDir{
+//        dirs'libs'
+//    }
+//}
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
  
  
- 
+//
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
-    compile project(path: ':commonslibrary')
-    compile project(path: ':locationlibrary')
-    compile project(path: ':map_navigationlibrary')
-    compile project(path: ':qrcodelibrary')
-    compile project(path: ':paylibrary')
-    compile project(path: ':imageloaderlibrary')
-    compile project(path: ':ucrop')
+
+
+//    compile project(path: ':locationlibrary')
+//    compile project(path: ':map_navigationlibrary')
+//    compile project(path: ':qrcodelibrary')
+//    compile project(path: ':paylibrary')
+
+    compile 'com.zgeekandroid.sdk:commonslibrary:1.0.0'
+
+    compile 'com.zgeekandroid.sdk:imageloaderlibrary:1.0.1'
+
+//    compile project(path: ':ucrop')
     compile 'com.android.support:appcompat-v7:23.0.2'
     compile 'com.squareup.okhttp3:okhttp:3.0.1'
     compile 'com.google.code.gson:gson:2.5'
-    compile 'de.greenrobot:eventbus:3.0.0-beta1'
+//    compile 'de.greenrobot:eventbus:3.0.0-beta1'
  
-    compile 'com.jakewharton:butterknife:8.0.1'
- 
+//    compile 'com.jakewharton:butterknife:8.0.1'
+
     //***********PhotoPreview library****************
-    compile 'com.github.chrisbanes.photoview:library:1.2.3'
-    compile 'com.facebook.rebound:rebound:0.3.8'
-    compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
-    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
-    compile 'com.nhaarman.listviewanimations:lib-core:3.1.0@aar'
+//    compile 'com.github.chrisbanes.photoview:library:1.2.3'
+//    compile 'com.facebook.rebound:rebound:0.3.8'
+//    compile 'com.nineoldandroids:library:2.4.0'
+//    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+//    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+//    compile 'com.nhaarman.listviewanimations:lib-core:3.1.0@aar'
     //***********PhotoPreview library****************
-    compile project(':ucrop')
- 
+
+
+//    compile project(path: ':imageloaderlibrary')
 }

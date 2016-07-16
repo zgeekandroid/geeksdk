@@ -3,6 +3,8 @@ package com.geekandroid.sdk.sample.utils;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.commonslibrary.commons.utils.LogUtils;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;

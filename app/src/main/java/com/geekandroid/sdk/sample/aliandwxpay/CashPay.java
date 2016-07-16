@@ -1,17 +1,20 @@
+/*
 package com.geekandroid.sdk.sample.aliandwxpay;
 
 
-import com.geekandroid.sdk.commons.net.BaseRemoteModel;
-import com.geekandroid.sdk.commons.net.RequestCallBack;
+import com.commonslibrary.commons.net.BaseRemoteModel;
+import com.commonslibrary.commons.net.RequestCallBack;
 import com.geekandroid.sdk.pay.impl.CHYuEPay;
 
 import java.util.Map;
 
+*/
 /**
  * date        :  2016-04-02  17:46
  * author      :  Mickaecle gizthon
  * description :
- */
+ *//*
+
 public class CashPay extends CHYuEPay {
     private BaseRemoteModel model = new BaseRemoteModel();
 
@@ -48,7 +51,21 @@ public class CashPay extends CHYuEPay {
 
     }
 
+    @Override
+    public void requestOrder(Map<String, Object> params, RequestCallBack<String> callBack) {
 
+    }
+
+    @Override
+    public void getPayParam(Map<String, Object> params, RequestCallBack<String> callBack) {
+
+    }
+
+    @Override
+    public void getPayResult(Map<String, Object> params, RequestCallBack<String> callBack) {
+
+    }
 
 
 }
+*/

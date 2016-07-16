@@ -5,9 +5,9 @@ import android.os.Message;
 import android.text.TextUtils;
 
 import com.alipay.sdk.app.PayTask;
-import com.geekandroid.sdk.commons.handler.WeakHandlerNew;
-import com.geekandroid.sdk.commons.net.RequestCallBack;
-import com.geekandroid.sdk.commons.utils.LogUtils;
+import com.commonslibrary.commons.handler.WeakHandlerNew;
+import com.commonslibrary.commons.net.RequestCallBack;
+import com.commonslibrary.commons.utils.LogUtils;
 import com.geekandroid.sdk.pay.IPay;
 import com.geekandroid.sdk.pay.utils.SignUtils;
 

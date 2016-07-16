@@ -34,7 +34,7 @@
     <style name="cityLocatingProgressStyle">
         <item name="android:maxWidth">16.0dip</item>
         <item name="android:maxHeight">24.0dip</item>
-        <item name="android:indeterminateDrawable">@drawable/city_locating_anim</item>
+       <!-- <item name="android:indeterminateDrawable">@drawable/city_locating_anim</item>-->
         <item name="android:minWidth">16.0dip</item>
         <item name="android:minHeight">24.0dip</item>
     </style>
@@ -65,9 +65,9 @@
         <item name="android:taskToBackExitAnimation">@null</item>
     </style>
 
- 
+ <!--
     <style name="PreviewPhotoTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+        &lt;!&ndash; Customize your theme here. &ndash;&gt;
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -91,5 +91,5 @@
         <item name="android:taskToBackEnterAnimation">@null</item>
         <item name="android:taskToBackExitAnimation">@null</item>
     </style>
- 
+ -->
 </resources>

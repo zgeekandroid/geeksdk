@@ -18,7 +18,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.geekandroid.sdk.commons.utils.ToastUtils;
+import com.commonslibrary.commons.utils.ToastUtils;
 import com.geekandroid.sdk.sample.qrcodelibrary.R;
 import com.geekandroid.sdk.sample.qrcodelibrary.qrcode.camera.AmbientLightManager;
 import com.geekandroid.sdk.sample.qrcodelibrary.qrcode.camera.BeepManager;

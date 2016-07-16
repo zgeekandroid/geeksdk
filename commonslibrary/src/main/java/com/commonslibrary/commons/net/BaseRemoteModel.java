@@ -2,10 +2,10 @@ package com.commonslibrary.commons.net;
 
 import android.app.Activity;
 import android.app.Application;
-import android.app.Fragment;
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
+
 import com.commonslibrary.commons.utils.DeviceUtils;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;

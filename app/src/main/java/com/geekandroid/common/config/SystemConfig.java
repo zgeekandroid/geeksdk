@@ -5,7 +5,6 @@ import android.os.StatFs;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-
 import com.geekandroid.sdk.sample.utils.FileUtils;
 
 import java.io.File;

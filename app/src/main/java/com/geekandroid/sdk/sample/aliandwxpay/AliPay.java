@@ -1,7 +1,8 @@
+/*
 package com.geekandroid.sdk.sample.aliandwxpay;
 
 
-import com.geekandroid.sdk.commons.net.RequestCallBack;
+import com.commonslibrary.commons.net.RequestCallBack;
 import com.geekandroid.sdk.pay.impl.CHAlipay;
 import com.geekandroid.sdk.pay.impl.PayResult;
 import com.geekandroid.sdk.pay.utils.SignUtils;
@@ -9,10 +10,12 @@ import com.geekandroid.sdk.pay.utils.SignUtils;
 import java.util.HashMap;
 import java.util.Map;
 
+*/
 /**
  * @author:BingCheng
  * @date:2016/4/28 17:49
- */
+ *//*
+
 public class AliPay extends CHAlipay {
 
 
@@ -102,3 +105,4 @@ public class AliPay extends CHAlipay {
         }
     };
 }
+*/

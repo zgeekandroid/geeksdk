@@ -8,6 +8,8 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.commonslibrary.commons.utils.DeviceUtils;
+import com.commonslibrary.commons.utils.ToastUtils;
 import com.geekandroid.sdk.sample.R;
 import com.geekandroid.sdk.update.onDialogBtnListerner;
 import com.geekandroid.sdk.update.views.AutoWebView;
