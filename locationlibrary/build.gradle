@@ -59,4 +59,4 @@ dependencies {
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
     compile 'com.zgeekandroid.sdk:commonslibrary:1.0.0'
 }
-apply from: "bintrayUpload.gradle"
+//apply from: "bintrayUpload.gradle"

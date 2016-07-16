@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.geekandroid.sdk.sample.maplibrary.impl.BDLocationImpl;
+import com.geekandroid.sdk.maplibrary.impl.BDLocationImpl;
 import com.imagerloaderlibrary.imagerloader.ImageLoaderManager;
 import com.jakewharton.rxbinding.view.RxView;
 
