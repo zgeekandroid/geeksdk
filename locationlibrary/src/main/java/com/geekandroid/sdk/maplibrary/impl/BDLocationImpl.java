@@ -1,4 +1,4 @@
-package com.geekandroid.sdk.sample.maplibrary.impl;
+package com.geekandroid.sdk.maplibrary.impl;
 
 import android.Manifest;
 import android.content.Context;
@@ -10,8 +10,8 @@ import com.baidu.mapapi.SDKInitializer;
 import com.commonslibrary.commons.config.SystemConfig;
 import com.commonslibrary.commons.net.RequestCallBack;
 import com.commonslibrary.commons.utils.LogUtils;
-import com.geekandroid.sdk.sample.maplibrary.ILocation;
-import com.geekandroid.sdk.sample.maplibrary.Location;
+import com.geekandroid.sdk.maplibrary.ILocation;
+import com.geekandroid.sdk.maplibrary.Location;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 

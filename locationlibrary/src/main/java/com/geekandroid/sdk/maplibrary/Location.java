@@ -1,4 +1,4 @@
-package com.geekandroid.sdk.sample.maplibrary;
+package com.geekandroid.sdk.maplibrary;
 
 /**
  * date        :  2016-02-16  13:38

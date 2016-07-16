@@ -1,4 +1,4 @@
-package com.geekandroid.sdk.sample.maplibrary;
+package com.geekandroid.sdk.maplibrary;
 
 import android.content.Context;
 
