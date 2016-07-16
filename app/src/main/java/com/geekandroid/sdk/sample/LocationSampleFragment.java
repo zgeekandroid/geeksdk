@@ -10,7 +10,10 @@ import android.widget.Button;
 
 import com.commonslibrary.commons.net.RequestCallBack;
 import com.commonslibrary.commons.utils.ToastUtils;
-import com.geekandroid.sdk.sample.maplibrary.impl.BDLocationImpl;
+import com.geekandroid.sdk.maplibrary.Location;
+import com.geekandroid.sdk.maplibrary.impl.BDLocationImpl;
+
+;
 
 
 /**
@@ -50,9 +53,9 @@ public class LocationSampleFragment extends BaseSampleFragment {
 
 
 
-        BDLocationImpl.getInstance().start(new RequestCallBack<com.geekandroid.sdk.sample.maplibrary.Location>() {
+        BDLocationImpl.getInstance().start(new RequestCallBack<Location>() {
             @Override
-            public void onSuccess(com.geekandroid.sdk.sample.maplibrary.Location result) {
+            public void onSuccess(Location result) {
                 ToastUtils.show(getActivity(),result.toString());
                 BDLocationImpl.getInstance().stop();
             }

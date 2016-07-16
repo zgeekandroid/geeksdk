@@ -67,7 +67,9 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
 
 
     public void start(RequestCallBack<Location> callBack) {
-
+        if (context  == null){
+            return;
+        }
         RxPermissions.getInstance(context)
                 .requestEach(Manifest.permission.READ_PHONE_STATE)
                 .subscribe(permission -> { // will emit 2 Permission objects
