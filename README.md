@@ -65,3 +65,14 @@ BDLocationImpl.getInstance().start(new RequestCallBack<Location>() {
 ```java
      BDLocationImpl.getInstance().init(this);
 ```
+3.manifest 配置
+```xml
+ <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="填写你的key" />
+        <!-- //key:开发者申请的key-->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+```
