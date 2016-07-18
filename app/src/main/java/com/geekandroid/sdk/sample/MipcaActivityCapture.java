@@ -1,4 +1,4 @@
-/*
+
 package com.geekandroid.sdk.sample;
 
 import android.content.Intent;
@@ -12,14 +12,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.geekandroid.sdk.sample.qrcodelibrary.qrcode.ScannerActivity;
-import com.geekandroid.sdk.sample.qrcodelibrary.qrcode.ViewfinderView;
+import com.geekandroid.sdk.qrcode.ScannerActivity;
+import com.geekandroid.sdk.qrcode.ViewfinderView;
 import com.google.zxing.Result;
 
-*/
 /**
  * @describle huangshiyang
- *//*
+ */
 
 public class MipcaActivityCapture extends ScannerActivity implements View.OnClickListener {
     private static final String TAG = MipcaActivityCapture.class.getSimpleName();
@@ -29,10 +28,10 @@ public class MipcaActivityCapture extends ScannerActivity implements View.OnClic
     private ImageView capture_flashlight;
 
 
-    */
+
 /**
      * Called when the activity is first created.
-     *//*
+     */
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,7 +67,7 @@ public class MipcaActivityCapture extends ScannerActivity implements View.OnClic
     }
 
 
-    */
+
 /**
      * A valid barcode has been found, so give an indication of success and show
      * the results.
@@ -76,7 +75,7 @@ public class MipcaActivityCapture extends ScannerActivity implements View.OnClic
      * @param rawResult   The contents of the barcode.
      * @param scaleFactor amount by which thumbnail was scaled
      * @param barcode     A greyscale bitmap of the camera data which was decoded.
-     *//*
+     */
 
 
     @Override
@@ -135,4 +134,4 @@ public class MipcaActivityCapture extends ScannerActivity implements View.OnClic
     }
 
 }
-*/
+

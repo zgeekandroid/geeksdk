@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.geekandroid.common.config.SystemConfig;
+import com.commonslibrary.commons.config.SystemConfig;
 import com.geekandroid.sdk.update.NotificationService;
 import com.geekandroid.sdk.update.UpdateService;
 

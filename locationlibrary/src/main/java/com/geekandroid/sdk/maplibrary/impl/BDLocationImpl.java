@@ -1,6 +1,5 @@
 package com.geekandroid.sdk.maplibrary.impl;
 
-import android.Manifest;
 import android.content.Context;
 
 import com.baidu.location.BDLocation;
@@ -12,7 +11,6 @@ import com.commonslibrary.commons.net.RequestCallBack;
 import com.commonslibrary.commons.utils.LogUtils;
 import com.geekandroid.sdk.maplibrary.ILocation;
 import com.geekandroid.sdk.maplibrary.Location;
-import com.tbruyelle.rxpermissions.RxPermissions;
 
 
 /**
@@ -70,7 +68,7 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
         if (context  == null){
             return;
         }
-        RxPermissions.getInstance(context)
+        /*RxPermissions.getInstance(context)
                 .requestEach(Manifest.permission.READ_PHONE_STATE)
                 .subscribe(permission -> { // will emit 2 Permission objects
                     if (permission.granted) {
@@ -91,7 +89,7 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
                             setCallBack(callBack);
                         }
                     }
-                });
+                });*/
 
 
     }

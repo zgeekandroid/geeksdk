@@ -9,8 +9,8 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 
+import com.commonslibrary.commons.config.SystemConfig;
 import com.commonslibrary.commons.net.RequestCallBack;
-import com.geekandroid.common.config.SystemConfig;
 import com.geekandroid.sdk.sample.R;
 import com.geekandroid.sdk.sample.utils.DialogUtils;
 import com.geekandroid.sdk.sample.utils.FileUtils;

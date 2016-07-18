@@ -35,7 +35,7 @@ public class ImageLoaderView extends ImageView {
     private int roundCornerRadiusPixels = 10;
 
     private Integer circleStrokeColor = null;
-    private float circleStrokeWidth = 0;
+    private float circleStrokeWidth = 10;
 
     private int resIdOnFailUri = ImageLoaderManager.getInstance().getResIdOnFailUri();
 
@@ -53,6 +53,22 @@ public class ImageLoaderView extends ImageView {
     public ImageLoaderView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
+    }
+
+    public Integer getCircleStrokeColor() {
+        return circleStrokeColor;
+    }
+
+    public void setCircleStrokeColor(Integer circleStrokeColor) {
+        this.circleStrokeColor = circleStrokeColor;
+    }
+
+    public float getCircleStrokeWidth() {
+        return circleStrokeWidth;
+    }
+
+    public void setCircleStrokeWidth(float circleStrokeWidth) {
+        this.circleStrokeWidth = circleStrokeWidth;
     }
 
     /**

@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         bindClick(R.id.pay, new PaySampleFragment());
         bindClick(R.id.imageloader, new ImageloaderFragment());
 
-//        bindClick(R.id.qrcode, MipcaActivityCapture.class);
+        bindClick(R.id.qrcode, MipcaActivityCapture.class);
 //        bindClick(R.id.image_crop, CropSampleActivity.class);
         bindClick(R.id.app_update, new AppUpdateSampleFragment());
 //        bindClick(R.id.citylist, CityListActivity.class);

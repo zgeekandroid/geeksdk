@@ -124,21 +124,21 @@ public abstract class CHAlipay extends IPay {
     }
 
 
-    protected void doRealPay( Map<String, Object> param) {
+    protected void doRealPay(Map<String, Object> param) {
 
-        if (TextUtils.isEmpty(private_key)){
+        if (TextUtils.isEmpty(private_key)) {
             LogUtils.e("必须指定支付宝的private_key");
             return;
         }
 
         if (isEmpty(param.get("partner")) ||
-                isEmpty(param.get("seller_id"))||
-                isEmpty(param.get("out_trade_no"))||
-                isEmpty(param.get("total_fee"))||
-                isEmpty(param.get("subject"))||
-                isEmpty(param.get("body"))||
+                isEmpty(param.get("seller_id")) ||
+                isEmpty(param.get("out_trade_no")) ||
+                isEmpty(param.get("total_fee")) ||
+                isEmpty(param.get("subject")) ||
+                isEmpty(param.get("body")) ||
                 isEmpty(param.get("notify_url"))
-                ){
+                ) {
             LogUtils.e("必须指定参数：[partner,seller_id,out_trade_no,total_fee,notify_url,subject,body]");
             return;
         }
@@ -146,12 +146,12 @@ public abstract class CHAlipay extends IPay {
         String partner = param.get("partner").toString();
         String seller_id = param.get("seller_id").toString();
         String out_trade_no = param.get("out_trade_no").toString();
-        String total_fee =String.valueOf( param.get("total_fee"));
+        String total_fee = String.valueOf(param.get("total_fee"));
         String notify_url = param.get("notify_url").toString();
         String subject = param.get("subject").toString();
         String body = param.get("body").toString();
         // 订单
-        String orderInfo = getOrderInfo(partner, seller_id, out_trade_no, total_fee, notify_url,subject,body);
+        String orderInfo = getOrderInfo(partner, seller_id, out_trade_no, total_fee, notify_url, subject, body);
         // 对订单做RSA 签名
         String sign = sign(orderInfo);
         try {
@@ -186,7 +186,7 @@ public abstract class CHAlipay extends IPay {
      * 创建订单信息
      */
 
-    public String getOrderInfo(String partner, String seller_id, String out_trade_no, String total_fee, String notify_url,String subject,String body) {
+    public String getOrderInfo(String partner, String seller_id, String out_trade_no, String total_fee, String notify_url, String subject, String body) {
 
         // 签约合作者身份ID
         String orderInfo = "partner=" + "\"" + partner + "\"";

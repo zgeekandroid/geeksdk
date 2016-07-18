@@ -8,8 +8,8 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.commonslibrary.commons.config.SystemConfig;
 import com.commonslibrary.commons.net.RequestCallBack;
-import com.geekandroid.common.config.SystemConfig;
 import com.geekandroid.sdk.sample.utils.DialogUtils;
 import com.geekandroid.sdk.sample.utils.FileUtils;
 import com.geekandroid.sdk.update.domain.DownloadInfo;
