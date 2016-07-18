@@ -55,11 +55,11 @@ BDLocationImpl.getInstance().start(new RequestCallBack<Location>() {
 ```
 ####配置  
 1.依赖
-        ```xml
+```xml
             compile 'com.zgeekandroid.sdk:locationlibrary:1.0.1'
             compile 'com.zgeekandroid.sdk:commonslibrary:1.0.0'
             compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
-        ```
+ ```
 
 2.初始化(一般在application中配置)
 ```java
