@@ -38,6 +38,7 @@ ImageLoaderManager.getInstance().init(this);
 
 ##locationlibrary 地图定位包
 地图定位主要是将百度地图定位模块进行再次封装。同时添加了，百度权限请求，兼容Android 6.0 权限
+使用方式如下：
 ```java
 BDLocationImpl.getInstance().start(new RequestCallBack<Location>() {
             @Override
