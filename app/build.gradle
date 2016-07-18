@@ -54,23 +54,23 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     //
-    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0'
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
     //    compile project(path: ':commonslibrary')
     //    compile project(path: ':locationlibrary')
-        compile project(path: ':imageloaderlibrary')
+//        compile project(path: ':imageloaderlibrary')
     //    compile project(path: ':paylibrary')
-    //    compile project(path: ':qrcodelibrary')
+//        compile project(path: ':qrcodelibrary')
     //    compile project(path: ':ucrop')
     //    compile project(path: ':map_navigationlibrary')
     compile 'com.zgeekandroid.sdk:commonslibrary:1.0.0'
     compile 'com.zgeekandroid.sdk:locationlibrary:1.0.1'
     compile 'com.zgeekandroid.sdk:imageloaderlibrary:1.0.1'
     compile 'com.zgeekandroid.sdk:paylibrary:1.0.1'
-    compile 'com.zgeekandroid.sdk:qrcodelibrary:1.0.0'
+    compile 'com.zgeekandroid.sdk:qrcodelibrary:1.0.2'
     compile 'com.android.support:appcompat-v7:23.0.2'
-    compile 'com.squareup.okhttp3:okhttp:3.0.1'
-    compile 'com.google.code.gson:gson:2.5'
+//    compile 'com.squareup.okhttp3:okhttp:3.0.1'
+//    compile 'com.google.code.gson:gson:2.5'
     //    compile 'de.greenrobot:eventbus:3.0.0-beta1'
     //    compile 'com.jakewharton:butterknife:8.0.1'
     //***********PhotoPreview library****************
