@@ -1,8 +1,11 @@
 # geeksdk
 geeksdk is fast dev framework in andriod ..
 
+>我们不重复造轮子，我们仅仅是让轮子更好使
+
 ##imageloaderlibrary 图片加载
-imageloaderlibrary 将imageloader 进行再次封装得到的一个简单易用的通用库
+imageloaderlibrary 将imageloader 进行再次封装得到的一个简单易用的通用库.
+同时支持，对默认图片进行处理。比如 `setCircleUrl（url）` 会使得 图片加载失败的时候，默认的图片也会有圆角展示。同样的圆角正方形也是一样的道理。   
 使用方式如下：
 ```java
         ImageLoaderView normal = (ImageLoaderView) view.findViewById(R.id.normal);
@@ -14,8 +17,16 @@ imageloaderlibrary 将imageloader 进行再次封装得到的一个简单易用�
         circle.setCircleUrl(url);
         round.setRoundUrl(url);
 ```
+
+####设置加载失败的默认图片
+ ```java
+        ImageLoaderManager.getInstance().setResIdOnFailUri(resId);
+ ```
+ 只需要在使用 `setUrl()` 之前使用 这句代码就可以了。一般，全局都会默认设置一个图片。
+ 
 ####配置
 1.依赖包
+
 ```xml
      compile 'com.zgeekandroid.sdk:imageloaderlibrary:1.0.1'
      compile 'com.zgeekandroid.sdk:commonslibrary:1.0.0'
@@ -24,4 +35,75 @@ imageloaderlibrary 将imageloader 进行再次封装得到的一个简单易用�
 2.初始化(一般在application中配置)
 ```java
 ImageLoaderManager.getInstance().init(this);
+```
+
+
+##locationlibrary 地图定位包
+地图定位主要是将百度地图定位模块进行再次封装。同时添加了，百度权限请求，兼容Android 6.0 权限
+使用方式如下：
+```java
+BDLocationImpl.getInstance().start(new RequestCallBack<Location>() {
+            @Override
+            public void onSuccess(Location result) {
+               //如果需要停止，否则不用停止
+                BDLocationImpl.getInstance().stop();
+            }
+
+            @Override
+            public void onFailure(String errorMessage, Exception exception) {
+                 //如果需要停止，否则不用停止
+                BDLocationImpl.getInstance().stop();
+            }
+        });
+```
+####配置  
+1.依赖
+```xml
+            compile 'com.zgeekandroid.sdk:locationlibrary:1.0.1'
+            compile 'com.zgeekandroid.sdk:commonslibrary:1.0.0'
+            compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
+ ```
+
+
+2.初始化(一般在application中配置)
+```java
+     BDLocationImpl.getInstance().init(this);
+```
+3.manifest 配置
+```xml
+ <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="填写你的key" />
+        <!-- //key:开发者申请的key-->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+```
+4.由于用到了lambda表达式，所以需要引用lambda相关包
+
+在项目中的build.gralde中添加如下代码:
+```xml
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'me.tatarka:gradle-retrolambda:3.2.3'
+    }
+}
+
+// Required because retrolambda is on maven central
+repositories {
+    mavenCentral()
+}
+apply plugin: 'me.tatarka.retrolambda'
+```
+在build.gralde  的 android 配置下 添加jdk 1.8 的兼容
+```xml
+ compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
 ```
