@@ -62,6 +62,7 @@ BDLocationImpl.getInstance().start(new RequestCallBack<Location>() {
             compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
  ```
 
+
 2.初始化(一般在application中配置)
 ```java
      BDLocationImpl.getInstance().init(this);
@@ -76,4 +77,31 @@ BDLocationImpl.getInstance().start(new RequestCallBack<Location>() {
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
+```
+4.由于用到了lambda表达式，所以需要引用lambda相关包
+
+在项目中的build.gralde中添加如下代码:
+```xml
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'me.tatarka:gradle-retrolambda:3.2.3'
+    }
+}
+
+// Required because retrolambda is on maven central
+repositories {
+    mavenCentral()
+}
+apply plugin: 'me.tatarka.retrolambda'
+```
+在build.gralde  的 android 配置下 添加jdk 1.8 的兼容
+```xml
+ compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
 ```
