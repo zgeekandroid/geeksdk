@@ -15,12 +15,16 @@ imageloaderlibrary 将imageloader 进行再次封装得到的一个简单易用�
         circle.setCircleUrl(url);
         round.setRoundUrl(url);
 ```
+
 ####设置加载失败的默认图片
- ```ImageLoaderManager.getInstance().setResIdOnFailUri(resId);```
+ ```java
+        ImageLoaderManager.getInstance().setResIdOnFailUri(resId);
+ ```
  只需要在使用 `setUrl()` 之前使用 这句代码就可以了。一般，全局都会默认设置一个图片。
  
 ####配置
 1.依赖包
+
 ```xml
      compile 'com.zgeekandroid.sdk:imageloaderlibrary:1.0.1'
      compile 'com.zgeekandroid.sdk:commonslibrary:1.0.0'
