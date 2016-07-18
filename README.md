@@ -34,3 +34,34 @@ imageloaderlibrary 将imageloader 进行再次封装得到的一个简单易用�
 ```java
 ImageLoaderManager.getInstance().init(this);
 ```
+
+
+##locationlibrary 地图定位包
+地图定位主要是将百度地图定位模块进行再次封装。同时添加了，百度权限请求，兼容Android 6.0 权限
+```java
+BDLocationImpl.getInstance().start(new RequestCallBack<Location>() {
+            @Override
+            public void onSuccess(Location result) {
+               //如果需要停止，否则不用停止
+                BDLocationImpl.getInstance().stop();
+            }
+
+            @Override
+            public void onFailure(String errorMessage, Exception exception) {
+                 //如果需要停止，否则不用停止
+                BDLocationImpl.getInstance().stop();
+            }
+        });
+```
+####配置  
+1.依赖
+        ```xml
+            compile 'com.zgeekandroid.sdk:locationlibrary:1.0.1'
+            compile 'com.zgeekandroid.sdk:commonslibrary:1.0.0'
+            compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
+        ```
+
+2.初始化(一般在application中配置)
+```java
+     BDLocationImpl.getInstance().init(this);
+```
