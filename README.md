@@ -2,7 +2,8 @@
 geeksdk is fast dev framework in andriod ..
 
 ##imageloaderlibrary 图片加载
-imageloaderlibrary 将imageloader 进行再次封装得到的一个简单易用的通用库
+imageloaderlibrary 将imageloader 进行再次封装得到的一个简单易用的通用库.
+同时支持，对默认图片进行处理。比如 `setCircleUrl（url）` 会使得 图片加载失败的时候，默认的图片也会有圆角展示。同样的圆角正方形也是一样的道理。   
 使用方式如下：
 ```java
         ImageLoaderView normal = (ImageLoaderView) view.findViewById(R.id.normal);
