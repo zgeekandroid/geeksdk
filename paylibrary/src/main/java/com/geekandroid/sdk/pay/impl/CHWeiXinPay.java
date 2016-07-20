@@ -10,6 +10,7 @@ import android.util.Xml;
 
 import com.commonslibrary.commons.handler.WeakHandlerNew;
 import com.commonslibrary.commons.net.RequestCallBack;
+import com.commonslibrary.commons.utils.ArithUtils;
 import com.commonslibrary.commons.utils.LogUtils;
 import com.commonslibrary.commons.utils.MD5;
 import com.geekandroid.sdk.pay.IPay;
@@ -101,6 +102,14 @@ public abstract class CHWeiXinPay extends IPay {
             LogUtils.e("订单长度不能超过 32 位");
             return;
         }
+
+        //微信支付的金额转换，将传过来的 “元” 转为  “分” 如果传入的是double 类型，就将其转换成分，因为微信支付的单位是分
+        if (parameters.get("total_fee") instanceof Double){
+            String totalfee = parameters.get("total_fee").toString();
+            int realMoney = (int) ArithUtils.mul(Double.parseDouble(totalfee), 100);
+            parameters.put("total_fee", realMoney);
+        }
+
 
         Runnable payRunnable = new Runnable() {
             @Override

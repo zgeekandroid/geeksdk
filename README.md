@@ -415,52 +415,335 @@ public class JPushReceiver extends BroadcastReceiver {
 
 ## paylibrary 支付模块
 paylibrary主要是将支付宝和微信支付模块进行再次封装。已经打成aar的包，方便替换和编译
-首先初始化： 调用`init` 方法
+
 >支付流程为 ：  请求订单 -> 获得请求参数 -> 调用客户端支付 -> 回调查询支付
 
-0.支付入口 对应 `pay(Map<String, Object> params, RequestCallBack<String> callBack)`
+以下的所有方法都是继承之后按需求实现的。
 
-1.请求订单 对应  `requestOrder(Map<String, Object> params, RequestCallBack<String> callBack)`
 
-2.获取参数  对应 `getPayParam(Map<String, Object> params, RequestCallBack<String> callBack) `
+在调用支付方法之前需要初始化
+
+1.初始化方法 `init(Context)`
+
+2.支付入口 对应 `pay(Map<String, Object> params, RequestCallBack<String> callBack)`
+
+3.请求订单 对应  `requestOrder(Map<String, Object> params, RequestCallBack<String> callBack)`
+
+4.获取参数  对应 `getPayParam(Map<String, Object> params, RequestCallBack<String> callBack) `
 
 **注意:**
 前面 请求订单  和 获取参数  并非是所有的应用都需要的。其最主要目的是为了获得支付宝和微信支付的相关支付参数。
 
-3.真正的支付方法 对应 `doRealPay(Map<String, Object> params)`
 
-4.回调查询 对应 `getPayResult(Map<String, Object> params, RequestCallBack<String> callBack)`
+
+5.真正的支付方法 对应 `doRealPay(Map<String, Object> params)`
+
+
+`doRealPay(Map<String, Object> params)`  中的params中的参数与支付宝，微信支付中所需参数完全一致。更多详细请参考微信支付和支付宝支付下单参数。
+
+
+6.回调查询 对应 `getPayResult(Map<String, Object> params, RequestCallBack<String> callBack)`
+
+
+
 
 
 使用方式如下：
 ``` java
-//微信支付
+    //微信支付
    WeiXinPay weixipay = new WeiXinPay();
    weixipay.init(Context);
-   weixipay.pay(Map<String, Object> params, RequestCallBack<String> callBack);
+   Map<String, Object> parameters = getNullParameters();
+   parameters.put("out_trade_no", out_trade_no);
+   parameters.put("user_id", userId);
+   //微信支付的单位是分， 如果传入的是double 类型，geeksdk 会自动转换成int 分，如果是int 就不会转换
 
-//支付宝支付
+    //1.传入的是int 不会再次转换
+   int changeFee = (int) ArithUtils.mul(total_fee, 100);
+   //2.传入的是double 会，自动转换成分
+    传入的是double changeFee = total_fee;
+
+   parameters.put("total_fee", changeFee);
+   parameters.put("body", body);
+   parameters.put("detail", body);
+       .....
+   weixipay.pay(parameters, RequestCallBack<String> callBack);
+
+
+
+
+
+
+    //支付宝支付
    AliPay alipay = new AliPay();
    alipay.init(Context);
-   alipay.pay(Map<String, Object> params, RequestCallBack<String> callBack);
+
+     Map<String, Object> parameters = getNullParameters();
+      parameters.put("out_trade_no", out_trade_no);
+      parameters.put("user_id", userId);
+      //微信支付的单位是分， 如果传入的是double 类型，geeksdk 会自动转换成int 分，如果是int 就不会转换
+
+       //1.传入的是int 不会再次转换
+      int changeFee = (int) ArithUtils.mul(total_fee, 100);
+      //2.传入的是double 会，自动转换成分
+       传入的是double changeFee = total_fee;
+
+      parameters.put("total_fee", changeFee);
+      parameters.put("body", body);
+      parameters.put("detail", body);
+      alipay.pay(parameters, RequestCallBack<String> callBack);
 ```
 #### 配置
 
 微信支付必须在你当前的包下面建立一个`wxapi` 的包。如 `com.excample.xx.wxapi` 为了统一方便，将所有的支付相关的类都放在此包下。
 
-##### 继承体系
+##### 相关说明
+
+
+>  请求订单 -> 获得请求参数 -> 调用客户端支付 -> 回调查询支付
+
 ```
 |-wxapi
 |----AliPay.java              继承CHAlipay.java 并且实现其参数构造函数
 |----WeixinPay.java           继承CHWeixinPay.java 并且实现其参数构造函数
 |----WXPayEntryActivity.java  微信默认回调页面
-|----CashPay.java             现金支付,可以将现金支付相关请求在此实现，这里仅仅是为了规范使用
-|----YuEPay.java              余额支付，可以将余额支付相关请求在此实现，这里仅仅是规范使用
+|----CashPay.java             继承CHCashPay.java 现金支付,可以将现金支付相关请求在此实现，这里仅仅是为了规范使用
+|----YuEPay.java              继承CHYuEPay.java 余额支付，可以将余额支付相关请求在此实现，这里仅仅是规范使用
 ```
+
+支付流程中所有的都是在 *Pay.java中实现的,支付入口 支付宝实现如下：
+
+###### 支付宝支付
+
+``` java
+
+    //2.支付入口
+    @Override
+    public void pay(Map<String, Object> params, RequestCallBack<String> callBack) {
+        if (activity == null) {
+            throw new NullPointerException("没有初始化支付");
+        }
+        //给private_key赋值
+        setPrivate_key(private_key);
+
+        //显示进度条
+        showProgress();
+
+        this.parameters = params;
+
+
+        //3.请求订单
+        requestOrder(parameters, requestOrderCallBack);
+
+        this.callBack = callBack;
+    }
+
+
+        private RequestCallBack<String> requestOrderCallBack = new RequestCallBack<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+
+                     //result 解析 reslut 获得相关参数
+
+                    Map<String, Object> parme = new HashMap<>();
+                    parme.put("xx","xxx");
+
+                    //4.获取相关参数
+                    getPayParam(parme, getParamCallBack);
+
+                    }
+
+                    @Override
+                    public void onFailure(String errorMessage, Exception exception) {
+                        hideProgress(errorMessage);
+                    }
+                };
+
+        private RequestCallBack<String> getParamCallBack = new RequestCallBack<String>() {
+                @Override
+                public void onSuccess(String result) {
+
+                        //解析reslut 获得相关参数 如：阿里支付的公钥，在回调验证的时候会用上
+                         alipayPublicKey
+
+                       Map<String, Object> parme = new HashMap<>();
+                       parme.put("subject", parameters.get("subject"));
+                       parme.put("body", parameters.get("body"));
+                       parme.put("out_trade_no", parameters.get("out_trade_no"));
+                       parme.put("total_fee", parameters.get("total_fee"));
+                       parme.put("seller_id", "SellerId换成自己的参数");
+                       parme.put("partner", "AlipayPartner换成自己的参数");
+                       parme.put("notify_url", "AlipayNotifyUrl换成自己的参数");
+                       parme.put("spbillCreateIp", "Ip换成自己的参数");
+
+
+
+
+                        //5.调用真实的支付
+                        doRealPay(parme);
+                }
+
+                @Override
+                public void onFailure(String errorMessage, Exception exception) {
+                }
+            };
+
+           //6.回调验证是否支付成功
+         @Override
+            public void callClientSuccess(PayResult result) {
+                String resultInfo = result.getResult();
+                String content = getSignContent(resultInfo);
+                String sign = getSign(resultInfo);
+
+                //alipayPublicKey 是在在上面获取参数的时候获取到的，也可以直接写死在客户端
+
+                boolean verify = SignUtils.verify(content, sign, alipayPublicKey);
+                // 验签不正确
+                if (!verify) {
+                    hideProgress("支付数据异常，请重试");
+                    return;
+                }
+                hideProgress();
+                if (callBack == null) {
+                    return;
+                }
+                callBack.onSuccess("支付成功");
+            }
+
+         @Override
+        public void getPayParam(Map<String, Object> params, RequestCallBack<String> callBack) {
+
+            //根据不同业务实现不同请求
+
+        }
+
+        @Override
+        public void requestOrder(Map<String, Object> params, RequestCallBack<String> callBack) {
+
+            //根据不同业务实现不同请求
+
+        }
+```
+###### 微信支付
+
+``` java
+     //开启支付流程，请求订单 -> 获得请求参数 -> 调用客户端支付 -> 回调查询支付
+
+       //2.支付入口
+        @Override
+        public void pay(Map<String, Object> params, RequestCallBack<String> callBack) {
+            if (activity == null) {
+                throw new NullPointerException("没有初始化支付");
+            }
+
+            if (!msgApi.isWXAppInstalled()) {
+                ToastUtils.show(activity, "没有安装微信客户端,请先安装!");
+                return;
+            }
+            //设置微信支付的APPID ，APPKEY ，MCHID
+            setKeyAndID(API_KEY, APP_ID, MCH_ID);
+            showProgress();
+
+            this.callBack = callBack;
+            this.parameters = params;
+
+            //3.请求订单
+            requestOrder(parameters, requestOrderCallBack);
+
+
+        }
+
+        private RequestCallBack<String> requestOrderCallBack = new RequestCallBack<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+
+                     //result 解析 reslut 获得相关参数
+
+                    Map<String, Object> parme = new HashMap<>();
+                    parme.put("xx","xxx");
+
+                    //4.获取相关参数
+                    getPayParam(parme, getParamCallBack);
+
+                    }
+
+                    @Override
+                    public void onFailure(String errorMessage, Exception exception) {
+                        hideProgress(errorMessage);
+                    }
+                };
+
+
+
+
+
+        private RequestCallBack<String> getParamCallBack = new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(String result) {
+
+            //从这里获取到支付的notify url  和 ip
+                WeixinParameterEntity parameterEntity = presenter.fromJson(result, WeixinParameterEntity.class);
+                Map<String, Object> para = new HashMap<>();
+                para.put("detail",parameters.get("detail"));
+                para.put("body",parameters.get("body"));
+                para.put("out_trade_no",parameters.get("out_trade_no"));
+
+                //特别说明：微信支付的传入的这个 total_fee
+                //如果是double类型，就会自动 转换单位 元 为 分，也就是说，如，传入的是 1.0 元 -> 100 分
+                //如果是int 类型，就默认不会转
+
+                para.put("total_fee",parameters.get("total_fee"));
+                para.put("attach",parameters.get("attach"));
+                para.put("spbill_create_ip","ip换成自己的参数");
+                para.put("notify_url", "WeixinNotifyurl换成自己的参数");
+
+
+                doRealPay(para);
+            }
+
+            @Override
+            public void onFailure(String errorMessage, Exception exception) {
+                hideProgress(errorMessage);
+            }
+        };
+
+        //6.回调验证是否支付成功
+        @Override
+        public void callClientSuccess(  boolean isSuccess) {
+            //调用微信端成功
+            //此处在微信客户端中，调用了微信  xx.xx.xx.wxapi.WXPayEntryActivity.java 进入这个类中，进行查询是否支付成功
+            if (callBack == null){
+                return;
+            }
+            if (isSuccess){
+                //打开微信客户端
+                callBack.onSuccess("");
+            }else {
+                callBack.onFailure("请升级最新版微信使用",new Exception(""));
+            }
+        }
+
+
+         @Override
+        public void getPayParam(Map<String, Object> params, RequestCallBack<String> callBack) {
+
+            //根据不同业务实现不同请求
+
+        }
+
+        @Override
+        public void requestOrder(Map<String, Object> params, RequestCallBack<String> callBack) {
+
+            //根据不同业务实现不同请求
+
+        }
+```
+
+
 
 1.依赖
 ```
-    compile 'com.zgeekandroid.sdk:paylibrary:1.0.1'
+    compile 'com.zgeekandroid.sdk:paylibrary:1.0.2'
 ```
 2.manifest 配置
 ``` xml
