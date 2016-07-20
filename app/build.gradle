@@ -71,7 +71,7 @@ dependencies {
     compile 'com.zgeekandroid.sdk:commonslibrary:1.0.0'
     compile 'com.zgeekandroid.sdk:locationlibrary:1.0.1'
     compile 'com.zgeekandroid.sdk:imageloaderlibrary:1.0.1'
-//    compile 'com.zgeekandroid.sdk:paylibrary:1.0.2'
+    compile 'com.zgeekandroid.sdk:paylibrary:1.0.2'
     compile 'com.zgeekandroid.sdk:qrcodelibrary:1.0.2'
 
 
