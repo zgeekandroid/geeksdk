@@ -3,6 +3,7 @@ package com.geekandroid.sdk.sample;
 import android.os.Bundle;
 import android.view.View;
 
+import com.commonslibrary.commons.utils.ToastUtils;
 import com.geekandroid.sdk.jpushlibrary.push.IPushCallBack;
 import com.geekandroid.sdk.jpushlibrary.push.impl.JPushImpl;
 
@@ -26,6 +27,7 @@ public class JPushSampleActivity extends BaseActivity {
             public void onClick(View v) {
                 JPushImpl.getInstance().resumePush();
                 logI("resumePush");
+                ToastUtils.show(JPushSampleActivity.this,"resumePush");
             }
         });
         findViewById(R.id.stopPush).setOnClickListener(new View.OnClickListener() {
@@ -33,7 +35,7 @@ public class JPushSampleActivity extends BaseActivity {
             public void onClick(View v) {
                 JPushImpl.getInstance().stopPush();
                 logI("stopPush");
-
+                ToastUtils.show(JPushSampleActivity.this,"stopPush");
             }
         });
         findViewById(R.id.setAlias).setOnClickListener(new View.OnClickListener() {
@@ -41,10 +43,11 @@ public class JPushSampleActivity extends BaseActivity {
             public void onClick(View v) {
 
 
-                JPushImpl.getInstance().setAlias("3", new IPushCallBack() {
+                JPushImpl.getInstance().setAlias("5", new IPushCallBack() {
                     @Override
                     public void gotResult(int i, String s, Set<String> set) {
                         logI(" got Result : i = " + i + " ,s = " + s + " ,set = " + set);
+                        ToastUtils.show(JPushSampleActivity.this," got Result : i = " + i + " ,s = " + s + " ,set = " + set);
                     }
                 });
             }

@@ -1,5 +1,5 @@
-/*
-package com.geekandroid.sdk.sample.aliandwxpay;
+
+package com.geekandroid.sdk.sample.wxapi;
 
 
 import com.commonslibrary.commons.net.RequestCallBack;
@@ -10,11 +10,10 @@ import com.geekandroid.sdk.pay.utils.SignUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-*/
 /**
  * @author:BingCheng
  * @date:2016/4/28 17:49
- *//*
+ */
 
 public class AliPay extends CHAlipay {
 
@@ -74,27 +73,27 @@ public class AliPay extends CHAlipay {
         @Override
         public void onSuccess(String result) {
             //从这里获取到支付的notify url  和 ip
-//   AliParameterEntity parameterEntity = presenter.fromJson(result, AliParameterEntity.class);
-//
-            Map<String, Object> parme = new HashMap<>();
-//   parme.put("subject", parameters.get("subject"));
-//   parme.put("body", parameters.get("body"));
-//   parme.put("out_trade_no", parameters.get("out_trade_no"));
-//   parme.put("total_fee", parameters.get("total_fee"));
-//   parme.put("seller_id", parameterEntity.getBackinfo().getAlipaySellerId());
-//   parme.put("partner", parameterEntity.getBackinfo().getAlipayPartner());
-//   boolean isRecharge = false;
-//   if (parameters.containsKey("isRecharge")) {
-//    isRecharge = (boolean) parameters.get("isRecharge");
-//   }
-//   if (isRecharge) {
-//    parme.put("notify_url", parameterEntity.getBackinfo().getAlipayNotifyUrlRecharge());
-//   } else {
-//    parme.put("notify_url", parameterEntity.getBackinfo().getAlipayNotifyUrlPay());
-//   }
-//   alipayPublicKey = parameterEntity.getBackinfo().getAlipayPublicKey();
-//   parme.put("spbillCreateIp", parameterEntity.getBackinfo().getIp());
-            doRealPay(parme);
+  /*             AliParameterEntity parameterEntity = presenter.fromJson(result, AliParameterEntity.class);
+            //
+                        Map<String, Object> parme = new HashMap<>();
+               parme.put("subject", parameters.get("subject"));
+               parme.put("body", parameters.get("body"));
+               parme.put("out_trade_no", parameters.get("out_trade_no"));
+               parme.put("total_fee", parameters.get("total_fee"));
+               parme.put("seller_id", parameterEntity.getBackinfo().getAlipaySellerId());
+               parme.put("partner", parameterEntity.getBackinfo().getAlipayPartner());
+               boolean isRecharge = false;
+               if (parameters.containsKey("isRecharge")) {
+                isRecharge = (boolean) parameters.get("isRecharge");
+               }
+               if (isRecharge) {
+                parme.put("notify_url", parameterEntity.getBackinfo().getAlipayNotifyUrlRecharge());
+               } else {
+                parme.put("notify_url", parameterEntity.getBackinfo().getAlipayNotifyUrlPay());
+               }
+               alipayPublicKey = parameterEntity.getBackinfo().getAlipayPublicKey();
+               parme.put("spbillCreateIp", parameterEntity.getBackinfo().getIp());*/
+//            doRealPay(parme);
 
 
         }
@@ -105,4 +104,4 @@ public class AliPay extends CHAlipay {
         }
     };
 }
-*/
+

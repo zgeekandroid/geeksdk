@@ -1,5 +1,5 @@
-/*
-package com.geekandroid.sdk.sample.aliandwxpay;
+
+package com.geekandroid.sdk.sample.wxapi;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,12 +14,12 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
-*/
+
 /**
  * date        :  2016-04-02  18:09
  * author      :  Mickaecle gizthon
- * description :
- *//*
+ * description :微信回调
+ */
 
 public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandler {
 
@@ -28,7 +28,6 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        logI("微信回调");
         setContentView(R.layout.activity_pay_result);
         api = WXAPIFactory.createWXAPI(this, WeiXinPay.APP_ID, false);
         api.handleIntent(getIntent(), this);
@@ -53,17 +52,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
             switch (resp.errCode) {
                 case 0:
                     // 支付成功后，询问后台是否支付成功
-//                    LocalCacheUtils.getInstance().updateUserInfo(new IMyAccountView() {
-//                        @Override
-//                        public void onQueryUserInfoSucess(UserInfo.BackinfoEntity backinfoEntity) {
-//                            success();
-//                        }
-//
-//                        @Override
-//                        public void onQueryUserInfoFail(String err) {
-//
-//                        }
-//                    });
+                    success();
 
                     break;
                 case -1:
@@ -83,14 +72,9 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
     private void success() {
         //跳转activity
         finish();
-//        if(AppContext.mRechargeActivity!=null){
-//            AppContext.mRechargeActivity.finish(); 
-//        }
-//        if(AppContext.mOrderDetailAcitvity!=null){
-//            AppContext.mOrderDetailAcitvity.finish(); 
-//        }
+
     }
 
 
 }
-*/
+

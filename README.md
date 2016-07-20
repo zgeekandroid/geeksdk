@@ -113,6 +113,12 @@ jpushlibrary主要是将极光推送模块进行再次封装。已经打成aar�
 使用方式如下：
 
 ``` java
+//1.先启动jpush
+//2.再设置别名
+
+  //启动jpush
+   JPushImpl.getInstance().resumePush();
+
 //设置别名
   JPushImpl.getInstance().setAlias("alias", new IPushCallBack() {
                      @Override
@@ -121,8 +127,7 @@ jpushlibrary主要是将极光推送模块进行再次封装。已经打成aar�
                      }
                  });
 
-  //启动jpush
-   JPushImpl.getInstance().resumePush();
+
 
   //停止jpush
    JPushImpl.getInstance().stopPush();
@@ -152,7 +157,7 @@ jpushlibrary主要是将极光推送模块进行再次封装。已经打成aar�
         JPushImpl.getInstance().onPause(this);
     }
 ```
-4.manifest 配置(一定要按照这个顺序，可直接复制粘贴)
+4.manifest 配置(要按照这个顺序，可直接复制粘贴)
 >1.`JPushOpenActivity` 替换成你需要打开的那个`activity`，具体配置在`BroadcastReceiver`中
 >2.`JPushReceiver`替换成你需要接收广播的那个`BroadcastReceiver`
 >3.`com.geekandroid.sdk.sample`替换成你的包名
@@ -404,4 +409,99 @@ public class JPushReceiver extends BroadcastReceiver {
 	}
 }
 
+```
+
+
+
+## paylibrary 支付模块
+paylibrary主要是将支付宝和微信支付模块进行再次封装。已经打成aar的包，方便替换和编译
+首先初始化： 调用`init` 方法
+>支付流程为 ：  请求订单 -> 获得请求参数 -> 调用客户端支付 -> 回调查询支付
+
+0.支付入口 对应 `pay(Map<String, Object> params, RequestCallBack<String> callBack)`
+
+1.请求订单 对应  `requestOrder(Map<String, Object> params, RequestCallBack<String> callBack)`
+
+2.获取参数  对应 `getPayParam(Map<String, Object> params, RequestCallBack<String> callBack) `
+
+**注意:**
+前面 请求订单  和 获取参数  并非是所有的应用都需要的。其最主要目的是为了获得支付宝和微信支付的相关支付参数。
+
+3.真正的支付方法 对应 `doRealPay(Map<String, Object> params)`
+
+4.回调查询 对应 `getPayResult(Map<String, Object> params, RequestCallBack<String> callBack)`
+
+
+使用方式如下：
+``` java
+//微信支付
+   WeiXinPay weixipay = new WeiXinPay();
+   weixipay.init(Context);
+   weixipay.pay(Map<String, Object> params, RequestCallBack<String> callBack);
+
+//支付宝支付
+   AliPay alipay = new AliPay();
+   alipay.init(Context);
+   alipay.pay(Map<String, Object> params, RequestCallBack<String> callBack);
+```
+#### 配置
+
+微信支付必须在你当前的包下面建立一个`wxapi` 的包。如 `com.excample.xx.wxapi` 为了统一方便，将所有的支付相关的类都放在此包下。
+
+##### 继承体系
+```
+|-wxapi
+|----AliPay.java              继承CHAlipay.java 并且实现其参数构造函数
+|----WeixinPay.java           继承CHWeixinPay.java 并且实现其参数构造函数
+|----WXPayEntryActivity.java  微信默认回调页面
+|----CashPay.java             现金支付,可以将现金支付相关请求在此实现，这里仅仅是为了规范使用
+|----YuEPay.java              余额支付，可以将余额支付相关请求在此实现，这里仅仅是规范使用
+```
+
+1.依赖
+```
+    compile 'com.zgeekandroid.sdk:paylibrary:1.0.1'
+```
+2.manifest 配置
+``` xml
+    ....
+
+<!--微信支付-->
+<activity
+android:name=".wxapi.WXPayEntryActivity"
+android:exported="true"
+android:screenOrientation="portrait"
+android:windowSoftInputMode="adjustPan" />
+
+
+<!--含有支付相关页面，必须指定对应的scheme 为 微信支付的appid-->
+<activity
+    android:name=".user.PayActivity"
+    android:configChanges="orientation|keyboardHidden|navigation"
+    android:exported="true"
+    android:screenOrientation="portrait"
+    android:windowSoftInputMode="adjustPan">
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:scheme="微信appid" />
+    </intent-filter>
+</activity>
+<!--微信支付-->
+
+
+<!--支付宝-->
+<activity
+    android:name="com.alipay.sdk.app.H5PayActivity"
+    android:configChanges="orientation|keyboardHidden|navigation"
+    android:exported="false"
+    android:screenOrientation="behind"
+    android:windowSoftInputMode="adjustPan"/>
+<activity
+    android:name="com.alipay.sdk.auth.AuthActivity"
+    android:configChanges="orientation|keyboardHidden|navigation"
+    android:exported="false"
+    android:screenOrientation="behind"
+    android:windowSoftInputMode="adjustPan"/>
+<!--支付宝-->
 ```

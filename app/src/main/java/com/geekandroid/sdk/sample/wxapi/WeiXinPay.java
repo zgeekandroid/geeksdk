@@ -1,5 +1,5 @@
-/*
-package com.geekandroid.sdk.sample.aliandwxpay;
+
+package com.geekandroid.sdk.sample.wxapi;
 
 
 import com.commonslibrary.commons.net.BaseRemoteModel;
@@ -10,12 +10,12 @@ import com.geekandroid.sdk.pay.impl.CHWeiXinPay;
 import java.util.HashMap;
 import java.util.Map;
 
-*/
+
 /**
  * date        :  2016-04-02  17:46
  * author      :  Mickaecle gizthon
  * description :
- *//*
+ */
 
 public class WeiXinPay extends CHWeiXinPay {
     //appid
@@ -34,6 +34,7 @@ public class WeiXinPay extends CHWeiXinPay {
     public WeiXinPay() {
     }
 
+    //初始化
 
     //开启支付流程，请求订单 -> 获得请求参数 -> 调用客户端支付 -> 回调查询支付
     @Override
@@ -53,7 +54,7 @@ public class WeiXinPay extends CHWeiXinPay {
         this.callBack = callBack;
         this.parameters = params;
 
-
+        requestOrder(parameters,requestCallBack);
 
         getPayParam(parameters, getParamCallBack);
     }
@@ -74,13 +75,25 @@ public class WeiXinPay extends CHWeiXinPay {
 //        model.doPost(url, parameters, callBack);
     }
 
+    @Override
+    public void requestOrder(Map<String, Object> params, RequestCallBack<String> callBack) {
+    }
 
-    */
-/**
-     * attach 数据格式为1|2|3。1支付类型（recharge或pay）；
-     * 2用户id(recharge充值时传)或(大订单id，pay支付订单时传)；
-     * 3加密参数（加密key +1+2）
-     *//*
+
+    private RequestCallBack<String> requestCallBack = new RequestCallBack<String>() {
+        @Override
+        public void onSuccess(String result) {
+            getPayParam(parameters, getParamCallBack);
+        }
+
+        @Override
+        public void onFailure(String errorMessage, Exception exception) {
+            hideProgress(errorMessage);
+        }
+    };
+
+
+
 
     private RequestCallBack<String> getParamCallBack = new RequestCallBack<String>() {
         @Override
@@ -123,4 +136,4 @@ public class WeiXinPay extends CHWeiXinPay {
         }
     }
 }
-*/
+
