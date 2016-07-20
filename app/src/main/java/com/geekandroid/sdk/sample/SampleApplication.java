@@ -3,6 +3,8 @@ package com.geekandroid.sdk.sample;
 import android.app.Application;
 import android.content.Context;
 
+import com.commonslibrary.commons.config.SystemConfig;
+import com.geekandroid.sdk.jpushlibrary.push.impl.JPushImpl;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -16,7 +18,12 @@ public class SampleApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+
 		initImageLoader(getApplicationContext());
+		SystemConfig.setDebug(true);
+		JPushImpl.getInstance().setDebugMode(SystemConfig.isDebug());
+		JPushImpl.getInstance().init(this);
+
 	}
 
 	public void initImageLoader(Context context) {
