@@ -1,14 +1,14 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme"  >
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+     <!--   <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAccent</item>-->
     </style>
 
-    <style name="dialog" parent="Theme.AppCompat.Light.Dialog">
+    <style name="dialog" >
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowIsTranslucent">true</item>
@@ -39,11 +39,11 @@
         <item name="android:minHeight">24.0dip</item>
     </style>
  
-    <style name="PreviewPhotoTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="PreviewPhotoTheme"  >
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+      <!--  <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAccent</item>-->
     </style>
 
     <style name="Theme" parent="PreviewPhotoTheme">

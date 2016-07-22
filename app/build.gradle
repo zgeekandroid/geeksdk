@@ -57,27 +57,24 @@ dependencies {
     //
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0'
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
-
-    //    compile project(path: ':commonslibrary')
-    //    compile project(path: ':locationlibrary')
-//        compile project(path: ':imageloaderlibrary')
-    //    compile project(path: ':paylibrary')
-//        compile project(path: ':qrcodelibrary')
+    //        compile project(path: ':commonslibrary')
+    //        compile project(path: ':locationlibrary')
+    //        compile project(path: ':imageloaderlibrary')
+    //        compile project(path: ':paylibrary')
+    //        compile project(path: ':qrcodelibrary')
     //    compile project(path: ':ucrop')
     //    compile project(path: ':map_navigationlibrary')
-//    compile project(path: ':jpushlibrary')
-
-    compile 'com.zgeekandroid.sdk:jpushlibrary:1.0.0'
-    compile 'com.zgeekandroid.sdk:commonslibrary:1.0.0'
-    compile 'com.zgeekandroid.sdk:locationlibrary:1.0.1'
-    compile 'com.zgeekandroid.sdk:imageloaderlibrary:1.0.1'
-    compile 'com.zgeekandroid.sdk:paylibrary:1.0.2'
-    compile 'com.zgeekandroid.sdk:qrcodelibrary:1.0.2'
-
-
-//    compile 'com.android.support:appcompat-v7:23.0.2'
-//    compile 'com.squareup.okhttp3:okhttp:3.0.1'
-//    compile 'com.google.code.gson:gson:2.5'
+    //    compile project(path: ':jpushlibrary')
+    compile 'com.zgeekandroid.sdk:jpushlibrary:1.0.2'
+    compile 'com.zgeekandroid.sdk:commonslibrary:1.0.2'
+    compile 'com.zgeekandroid.sdk:locationlibrary:1.0.2'
+    compile 'com.zgeekandroid.sdk:imageloaderlibrary:1.0.3'
+    compile 'com.zgeekandroid.sdk:paylibrary:1.0.3'
+    compile 'com.zgeekandroid.sdk:qrcodelibrary:1.0.3'
+    compile 'com.google.zxing:core:3.2.0'
+    //    compile 'com.android.support:appcompat-v7:23.0.2'
+    //    compile 'com.squareup.okhttp3:okhttp:3.0.1'
+    //    compile 'com.google.code.gson:gson:2.5'
     //    compile 'de.greenrobot:eventbus:3.0.0-beta1'
     //    compile 'com.jakewharton:butterknife:8.0.1'
     //***********PhotoPreview library****************
@@ -88,4 +85,7 @@ dependencies {
     //    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     //    compile 'com.nhaarman.listviewanimations:lib-core:3.1.0@aar'
     //***********PhotoPreview library****************
+    compile 'com.android.support:support-v4:24.0.0'
+    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile 'com.android.support:support-annotations:24.0.0'
 }
