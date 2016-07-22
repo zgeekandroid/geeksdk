@@ -28,9 +28,8 @@ imageloaderlibrary 将imageloader 进行再次封装得到的一个简单易用�
 1.依赖包
 
 ``` xml
-     compile 'com.zgeekandroid.sdk:imageloaderlibrary:1.0.1'
-     compile 'com.zgeekandroid.sdk:commonslibrary:1.0.0'
-     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+     compile 'com.zgeekandroid.sdk:imageloaderlibrary:1.0.3'
+     compile 'com.zgeekandroid.sdk:commonslibrary:1.0.2'
 ```
 2.初始化(一般在application中配置)
 ``` java
@@ -59,8 +58,8 @@ BDLocationImpl.getInstance().start(new RequestCallBack<Location>() {
 #### 配置
 1.依赖
 ``` xml
-            compile 'com.zgeekandroid.sdk:locationlibrary:1.0.1'
-            compile 'com.zgeekandroid.sdk:commonslibrary:1.0.0'
+            compile 'com.zgeekandroid.sdk:locationlibrary:1.0.2'
+            compile 'com.zgeekandroid.sdk:commonslibrary:1.0.2'
             compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
  ```
 
@@ -135,7 +134,7 @@ jpushlibrary主要是将极光推送模块进行再次封装。已经打成aar�
 #### 配置
 1.依赖
 ``` xml
-        compile 'com.zgeekandroid.sdk:jpushlibrary:1.0.0'
+        compile 'com.zgeekandroid.sdk:jpushlibrary:1.0.2'
 ```
 
 2.初始化(一般在Application中)
@@ -743,7 +742,7 @@ paylibrary主要是将支付宝和微信支付模块进行再次封装。已经�
 
 1.依赖
 ```
-    compile 'com.zgeekandroid.sdk:paylibrary:1.0.2'
+    compile 'com.zgeekandroid.sdk:paylibrary:1.0.3'
 ```
 2.manifest 配置
 ``` xml
