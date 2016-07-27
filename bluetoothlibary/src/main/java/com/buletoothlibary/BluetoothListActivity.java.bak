@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.gprinter.io.PortParameters;
@@ -37,6 +38,8 @@ public class BluetoothListActivity extends Activity {
     private BluetoothAdapter mBluetoothAdapter;
     private ArrayAdapter<String> mPairedDevicesArrayAdapter;
     private ArrayAdapter<String> mNewDevicesArrayAdapter;
+    private TextView tv_title;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,8 @@ public class BluetoothListActivity extends Activity {
         setContentView(R.layout.dialog_bluetooth_list);
         Log.e(DEBUG_TAG, "On Create");
         tvPairedDevice = (TextView)findViewById(R.id.tvPairedDevices);
+        tv_title = (TextView)findViewById(R.id.tv_title);
+        progressBar = (ProgressBar)findViewById(R.id.progressBar);
         lvPairedDevice = (ListView)findViewById(R.id.lvPairedDevices);
         tvNewDevice = (TextView)findViewById(R.id.tvNewDevices);
         lvNewDevice = (ListView)findViewById(R.id.lvNewDevices);

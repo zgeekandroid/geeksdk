@@ -85,7 +85,7 @@ dependencies {
     //    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     //    compile 'com.nhaarman.listviewanimations:lib-core:3.1.0@aar'
     //***********PhotoPreview library****************
-    compile 'com.android.support:support-v4:24.0.0'
-    compile 'com.android.support:appcompat-v7:24.0.0'
-    compile 'com.android.support:support-annotations:24.0.0'
+    compile 'com.android.support:support-v4:23.0.0'
+    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.android.support:support-annotations:23.0.0'
 }
