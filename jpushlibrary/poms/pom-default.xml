@@ -3,11 +3,11 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.zgeekandroid.sdk</groupId>
-  <artifactId>locationlibrary</artifactId>
-  <version>1.0.0</version>
+  <artifactId>jpushlibrary</artifactId>
+  <version>1.0.3</version>
   <packaging>aar</packaging>
-  <name>locationlibrary</name>
-  <description>locationlibrary</description>
+  <name>jpushlibrary</name>
+  <description>jpushlibrary</description>
   <url>https://github.com/zgeekandroid/geeksdk</url>
   <licenses>
     <license>
@@ -28,23 +28,6 @@
     <url>https://github.com/zgeekandroid/geeksdk</url>
   </scm>
   <dependencies>
-    <dependency>
-      <groupId>com.android.support</groupId>
-      <artifactId>appcompat-v7</artifactId>
-      <version>23.4.0</version>
-      <scope>compile</scope>
-    </dependency>
- 
-
-    
-    <dependency>
-      <groupId>com.zgeekandroid.sdk</groupId>
-      <artifactId>commonslibrary</artifactId>
-      <version>1.0.0</version>
-      <scope>compile</scope>
-    </dependency>
-
-
 
   </dependencies>
 
