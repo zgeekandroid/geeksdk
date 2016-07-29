@@ -16,15 +16,7 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true">
-        <!--  </>值来自开发者平台取得的AppKey-->
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="3ARtj7u7Q4IKf8BQSFeMMEGERD87G5m0" />
-        //key:开发者申请的key
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            />
+
     </application>
 
 </manifest>

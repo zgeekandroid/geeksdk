@@ -67,7 +67,7 @@ dependencies {
 //        compile project(path: ':jpushlibrary')
     compile 'com.zgeekandroid.sdk:jpushlibrary:1.0.4'
     compile 'com.zgeekandroid.sdk:commonslibrary:1.0.2'
-    compile 'com.zgeekandroid.sdk:locationlibrary:1.0.3'
+    compile 'com.zgeekandroid.sdk:locationlibrary:1.0.4'
     compile 'com.zgeekandroid.sdk:imageloaderlibrary:1.0.3'
     compile 'com.zgeekandroid.sdk:paylibrary:1.0.3'
     compile 'com.zgeekandroid.sdk:qrcodelibrary:1.0.3'
