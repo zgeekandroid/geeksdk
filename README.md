@@ -41,7 +41,7 @@ ImageLoaderManager.getInstance().init(this);
 地图定位主要是将百度地图定位模块进行再次封装。同时添加了，百度权限请求，兼容Android 6.0 权限
 使用方式如下：
 ``` java
-BDLocationImpl.getInstance().start(new RequestCallBack<Location>() {
+BDLocationImpl.getInstance().start(Activity,new RequestCallBack<Location>() {
             @Override
             public void onSuccess(Location result) {
                //如果需要停止，否则不用停止
@@ -58,9 +58,8 @@ BDLocationImpl.getInstance().start(new RequestCallBack<Location>() {
 #### 配置
 1.依赖
 ``` xml
-            compile 'com.zgeekandroid.sdk:locationlibrary:1.0.2'
+            compile 'com.zgeekandroid.sdk:locationlibrary:1.0.5'
             compile 'com.zgeekandroid.sdk:commonslibrary:1.0.2'
-            compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
  ```
 
 
@@ -79,33 +78,7 @@ BDLocationImpl.getInstance().start(new RequestCallBack<Location>() {
             android:enabled="true"
             android:process=":remote" />
 ```
-4.由于用到了lambda表达式，所以需要引用lambda相关包
 
-在项目中的build.gralde中添加如下代码:
-``` xml
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'me.tatarka:gradle-retrolambda:3.2.3'
-    }
-}
-
-// Required because retrolambda is on maven central
-repositories {
-    mavenCentral()
-}
-apply plugin: 'me.tatarka.retrolambda'
-```
-在build.gralde  的 android 配置下 添加jdk 1.8 的兼容
-``` xml
- compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
-    }
-```
 
 ## jpushlibrary 极光推送
 jpushlibrary主要是将极光推送模块进行再次封装。已经打成aar的包，方便替换和编译
