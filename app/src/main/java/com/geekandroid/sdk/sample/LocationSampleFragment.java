@@ -53,17 +53,17 @@ public class LocationSampleFragment extends BaseSampleFragment {
 
 
 
-        BDLocationImpl.getInstance().start(new RequestCallBack<Location>() {
+        BDLocationImpl.getInstance().start(getActivity(),new RequestCallBack<Location>() {
             @Override
             public void onSuccess(Location result) {
                 ToastUtils.show(getActivity(),result.toString());
-                BDLocationImpl.getInstance().stop();
+
             }
 
             @Override
             public void onFailure(String errorMessage, Exception exception) {
                 ToastUtils.show(getActivity(),errorMessage);
-                BDLocationImpl.getInstance().stop();
+
             }
         });
     }

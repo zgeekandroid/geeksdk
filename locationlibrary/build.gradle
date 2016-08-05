@@ -1,23 +1,4 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'me.tatarka:gradle-retrolambda:3.2.3'
-    }
-}
-
-// Required because retrolambda is on maven central
-repositories {
-    mavenCentral()
-}
-
-
-
 apply plugin: 'com.android.library'
-apply plugin: 'me.tatarka.retrolambda'
-
 
 android {
     compileSdkVersion 23
@@ -27,7 +8,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0.4"
+        versionName "1.0.5"
     }
     buildTypes {
         release {
@@ -36,10 +17,7 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
-    }
+
 
     sourceSets {
         main {
@@ -49,11 +27,7 @@ android {
     lintOptions {
         abortOnError false
     }
-    repositories {
-        flatDir {
-            dirs 'libs'
-        }
-    }
+
 }
 
 dependencies {

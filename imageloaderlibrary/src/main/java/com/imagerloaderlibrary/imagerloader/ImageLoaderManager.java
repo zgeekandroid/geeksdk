@@ -5,7 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.AbsListView;
 
 import com.commonslibrary.commons.config.SystemConfig;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
@@ -53,13 +55,12 @@ public class ImageLoaderManager {
                 denyCacheImageMultipleSizesInMemory().//
                 diskCacheFileNameGenerator(new Md5FileNameGenerator()).//
                 tasksProcessingOrder(QueueProcessingType.LIFO) //
-//                memoryCacheExtraOptions(600, 200).//
-//                memoryCache(new LruMemoryCache(2 * 1024 * 1024))
-//                .memoryCacheSize(2 * 1024 * 1024).
-//                        diskCache(new UnlimitedDiskCache(cachefile)) // default
-//                .diskCacheSize(50 * 1024 * 1024)
-//                .diskCacheFileCount(100).
-
+//                .memoryCacheExtraOptions(600, 200)//
+                .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
+                .memoryCacheSize(2 * 1024 * 1024)
+                       . diskCache(new UnlimitedDiskCache(cachefile)) // default
+                .diskCacheSize(50 * 1024 * 1024)
+//                .diskCacheFileCount(100)
 //diskCacheExtraOptions(600, 200, null)
 
                 ;

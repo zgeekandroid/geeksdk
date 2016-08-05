@@ -1,16 +1,21 @@
 package com.geekandroid.sdk.maplibrary.impl;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.Build;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.Poi;
-import com.baidu.mapapi.SDKInitializer;
-import com.commonslibrary.commons.config.SystemConfig;
 import com.commonslibrary.commons.net.RequestCallBack;
 import com.commonslibrary.commons.utils.LogUtils;
 import com.geekandroid.sdk.maplibrary.ILocation;
 import com.geekandroid.sdk.maplibrary.Location;
+
+import java.util.ArrayList;
 
 
 /**
@@ -22,8 +27,11 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
 
     private BDLocationService locationService;
     private static BDLocationImpl instance;
-    private Context context;
 
+    private final int SDK_PERMISSION_REQUEST = 127;
+    private String permissionInfo;
+    //是否持续的请求定位
+    private boolean isInterrupt = true;
     private BDLocationImpl() {
     }
 
@@ -34,6 +42,14 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
         return instance;
     }
 
+    public boolean isInterrupt() {
+        return isInterrupt;
+    }
+
+    public void setInterrupt(boolean interrupt) {
+        isInterrupt = interrupt;
+    }
+
     public BDLocationService getLocationService() {
         return locationService;
     }
@@ -41,57 +57,75 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
     @Override
     public void init(Context context) {
         if (context != null){
-            this.context = context;
+
             locationService = new BDLocationService(context.getApplicationContext());
-            try {
-                SDKInitializer.initialize(SystemConfig.getSystemBaiduDir(), context.getApplicationContext());
-            } catch (Exception e) {
-                e.printStackTrace();
-                try {
-                    SDKInitializer.initialize(context.getApplicationContext());
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-            }
+
             locationService.registerListener(this);
         }
 
     }
 
     @Override
-    public void start() {
-        start(null);
+    public void start(Activity activity) {
+        start(activity,null);
+    }
+
+    @TargetApi(23)
+    private void getPersimmions(Activity context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            ArrayList<String> permissions = new ArrayList<String>();
+            /***
+             * 定位权限为必须权限，用户如果禁止，则每次进入都会申请
+             */
+            // 定位精确位置
+            if(context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+                permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+            }
+            if(context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+                permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+            }
+			/*
+			 * 读写权限和电话状态权限非必要权限(建议授予)只会申请一次，用户同意或者禁止，只会弹一次
+			 */
+            // 读写权限
+            if (addPermission(context,permissions, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                permissionInfo += "Manifest.permission.WRITE_EXTERNAL_STORAGE Deny \n";
+            }
+            // 读取电话状态权限
+            if (addPermission(context,permissions, Manifest.permission.READ_PHONE_STATE)) {
+                permissionInfo += "Manifest.permission.READ_PHONE_STATE Deny \n";
+            }
+
+            if (permissions.size() > 0) {
+                context.requestPermissions(permissions.toArray(new String[permissions.size()]),  SDK_PERMISSION_REQUEST);
+            }
+        }
+    }
+
+    @TargetApi(23)
+    private boolean addPermission(Activity context,ArrayList<String> permissionsList, String permission) {
+        if ( context.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) { // 如果应用没有获得对应权限,则添加到列表中,准备批量申请
+            if ( context.shouldShowRequestPermissionRationale(permission)){
+                return true;
+            }else{
+                permissionsList.add(permission);
+                return false;
+            }
+
+        }else{
+            return true;
+        }
     }
 
 
-    public void start(RequestCallBack<Location> callBack) {
-        if (context  == null){
-            return;
+
+    public void start(Activity activity,RequestCallBack<Location> callBack) {
+        getPersimmions(activity);
+        locationService.start();// 定位SDK
+        // start之后会默认发起一次定位请求，开发者无须判断isstart并主动调用request
+        if (callBack != null){
+            setCallBack(callBack);
         }
-        /*RxPermissions.getInstance(context)
-                .requestEach(Manifest.permission.READ_PHONE_STATE)
-                .subscribe(permission -> { // will emit 2 Permission objects
-                    if (permission.granted) {
-                        // `permission.name` is granted !
-                    }
-                });
-
-
-        RxPermissions.getInstance(context)
-                .requestEach(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
-                .subscribe(permission -> { // will emit 2 Permission objects
-                    if (permission.granted) {
-                        // `permission.name` is granted !
-
-                        locationService.start();// 定位SDK
-                        // start之后会默认发起一次定位请求，开发者无须判断isstart并主动调用request
-                        if (callBack != null){
-                            setCallBack(callBack);
-                        }
-                    }
-                });*/
-
-
     }
 
     @Override
@@ -121,12 +155,18 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
     private void callBackSuccess(Location location){
         if (callBack != null){
             callBack.onSuccess(location);
+            if (isInterrupt){
+                onPause();
+            }
         }
     }
 
     private void callBackFailed(String errorMessage){
         if (callBack != null){
             callBack.onFailure(errorMessage, new Exception(""));
+            if (isInterrupt){
+                onPause();
+            }
         }
     }
 

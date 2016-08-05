@@ -1,5 +1,6 @@
 package com.geekandroid.sdk.maplibrary;
 
+import android.app.Activity;
 import android.content.Context;
 
 /**
@@ -9,7 +10,6 @@ import android.content.Context;
  */
 public interface ILocation {
     void init(Context context);
-    void start();
+    void start(Activity activity);
     void stop();
-
 }

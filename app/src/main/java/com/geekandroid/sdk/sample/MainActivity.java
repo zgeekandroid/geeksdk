@@ -6,8 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Button;
 
-import com.geekandroid.sdk.maplibrary.impl.BDLocationImpl;
-import com.imagerloaderlibrary.imagerloader.ImageLoaderManager;
 import com.jakewharton.rxbinding.view.RxView;
 
 
@@ -17,10 +15,9 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BDLocationImpl.getInstance().init(getApplication());
 
-        // 初始化ImageLoader
-        ImageLoaderManager.getInstance().init(this);
+
+
         //权限框架
         bindClick(R.id.rxpermissions, new RxPermissionsSampleFragment());
 

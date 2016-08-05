@@ -5,6 +5,8 @@ import android.content.Context;
 
 import com.commonslibrary.commons.config.SystemConfig;
 import com.geekandroid.sdk.jpushlibrary.push.impl.JPushImpl;
+import com.geekandroid.sdk.maplibrary.impl.BDLocationImpl;
+import com.imagerloaderlibrary.imagerloader.ImageLoaderManager;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -20,10 +22,12 @@ public class SampleApplication extends Application {
 		super.onCreate();
 
 		initImageLoader(getApplicationContext());
+		// 初始化ImageLoader
+		ImageLoaderManager.getInstance().init(this);
 		SystemConfig.setDebug(true);
 		JPushImpl.getInstance().setDebugMode(SystemConfig.isDebug());
 		JPushImpl.getInstance().init(this);
-
+		BDLocationImpl.getInstance().init(getApplicationContext());
 	}
 
 	public void initImageLoader(Context context) {
