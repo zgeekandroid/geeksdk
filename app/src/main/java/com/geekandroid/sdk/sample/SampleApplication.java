@@ -27,7 +27,7 @@ public class SampleApplication extends Application {
 		SystemConfig.setDebug(true);
 		JPushImpl.getInstance().setDebugMode(SystemConfig.isDebug());
 		JPushImpl.getInstance().init(this);
-		BDLocationImpl.getInstance().init(getApplicationContext());
+		BDLocationImpl.getInstance().init(this);
 	}
 
 	public void initImageLoader(Context context) {

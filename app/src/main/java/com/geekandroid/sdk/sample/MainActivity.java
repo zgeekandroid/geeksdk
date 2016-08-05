@@ -74,13 +74,16 @@ public class MainActivity extends BaseActivity {
     }
 
     public void bindClick(int resId, Fragment fragment) {
-        try {
+       try {
             RxView.clicks(findViewById(resId)).subscribe(v -> {
                 jumpIntent(fragment);
             });
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+
     }
 
     public void bindClick(int resId, Class<?> cls) {
