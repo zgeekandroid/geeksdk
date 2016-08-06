@@ -58,7 +58,7 @@ BDLocationImpl.getInstance().start(Activity,new RequestCallBack<Location>() {
 #### 配置
 1.依赖
 ``` xml
-            compile 'com.zgeekandroid.sdk:locationlibrary:1.0.5'
+            compile 'com.zgeekandroid.sdk:locationlibrary:1.0.6'
             compile 'com.zgeekandroid.sdk:commonslibrary:1.0.2'
  ```
 

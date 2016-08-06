@@ -57,9 +57,7 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
     @Override
     public void init(Context context) {
         if (context != null){
-
             locationService = new BDLocationService(context.getApplicationContext());
-
             locationService.registerListener(this);
         }
 
@@ -71,33 +69,33 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
     }
 
     @TargetApi(23)
-    private void getPersimmions(Activity context) {
+    private void getPersimmions( ) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             ArrayList<String> permissions = new ArrayList<String>();
             /***
              * 定位权限为必须权限，用户如果禁止，则每次进入都会申请
              */
             // 定位精确位置
-            if(context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            if(activity.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
                 permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
             }
-            if(context.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            if(activity.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
                 permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
             }
 			/*
 			 * 读写权限和电话状态权限非必要权限(建议授予)只会申请一次，用户同意或者禁止，只会弹一次
 			 */
             // 读写权限
-            if (addPermission(context,permissions, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            if (addPermission(activity,permissions, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 permissionInfo += "Manifest.permission.WRITE_EXTERNAL_STORAGE Deny \n";
             }
             // 读取电话状态权限
-            if (addPermission(context,permissions, Manifest.permission.READ_PHONE_STATE)) {
+            if (addPermission(activity,permissions, Manifest.permission.READ_PHONE_STATE)) {
                 permissionInfo += "Manifest.permission.READ_PHONE_STATE Deny \n";
             }
 
             if (permissions.size() > 0) {
-                context.requestPermissions(permissions.toArray(new String[permissions.size()]),  SDK_PERMISSION_REQUEST);
+                activity.requestPermissions(permissions.toArray(new String[permissions.size()]),  SDK_PERMISSION_REQUEST);
             }
         }
     }
@@ -117,10 +115,12 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
         }
     }
 
+    private Activity activity;
 
 
     public void start(Activity activity,RequestCallBack<Location> callBack) {
-        getPersimmions(activity);
+        this.activity = activity;
+        getPersimmions();
         locationService.start();// 定位SDK
         // start之后会默认发起一次定位请求，开发者无须判断isstart并主动调用request
         if (callBack != null){
@@ -140,6 +140,9 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
     public void onPause(){
         if (locationService != null){
             locationService.stop(); //停止定位服务
+        }
+        if (activity != null){
+            activity = null;
         }
     }
 
