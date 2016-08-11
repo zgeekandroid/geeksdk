@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        
+        <RelativeLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+            <ImageView android:layout_width="wrap_content"
+                       android:id="@+id/iv_back"
+                       android:src="@mipmap/back"
+                       android:padding="4dp"
+                       android:layout_gravity="left"
+                       android:layout_height="wrap_content"/>
+
+            <TextView android:layout_width="match_parent"
+                      android:text="打印预览"
+                      android:layout_centerInParent="true"
+                      android:textSize="20sp"
+                      android:textColor="@color/gray_2"
+                      android:gravity="center_horizontal"
+                      android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <TextView android:layout_width="match_parent"
+                  android:background="@color/gray_light"
+                  android:layout_height="0.7dp"/>
+
+        <TextView
+            android:id="@+id/print_tv_info"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:textSize="14sp" />
+        
+       
+        <Button
+            android:id="@+id/print_btn_print"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/green_btn_full_selector"
+            android:text="打印"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,27 @@
+<manifest package="com.bluetoothlibrary"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 允许程序连接到已配对的蓝牙设备 -->
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <!-- 允许程序发现和配对蓝牙设备 -->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
+    <application
+        android:theme="@style/AppTheme">
+
+        <activity android:name=".BondBtActivity"
+                  android:screenOrientation="portrait"/>
+
+        <activity android:name=".SetBluetoothActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".BluetoothHelpActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".PrintDataActivity"
+                  android:screenOrientation="portrait"/>
+
+        <service android:name=".BtService"/>
+    </application>
+
+
+</manifest>
