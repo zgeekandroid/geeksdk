@@ -28,7 +28,7 @@ imageloaderlibrary 将imageloader 进行再次封装得到的一个简单易用�
 1.依赖包
 
 ``` xml
-     compile 'com.zgeekandroid.sdk:imageloaderlibrary:1.0.4'
+     compile 'com.zgeekandroid.sdk:imageloaderlibrary:1.0.5'
      compile 'com.zgeekandroid.sdk:commonslibrary:1.0.2'
 ```
 2.初始化(一般在application中配置)

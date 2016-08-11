@@ -8,7 +8,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0.4"
+        versionName "1.0.5"
     }
     buildTypes {
         release {
@@ -31,4 +31,4 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.zgeekandroid.sdk:commonslibrary:1.0.0'
 }
-//apply from: "bintrayUpload.gradle"
+apply from: "bintrayUpload.gradle"

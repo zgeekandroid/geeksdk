@@ -101,7 +101,7 @@ public class ImageLoaderView extends ImageView {
         builder = new DisplayImageOptions.Builder().//
 
                 cacheInMemory(true).// 内存缓存
-//                cacheOnDisk(true).// 文件缓存
+               cacheOnDisk(true).// 文件缓存
         considerExifParams(true).//
                 imageScaleType(ImageScaleType.EXACTLY_STRETCHED);
     }
