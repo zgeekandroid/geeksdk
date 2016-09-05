@@ -10,9 +10,8 @@ import android.widget.ImageView;
 import com.imagerloaderlibrary.imagerloader.ImageLoaderView;
 
 /**
- *
- *@author:BingCheng
- *@date:2016/4/28 17:01
+ * @author:BingCheng
+ * @date:2016/4/28 17:01
  */
 public class ImageloaderFragment extends BaseSampleFragment {
     private static final String TAG = "PaySampleFragment";
@@ -29,18 +28,18 @@ public class ImageloaderFragment extends BaseSampleFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         ImageLoaderView normal = (ImageLoaderView) view.findViewById(R.id.normal);
+
         ImageLoaderView circle = (ImageLoaderView) view.findViewById(R.id.circle);
         ImageLoaderView round = (ImageLoaderView) view.findViewById(R.id.round);
         ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
-        String url = "http://img4q.duitang.com/uploads/item/201411/04/20141104225919_ZR3h5.thumb.224_0XX.jpeg";
-        normal.setUrl(url);
+        String url = "http://img4q.duitang.com/uploads/item/201411/04/20141104225919_ZR3h5.thumb.224_0.jpeg";
+        normal.setUrl(url,null, false);
         circle.setCircleUrl(url);
         round.setRoundUrl(url);
-        
 
-        
+
         return view;
     }
-   
+
 
 }
