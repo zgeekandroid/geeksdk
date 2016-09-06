@@ -15,61 +15,69 @@ import java.util.Map;
  * author      :  Mickaecle gizthon
  * description :
  */
-public  class BaseRemoteModel implements IRequestRemote<String> {
-    
+public class BaseRemoteModel implements IRequestRemote {
+
     private Context mContext;
-    
-    public BaseRemoteModel(){
-        
-    }
-    public   BaseRemoteModel(Object object){
-        
-            if (object instanceof android.app.Fragment) {
-                android.app.Fragment fragment = (android.app.Fragment) object;
-                mContext = fragment.getActivity();
 
-            } else if (object instanceof android.support.v4.app.Fragment) {
-                android.support.v4.app.Fragment fragment = (android.support.v4.app.Fragment) object;
-                mContext = fragment.getActivity();
-            } else if (object instanceof Activity) {
-                mContext = (Activity) object;
-            } else if (object instanceof Application) {
-                mContext = ((Application) object).getApplicationContext();
-            } 
-        
+    public BaseRemoteModel() {
+
     }
 
-    public  Map<String, Object> getExtraParameter(){
-        Map<String, Object>    parameters =      new HashMap<>();
+    public void setMainThread(boolean isMainThread){
+        DefaultOkHttpIml.getInstance().setCallBackInMainThread(isMainThread);
+    }
 
-        if (mContext != null){
-            parameters.put("app_version",  DeviceUtils.getAppVersionName(mContext));
+    public BaseRemoteModel(Object object) {
+
+        if (object instanceof android.app.Fragment) {
+            android.app.Fragment fragment = (android.app.Fragment) object;
+            mContext = fragment.getActivity();
+
+        } else if (object instanceof android.support.v4.app.Fragment) {
+            android.support.v4.app.Fragment fragment = (android.support.v4.app.Fragment) object;
+            mContext = fragment.getActivity();
+        } else if (object instanceof Activity) {
+            mContext = (Activity) object;
+        } else if (object instanceof Application) {
+            mContext = ((Application) object).getApplicationContext();
+        }
+
+    }
+
+
+    public Map<String, Object> getExtraParameter() {
+        Map<String, Object> parameters = new HashMap<>();
+
+        if (mContext != null) {
+            parameters.put("app_version", DeviceUtils.getAppVersionName(mContext));
             parameters.put("app_code", DeviceUtils.getAppVersionCode(mContext));
         }
-        return  parameters;
+        return parameters;
     }
 
+
+
+
     @Override
-    public void doGet(String url, Map<String, Object> parameters, RequestCallBack<String> callBack) {
+    public <T> void doGet(String url, Map<String, Object> parameters, RequestCallBack<T> callBack) {
         parameters.putAll(getExtraParameter());
-        DefaultOkHttpIml.getInstance().doGet(url,parameters,callBack);
+        DefaultOkHttpIml.getInstance().doGet(url, parameters, callBack);
     }
 
     @Override
-    public void doPost(String url, Map<String, Object> parameters, RequestCallBack<String> callBack) {
+    public <T> void doPost(String url, Map<String, Object> parameters, RequestCallBack<T> callBack) {
         parameters.putAll(getExtraParameter());
-        DefaultOkHttpIml.getInstance().doPost(url,parameters,callBack);
+        DefaultOkHttpIml.getInstance().doPost(url, parameters, callBack);
     }
 
-
     @Override
-    public void doUpload(String url, Map<String, Object> parameters, Map<String, File> map, RequestCallBack<String> callBack) {
+    public <T> void doUpload(String url, Map<String, Object> parameters, Map<String, File> map, RequestCallBack<T> callBack) {
         parameters.putAll(getExtraParameter());
         DefaultOkHttpIml.getInstance().doUpload(url, parameters, map, callBack);
     }
 
     @Override
-    public void doDownLoad(String url, Map<String, Object> parameters, RequestCallBack<String> callBack) {
+    public <T> void doDownLoad(String url, Map<String, Object> parameters, RequestCallBack<T> callBack) {
         parameters.putAll(getExtraParameter());
         DefaultOkHttpIml.getInstance().doDownLoad(url, parameters, callBack);
     }

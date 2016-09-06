@@ -3,18 +3,20 @@ package com.commonslibrary.commons.net;
 
 import android.text.TextUtils;
 
-
 import com.commonslibrary.commons.config.SystemConfig;
 import com.commonslibrary.commons.handler.WeakHandlerNew;
 import com.commonslibrary.commons.utils.LogUtils;
 import com.commonslibrary.commons.utils.MD5;
 import com.commonslibrary.commons.utils.StringUtils;
+import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.net.FileNameMap;
 import java.net.URLConnection;
 import java.util.HashMap;
@@ -22,6 +24,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.GZIPOutputStream;
 
+import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -38,20 +41,63 @@ import okhttp3.Response;
  * author      :  Mickaecle gizthon
  * description :
  */
-public class DefaultOkHttpIml implements IRequestRemote<String> {
+public class DefaultOkHttpIml implements IRequestRemote {
 
     private WeakHandlerNew mHandler;
     private Object tag = DefaultOkHttpIml.class;
     private static DefaultOkHttpIml mInstance;
     private OkHttpClient mOkHttpClient;
 
+    @SuppressWarnings("unchecked")
+    public static Class<?> getSuperClassGenricType(final Class clazz, final int index) {
 
+        //返回表示此 Class 所表示的实体（类、接口、基本类型或 void）的直接超类的 Type。
+        Type genType = clazz.getGenericSuperclass();
+
+        if (!(genType instanceof ParameterizedType)) {
+            return Object.class;
+        }
+        //返回表示此类型实际类型参数的 Type 对象的数组。
+        Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
+
+        if (index >= params.length || index < 0) {
+            return Object.class;
+        }
+        if (!(params[index] instanceof Class)) {
+            return Object.class;
+        }
+
+        return (Class) params[index];
+    }
+    public static Type getSuperClassGenricType1(final Class clazz, final int index) {
+
+        //返回表示此 Class 所表示的实体（类、接口、基本类型或 void）的直接超类的 Type。
+        Type genType = clazz.getGenericSuperclass();
+
+        if (!(genType instanceof ParameterizedType)) {
+            return Object.class;
+        }
+        //返回表示此类型实际类型参数的 Type 对象的数组。
+        Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
+
+        if (index >= params.length || index < 0) {
+            return Object.class;
+        }
+        if (!(params[index] instanceof Class)) {
+            return Object.class;
+        }
+
+        return  params[index];
+    }
     private DefaultOkHttpIml() {
         mHandler = new WeakHandlerNew();
+        File file = new File(SystemConfig.getSystemCacheDir());
+        Cache cache = new Cache(file, 10 * 1024 * 1024);
         mOkHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .readTimeout(15, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
+                .cache(cache)
 //                .addInterceptor(new GzipRequestInterceptor())
                 .addInterceptor(new LoggingInterceptor())
                 .build();
@@ -86,8 +132,18 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
         }
     }
 
+    private boolean isMainThread = true;
+
+    public void setCallBackInMainThread(boolean isMainThread) {
+        this.isMainThread = isMainThread;
+    }
+
+    public boolean isMainThread() {
+        return isMainThread;
+    }
+
     @Override
-    public void doGet(String url, Map<String, Object> parameters, RequestCallBack<String> callBack) {
+    public <T> void doGet(String url, Map<String, Object> parameters, RequestCallBack<T> callBack) {
 
         if (callBack != null) {
             callBack.onStart();
@@ -108,7 +164,7 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
 
 
     @Override
-    public void doPost(String url, Map<String, Object> parameters, RequestCallBack<String> callBack) {
+    public <T> void doPost(String url, Map<String, Object> parameters, RequestCallBack<T> callBack) {
         if (callBack != null) {
             callBack.onStart();
         }
@@ -124,7 +180,7 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
 
     }
 
-    public void doPost(String url, String json, final RequestCallBack<String> callBack) {
+    public <T> void doPost(String url, String json, final RequestCallBack<T> callBack) {
         if (callBack != null) {
             callBack.onStart();
         }
@@ -163,7 +219,7 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
 
 
     @Override
-    public void doUpload(String url, Map<String, Object> parameters, Map<String, File> files, final RequestCallBack<String> callBack) {
+    public <T> void doUpload(String url, Map<String, Object> parameters, Map<String, File> files, final RequestCallBack<T> callBack) {
         if (callBack != null) {
             callBack.onStart();
         }
@@ -209,7 +265,7 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
 
 
     @Override
-    public void doDownLoad(String url, Map<String, Object> parameters, final RequestCallBack<String> callBack) {
+    public <T> void doDownLoad(String url, Map<String, Object> parameters, final RequestCallBack<T> callBack) {
         if (callBack != null) {
             callBack.onStart();
         }
@@ -227,11 +283,11 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
         String md5 = "";
         if (parameters.containsKey("md5")) {
             md5 = (String) parameters.get("md5");
-            if (md5.equals("null") || md5.trim().equals("")){
+            if (md5.equals("null") || md5.trim().equals("")) {
                 md5 = "";
                 LogUtils.e("没有指定文件的md5，下载完成之后不会进行md5加密校验");
             }
-        }else {
+        } else {
             LogUtils.e("没有指定文件的md5，下载完成之后不会进行md5加密校验");
         }
 
@@ -277,7 +333,7 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
      * @param request  请求
      */
 
-    private void execute(final RequestCallBack<String> callBack, Request request) {
+    private <T> void execute(final RequestCallBack<T> callBack, Request request) {
         try {
             mOkHttpClient.newCall(request).enqueue(new Callback() {
 
@@ -308,22 +364,31 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
      * @param e        异常
      * @param callBack 回调接口
      */
-    public void sendFailResultCallback(final String error, final Exception e, final RequestCallBack<String> callBack) {
+    public <T> void sendFailResultCallback(final String error, final Exception e, final RequestCallBack<T> callBack) {
         sendFailResultCallback(null, error, e, callBack);
     }
 
-    public void sendFailResultCallback(Response response, final String error, final Exception e, final RequestCallBack<String> callBack) {
+    public <T> void sendFailResultCallback(Response response, final String error, final Exception e, final RequestCallBack<T> callBack) {
         if (callBack == null) return;
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (TextUtils.isEmpty(error)) {
-                    callBack.onFailure("网络请求失败,请稍后重试!", new Exception("Unexpected code " + e));
-                } else {
-                    callBack.onFailure(error, new Exception("Unexpected code " + e));
+        if (isMainThread) {
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (TextUtils.isEmpty(error)) {
+                        callBack.onFailure("网络请求失败,请稍后重试!", new Exception("Unexpected code " + e));
+                    } else {
+                        callBack.onFailure(error, new Exception("Unexpected code " + e));
+                    }
                 }
+            });
+        } else {
+            if (TextUtils.isEmpty(error)) {
+                callBack.onFailure("网络请求失败,请稍后重试!", new Exception("Unexpected code " + e));
+            } else {
+                callBack.onFailure(error, new Exception("Unexpected code " + e));
             }
-        });
+        }
+
 
         try {
             if (response == null) {
@@ -333,7 +398,8 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
             }
         } catch (Exception e1) {
             e1.printStackTrace();
-            LogUtils.i(response.message());
+            if (response != null)
+                LogUtils.i(response.message());
         }
     }
 
@@ -345,20 +411,59 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
      * @param result   请求字符串结果
      * @param callBack 回调接口
      */
-    public void sendSuccessResultCallback(final Response response, final String result, final RequestCallBack<String> callBack) {
+    public <T> void sendSuccessResultCallback(final Response response, final String result, final RequestCallBack<T> callBack) {
         if (callBack == null) return;
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                callBack.onSuccess(response.body().charStream());
-                callBack.onSuccess(result);
+        if (isMainThread) {
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    callBack.onSuccess(response.body().charStream());
+                    Class<?> tClass = getSuperClassGenricType(callBack.getClass(), 0);
+                    if (tClass == String.class) {
+                        callBack.onSuccess((T) result);
+                    } else {
+                        T t = null;
+                        try {
+                            Type type =  getSuperClassGenricType1(callBack.getClass(),0);
+                            t = new Gson().fromJson(result, type);
+                        } catch (Exception e) {
+                        }
+                        callBack.onSuccess(t);
+                    }
 
+
+                }
+            });
+        } else {
+
+            callBack.onSuccess(response.body().charStream());
+            Class<?> tClass = getSuperClassGenricType(callBack.getClass(), 0);
+            if (tClass == String.class) {
+                callBack.onSuccess((T) result);
+            } else {
+                T t = null;
+                try {
+                    Type type =  getSuperClassGenricType1(callBack.getClass(),0);
+                    t = new Gson().fromJson(result, type);
+                } catch (Exception e) {
+                }
+                callBack.onSuccess(t);
             }
-        });
+
+        }
 
         LogUtils.i(result);
     }
 
+    public <T> T convertJson(Class<T> cls, String json) {
+        T t = null;
+        try {
+            t = new Gson().fromJson(json, cls);
+        } catch (Exception e) {
+            return null;
+        }
+        return t;
+    }
 
     /**
      * 保存文件到指定目录
@@ -369,7 +474,7 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
      * @return 保存的文件
      * @throws IOException
      */
-    public void saveFile(final Response response, String destFileName, final RequestCallBack<String> callBack, final String fileMd5) throws IOException {
+    public <T> void saveFile(final Response response, String destFileName, final RequestCallBack<T> callBack, final String fileMd5) throws IOException {
         String destFileDir = SystemConfig.getSystemFileDir();
         InputStream is = null;
         byte[] buf = new byte[2048];
@@ -402,12 +507,17 @@ public class DefaultOkHttpIml implements IRequestRemote<String> {
                 sum += len;
                 fos.write(buf, 0, len);
                 final long finalSum = sum;
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.onProgress(finalSum, finalTotal, finalTotal == finalSum);
-                    }
-                });
+                if (isMainThread) {
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            callBack.onProgress(finalSum, finalTotal, finalTotal == finalSum);
+                        }
+                    });
+                } else {
+                    callBack.onProgress(finalSum, finalTotal, finalTotal == finalSum);
+                }
+
             }
             fos.flush();
 

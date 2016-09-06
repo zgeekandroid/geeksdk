@@ -61,11 +61,13 @@ public class CommonSampleFragment extends BaseSampleFragment {
         parameters.put("port_password", "021e7d14f5f93ada5c64de8807760e68");
         parameters.put("user_id","TUser8e466d7145084cc1859a3dfe8c13d317");
         parameters.put("h_userid", "TUser8e466d7145084cc1859a3dfe8c13d317");
-        model.doPost(url, parameters, new RequestCallBack<String>() {
+//        model.setMainThread(false);
+        model.doPost(url, parameters, new RequestCallBack<ResultBean>() {
             @Override
-            public void onSuccess(String result) {
+            public void onSuccess(ResultBean result) {
                 LogUtils.i("-------------"+result);
-                ToastUtils.show(getActivity(),result);
+                ToastUtils.show(getActivity(),result.toString());
+//                Observable<ResultBean> observable = Observers.create(new Su)
             }
 
             @Override

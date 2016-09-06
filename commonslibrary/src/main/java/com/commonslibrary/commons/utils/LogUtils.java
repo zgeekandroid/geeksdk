@@ -72,7 +72,7 @@ public class LogUtils {
     private static void d(Object message) {
         if (isPrint) {
             getMethodNames(new Throwable().getStackTrace());
-            Log.d(TAG, createLog(createLog(String.valueOf(message))));
+            Log.d(TAG, createLog(String.valueOf(message)));
         }
 
     }
@@ -80,21 +80,21 @@ public class LogUtils {
     public static void i(Object message) {
         if (isPrint) {
             getMethodNames(new Throwable().getStackTrace());
-            Log.i(TAG, createLog(createLog(String.valueOf(message))));
+            Log.i(TAG, createLog(String.valueOf(message)));
         }
     }
 
     public static void w(Object message) {
         if (isPrint) {
             getMethodNames(new Throwable().getStackTrace());
-            Log.w(TAG, createLog(createLog(String.valueOf(message))));
+            Log.w(TAG, createLog(String.valueOf(message)));
         }
     }
 
     public static void e(Object message) {
         if (isPrint) {
             getMethodNames(new Throwable().getStackTrace());
-            Log.e(TAG, createLog(createLog(String.valueOf(message))));
+            Log.e(TAG, createLog(String.valueOf(message)));
         }
     }
 

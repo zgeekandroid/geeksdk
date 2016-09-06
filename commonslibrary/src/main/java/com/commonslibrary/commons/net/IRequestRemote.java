@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * model request interface , the interface request from server
  */
-public interface IRequestRemote<T> {
+public interface IRequestRemote {
     /**
      * net work request
      *
@@ -15,12 +15,12 @@ public interface IRequestRemote<T> {
      * @param parameters request parameters
      * @param callBack   callback
      */
-    void doGet(String url, Map<String, Object> parameters, RequestCallBack<T> callBack);
+    <T> void doGet(String url, Map<String, Object> parameters, RequestCallBack<T> callBack);
 
-    void doPost(String url, Map<String, Object> parameters, RequestCallBack<T> callBack);
+    <T> void doPost(String url, Map<String, Object> parameters, RequestCallBack<T> callBack);
 
-    void doUpload(String url, Map<String, Object> parameters, Map<String, File> map, RequestCallBack<T> callBack);
+    <T> void doUpload(String url, Map<String, Object> parameters, Map<String, File> map, RequestCallBack<T> callBack);
 
-    void doDownLoad(String url, Map<String, Object> parameters, RequestCallBack<T> callBack);
+    <T> void doDownLoad(String url, Map<String, Object> parameters, RequestCallBack<T> callBack);
 
 }

@@ -24,6 +24,7 @@ public class SystemConfig {
     private static String systemRootDir = "commonSDK";
     private final static String systemImageDir = "image";
     private final static String systemFileDir = "file";
+    private final static String systemCacheDir = "cache";
     private final static String systemLogDir = "log";
     private final static String systemBaiduDir = "baidu";
     private static String sdcardDir = "";
@@ -78,6 +79,15 @@ public class SystemConfig {
      */
     public static String getSystemFileDir() {
         String fileDir = getSystemRootDir() + systemFileDir + File.separator;
+        createDir(fileDir);
+        return fileDir;
+    }
+
+    /**
+     * cache directory
+     */
+    public static String getSystemCacheDir() {
+        String fileDir = getSystemRootDir() + systemCacheDir + File.separator;
         createDir(fileDir);
         return fileDir;
     }

@@ -33,7 +33,7 @@ public class ImageloaderFragment extends BaseSampleFragment {
         ImageLoaderView round = (ImageLoaderView) view.findViewById(R.id.round);
         ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
         String url = "http://img4q.duitang.com/uploads/item/201411/04/20141104225919_ZR3h5.thumb.224_0.jpeg";
-        normal.setUrl(url,null, false);
+//        normal.setUrl(url,null, false);
         circle.setCircleUrl(url);
         round.setRoundUrl(url);
 
