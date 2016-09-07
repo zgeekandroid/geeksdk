@@ -21,7 +21,7 @@ import java.util.Locale;
  * description :
  */
 public class SystemConfig {
-    private static String systemRootDir = "commonSDK";
+    private static String systemRootDir = "zgeekandroid";
     private final static String systemImageDir = "image";
     private final static String systemFileDir = "file";
     private final static String systemCacheDir = "cache";
