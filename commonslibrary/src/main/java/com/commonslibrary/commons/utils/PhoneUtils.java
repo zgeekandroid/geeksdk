@@ -33,7 +33,7 @@ public class PhoneUtils {
 	private static void choosePhoneNumber(final Context context, final String[] phoneNum, String phone) {
 		if (phoneNum.length > 1) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(context);
-			builder.setTitle("联系商家");
+			builder.setTitle("联系人");
 			builder.setItems(phoneNum, new OnClickListener() {
 
 				@Override
