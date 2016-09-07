@@ -24,6 +24,7 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.zip.GZIPOutputStream;
 
 import okhttp3.Cache;
@@ -37,22 +38,27 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import rx.Observable;
+import rx.Producer;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.exceptions.Exceptions;
+import rx.functions.Func1;
 
 /**
  * date        :  2015-11-30  10:41
  * author      :  Mickaecle gizthon
- * description :  http 请求 ,支持请求返回的数据从json 转换成 实体类
+ * description :
  */
-public class DefaultOkHttpIml implements IRequestRemote {
+public class DefaultRxJavaOkHttpIml implements IRequestRemote,IRxRequestRemote {
 
     private WeakHandlerNew mHandler;
-    private Object tag = DefaultOkHttpIml.class;
-    private static DefaultOkHttpIml mInstance;
+    private Object tag = DefaultRxJavaOkHttpIml.class;
+    private static DefaultRxJavaOkHttpIml mInstance;
     private OkHttpClient mOkHttpClient;
 
 
-
-    private DefaultOkHttpIml() {
+    private DefaultRxJavaOkHttpIml() {
         mHandler = new WeakHandlerNew();
         File file = new File(SystemConfig.getSystemCacheDir());
         Cache cache = new Cache(file, 10 * 1024 * 1024);
@@ -66,32 +72,48 @@ public class DefaultOkHttpIml implements IRequestRemote {
                 .build();
     }
 
-    public static DefaultOkHttpIml getInstance() {
+    public static DefaultRxJavaOkHttpIml getInstance() {
         if (null == mInstance) {
-            synchronized (DefaultOkHttpIml.class) {
+            synchronized (DefaultRxJavaOkHttpIml.class) {
                 if (null == mInstance) {
-                    mInstance = new DefaultOkHttpIml();
+                    mInstance = new DefaultRxJavaOkHttpIml();
                 }
             }
         }
         return mInstance;
     }
 
+
+
+
     class LoggingInterceptor implements Interceptor {
         @Override
-        public Response intercept(Interceptor.Chain chain) throws IOException {
+        public Response intercept(Chain chain) throws IOException {
             Request request = chain.request();
-
             long t1 = System.nanoTime();
             Response response = chain.proceed(request);
             long t2 = System.nanoTime();
-            LogUtils.i(String.format("%s take %.1fms%s", response.request().url(), (t2 - t1) / 1e6d, ""/*response.headers()*/));
-
+            LogUtils.i(String.format(" %s take %.1fms%s", response.request().url(), (t2 - t1) / 1e6d, ""/*response.headers()*/));
             return response;
         }
     }
 
 
+
+
+    @Override
+    public <T> Observable<T> doRxGet(String url, Map<String, Object> parameters,Class<T> cls) {
+
+        if (parameters == null) {
+            parameters = new HashMap<>();
+        }
+        String requestUrl = url + "?" + StringUtils.formatUrl(parameters);
+
+        printLog(requestUrl, null);
+
+        Request request = new Request.Builder().url(requestUrl).tag(tag).get().build();
+        return executeRx(mOkHttpClient.newCall(request),null,cls);
+    }
 
     @Override
     public <T> void doGet(String url, Map<String, Object> parameters, RequestCallBack<T> callBack) {
@@ -108,10 +130,8 @@ public class DefaultOkHttpIml implements IRequestRemote {
         printLog(requestUrl, null);
 
         Request request = new Request.Builder().url(requestUrl).tag(tag).get().build();
-        execute(mOkHttpClient.newCall(request), null,callBack);
+        execute(mOkHttpClient.newCall(request),null,callBack);
     }
-
-
 
 
     @Override
@@ -127,26 +147,21 @@ public class DefaultOkHttpIml implements IRequestRemote {
 
         Request request = new Request.Builder().url(url).post(body)
                 .tag(tag).build();
-        execute(mOkHttpClient.newCall(request), null,callBack);
+        execute(mOkHttpClient.newCall(request),null,callBack );
 
     }
 
-    @Deprecated
-    public <T> void doPost(String url, String json, final RequestCallBack<T> callBack) {
-        if (callBack != null) {
-            callBack.onStart();
-        }
-        final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        RequestBody body = RequestBody.create(JSON, json);
-        Request request = new Request.Builder().url(url).post(body).tag(tag).build();
-        OkHttpClient mOkHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(15, TimeUnit.SECONDS)
-                .readTimeout(15, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .socketFactory(null)
-                .build();
+    @Override
+    public <T> Observable<T> doRxPost(String url, Map<String, Object> parameters,Class<T> cls) {
 
-        execute(mOkHttpClient.newCall(request), null,callBack);
+        FormBody.Builder builder = new FormBody.Builder();
+
+        addParams(url, parameters, builder);
+        RequestBody body = builder.build();
+
+        Request request = new Request.Builder().url(url).post(body)
+                .tag(tag).build();
+        return executeRx(mOkHttpClient.newCall(request),null,cls);
     }
 
 
@@ -165,27 +180,27 @@ public class DefaultOkHttpIml implements IRequestRemote {
                 .post(new ProgressRequestBody(requestBody, callBack))
                 .tag(tag)
                 .build();
-
-
-        mOkHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                sendFailResultCallback(null,"上传文件失败,请稍后重试!", new Exception(""), callBack);
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response == null || !response.isSuccessful()) {
-                    sendFailResultCallback(response, "上传文件失败,请稍后重试!", new Exception(""), callBack);
-                    return;
-                }
-
-                sendSuccessResultCallback(response, response.body().string(), callBack);
-            }
-        });
-
+        execute(mOkHttpClient.newCall(request),"上传文件失败,请稍后重试!",callBack);
     }
 
+
+    @Override
+    public <T> Observable<T> doRxUpload(String url, Map<String, Object> parameters, Map<String, File> files, RequestCallBack<T> callBack) {
+        if (callBack == null){
+             throw  new IllegalArgumentException("callback 不能为空");
+        }
+        MultipartBody.Builder builder = new MultipartBody.Builder();
+        addParams(url, parameters, files, builder);
+
+        RequestBody requestBody = builder.build();
+        Request request = new Request.Builder()
+                .url(url)
+                .post(new ProgressRequestBody(requestBody, callBack))
+                .tag(tag)
+                .build();
+
+        return  executeRx(mOkHttpClient.newCall(request),"上传文件失败,请稍后重试!",callBack.getClass());
+    }
 
     @Override
     public <T> void doDownLoad(String url, Map<String, Object> parameters, final RequestCallBack<T> callBack) {
@@ -221,7 +236,6 @@ public class DefaultOkHttpIml implements IRequestRemote {
         //clear 多余的参数
         parameters.remove("fileName");
 
-
         String downLoadUrl = url + "?" + StringUtils.formatUrl(parameters);
 
         Request request = new Request.Builder()
@@ -229,31 +243,30 @@ public class DefaultOkHttpIml implements IRequestRemote {
                 .tag(tag)
                 .build();
 
-        final String errorMessage = "下载失败,请重试!";
+
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                sendFailResultCallback(null,errorMessage, e, callBack);
+                sendFailResultCallback(null,"下载失败,请重试", e, callBack);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response == null || !response.isSuccessful()) {
-                    sendFailResultCallback(response, errorMessage, new Exception(""), callBack);
+                    sendFailResultCallback(response, "下载失败,请重试!", new Exception(""), callBack);
                     return;
                 }
                 saveFile(response, destFileName, callBack, fileMd5);
             }
         });
-
     }
 
     /**
      * 异步发送请求
      *
      * @param callBack 回调接口
+     * @param call  请求
      */
-
     private <T> void execute(Call call, String errorMessage, final RequestCallBack<T> callBack) {
         if (TextUtils.isEmpty(errorMessage)){
             errorMessage = "服务器繁忙,请稍后重试!";
@@ -283,6 +296,104 @@ public class DefaultOkHttpIml implements IRequestRemote {
         }
     }
 
+    private <T> rx.Observable<T> executeRx(Call call, String errorMessage,Class<?> cls) {
+        if (cls == null){
+            throw  new IllegalArgumentException("必须指定实体类型");
+        }
+        CallOnSubscribe callOnSubscribe =  new CallOnSubscribe(call,errorMessage,cls);
+        return  Observable.create(callOnSubscribe).filter(new Func1<Response, Boolean>() {
+            @Override
+            public Boolean call(Response response) {
+                return response != null && response.isSuccessful();
+            }
+        }).map(new Func1<Response, T>() {
+            @Override
+            public T call(Response response) {
+                return  fromJson(response.body().charStream(), cls);
+            }
+        }).filter(new Func1<T, Boolean>() {
+            @Override
+            public Boolean call(T t) {
+                return t != null;
+            }
+        });
+    }
+
+
+    final class CallOnSubscribe implements rx.Observable.OnSubscribe<okhttp3.Response> {
+        String errorMessage;
+        Class<?> cls;
+        Call call;
+        public CallOnSubscribe(Call call, String errorMessage, Class<?> cls) {
+            if (TextUtils.isEmpty(errorMessage)){
+                this.errorMessage = "服务器繁忙,请稍后重试!";
+            }
+            this.cls = cls;
+            this.call = call;
+        }
+
+
+        @Override
+        public void call(final Subscriber<? super okhttp3.Response> subscriber) {
+            // Since Call is a one-shot type, clone it for each new subscriber.
+
+            RequestArbiter requestArbiter = new RequestArbiter(call, subscriber,errorMessage);
+            subscriber.add(requestArbiter);
+            subscriber.setProducer(requestArbiter);
+
+        }
+    }
+
+    final class RequestArbiter extends AtomicBoolean implements Subscription, Producer {
+        private final Call call;
+        private final Subscriber<? super okhttp3.Response> subscriber;
+        private String errorMessage;
+
+
+        public RequestArbiter(Call call, Subscriber<? super okhttp3.Response> subscriber, String errorMessage) {
+            this.call = call;
+            this.subscriber = subscriber;
+            this.errorMessage = errorMessage;
+        }
+
+        @Override public void request(long n) {
+            if (n < 0) throw new IllegalArgumentException("n < 0: " + n);
+            if (n == 0) return; // Nothing to do when requesting 0.
+            if (!compareAndSet(false, true)) return; // Request was already triggered.
+
+            try {
+                okhttp3.Response response = call.execute();
+                if (!subscriber.isUnsubscribed()) {
+                    if (response == null || !response.isSuccessful()) {
+                        if (!subscriber.isUnsubscribed()) {
+                            subscriber.onError(new Exception(errorMessage));
+                        }
+                        return;
+                    }
+                    subscriber.onNext(response);
+
+                }
+            } catch (Throwable t) {
+                Exceptions.throwIfFatal(t);
+                if (!subscriber.isUnsubscribed()) {
+                    subscriber.onError(t);
+                }
+                return;
+            }
+
+            if (!subscriber.isUnsubscribed()) {
+                subscriber.onCompleted();
+            }
+        }
+
+        @Override public void unsubscribe() {
+            call.cancel();
+        }
+
+        @Override public boolean isUnsubscribed() {
+            return call.isCanceled();
+        }
+    }
     /**
      * 主线程请求失败回调
      *
@@ -290,6 +401,8 @@ public class DefaultOkHttpIml implements IRequestRemote {
      * @param e        异常
      * @param callBack 回调接口
      */
+    
+
     public <T> void sendFailResultCallback(Response response, final String error, final Exception e, final RequestCallBack<T> callBack) {
         try {
             if (response == null) {
@@ -302,7 +415,7 @@ public class DefaultOkHttpIml implements IRequestRemote {
             if (response != null)
                 LogUtils.i(response.message());
         }
-
+        
         if (callBack == null) return;
             mHandler.post(new Runnable() {
                 @Override
@@ -310,7 +423,6 @@ public class DefaultOkHttpIml implements IRequestRemote {
                     failed(error, e, callBack);
                 }
             });
-
     }
 
     private <T> void failed(String error, Exception e, RequestCallBack<T> callBack) {
@@ -331,7 +443,7 @@ public class DefaultOkHttpIml implements IRequestRemote {
      */
     public <T> void sendSuccessResultCallback(final Response response, final String result, final RequestCallBack<T> callBack) {
         LogUtils.i(result);
-
+        
         if (callBack == null) return;
             mHandler.post(new Runnable() {
                 @Override
@@ -541,7 +653,6 @@ public class DefaultOkHttpIml implements IRequestRemote {
      * @param builder 请求表单构造
      */
     private void addParams(String url, Map<String, Object> params, FormBody.Builder builder) {
-
         if (params == null || params.isEmpty()) {
             params = new HashMap<>();
         }
@@ -560,7 +671,7 @@ public class DefaultOkHttpIml implements IRequestRemote {
      *
      * @param tag 请求tag，比如在一个activity里面 设置一个tag,当activity退出的时候，取消请求操作
      */
-    public DefaultOkHttpIml setTag(Object tag) {
+    public DefaultRxJavaOkHttpIml setTag(Object tag) {
         this.tag = tag;
         return this;
     }
@@ -586,7 +697,6 @@ public class DefaultOkHttpIml implements IRequestRemote {
             }
         }
     }
-
     public void cancelAllTag() {
         if (mOkHttpClient == null){
             return;
@@ -626,6 +736,7 @@ public class DefaultOkHttpIml implements IRequestRemote {
         }
         return val;
     }
+
     public static Type getSuperClassGenricType(final Class clazz, final int index) {
 
         //返回表示此 Class 所表示的实体（类、接口、基本类型或 void）的直接超类的 Type。
@@ -644,8 +755,6 @@ public class DefaultOkHttpIml implements IRequestRemote {
             return Object.class;
         }
 
-        return  params[index];
+        return params[index];
     }
-
-
 }
