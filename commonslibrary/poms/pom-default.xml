@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.zgeekandroid.sdk</groupId>
   <artifactId>commonslibrary</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
   <packaging>aar</packaging>
   <name>commonslibrary</name>
   <description>commonslibrary</description>
