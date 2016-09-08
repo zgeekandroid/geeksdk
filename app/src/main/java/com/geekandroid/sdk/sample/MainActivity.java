@@ -17,7 +17,6 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
 
-
         //权限框架
         bindClick(R.id.rxpermissions, new RxPermissionsSampleFragment());
 
@@ -26,6 +25,7 @@ public class MainActivity extends BaseActivity {
         bindClick(R.id.location, new LocationSampleFragment());
         bindClick(R.id.pay, new PaySampleFragment());
         bindClick(R.id.imageloader, new ImageloaderFragment());
+        bindClick(R.id.tabmanager, new TabManagerSampleFragment());
 
         bindClick(R.id.qrcode, MipcaActivityCapture.class);
 //        bindClick(R.id.image_crop, CropSampleActivity.class);
@@ -60,6 +60,7 @@ public class MainActivity extends BaseActivity {
         });
  
     }
+
 
 
     public void jumpIntent(Fragment fragment) {

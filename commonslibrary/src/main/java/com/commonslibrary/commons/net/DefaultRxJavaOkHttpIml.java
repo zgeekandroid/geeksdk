@@ -296,7 +296,7 @@ public class DefaultRxJavaOkHttpIml implements IRequestRemote,IRxRequestRemote {
         }
     }
 
-    private <T> rx.Observable<T> executeRx(Call call, String errorMessage,Class<?> cls) {
+    private <T> rx.Observable<T> executeRx(Call call, String errorMessage, final Class<?> cls) {
         if (cls == null){
             throw  new IllegalArgumentException("必须指定实体类型");
         }
