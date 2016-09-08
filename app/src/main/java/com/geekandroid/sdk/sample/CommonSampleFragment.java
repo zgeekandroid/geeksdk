@@ -7,12 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.commonslibrary.commons.net.BaseRemoteModel;
+import com.commonslibrary.commons.net.BaseRxJavaRemoteModel;
 import com.commonslibrary.commons.net.RequestCallBack;
 import com.commonslibrary.commons.utils.LogUtils;
 import com.commonslibrary.commons.utils.ToastUtils;
-import com.commonslibrary.commons.net.BaseRxJavaRemoteModel;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -67,9 +71,10 @@ public class CommonSampleFragment extends BaseSampleFragment {
         parameters.put("user_id", "TUser8e466d7145084cc1859a3dfe8c13d317");
         parameters.put("h_userid", "TUser8e466d7145084cc1859a3dfe8c13d317");
 //        model.setMainThread(false);
-        model.doPost(url, parameters, new RequestCallBack<ResultBean>() {
+        model.doPost(url, parameters, new RequestCallBack<String>() {
             @Override
-            public void onSuccess(ResultBean result) {
+            public void onSuccess(String result) {
+                generateEntityFile(result);
                 LogUtils.i("-------------" + result);
                 ToastUtils.show(getActivity(), result.toString());
 //                Observable<ResultBean> observable = Observers.create(new Su)
@@ -80,6 +85,75 @@ public class CommonSampleFragment extends BaseSampleFragment {
                 ToastUtils.show(getActivity(), errorMessage);
             }
         });
+
+    }
+
+    private void generateEntityFile(String result) {
+        boolean isCover = true;
+        String targetDir = ".";
+        String targetFileName = "ResultEntity";
+        String pkgName = getClass().getPackage().getName();
+
+
+        File desDir = new File(targetDir);
+        if (!desDir.exists()) {
+            boolean success = desDir.mkdirs();
+            String log = "创建文件夹 " + desDir.getName() + (success ? "成功" : "失败");
+            LogUtils.i(log);
+        }
+
+        File desFile = new File(targetDir,targetFileName +".java");
+
+        if (!desFile.exists()){
+
+            if (!desFile.canWrite()){
+                LogUtils.e("没有权限创建"+desFile.getName()+"文件,失败,返回");
+                return;
+            }
+
+            try {
+               boolean success =  desFile.createNewFile();
+                String log = "创建文件 " + desFile.getName() + (success ? "成功" : "失败");
+                LogUtils.i(log);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        try {
+            FileWriter filerWriter = new FileWriter(desFile, isCover);//后面这个参数代表是不是要接上文件中原来的数据，不进行覆盖
+            BufferedWriter bufWriter = new BufferedWriter(filerWriter);
+
+            String pkgline = "package " + pkgName + ";";
+            bufWriter.write(pkgline);
+            bufWriter.newLine();
+
+            String prefix ="/**";
+            bufWriter.write(prefix);
+            bufWriter.newLine();
+
+            String json =  LogUtils.prettyJson(result);
+            bufWriter.write(json);
+            bufWriter.newLine();
+
+            String subfix ="*/";
+            bufWriter.write(subfix);
+            bufWriter.newLine();
+
+            String clsline = "public class " + targetFileName + "{";
+            bufWriter.write(clsline);
+            bufWriter.newLine();
+            bufWriter.newLine();
+
+            bufWriter.write("}");
+            bufWriter.newLine();
+
+            bufWriter.close();
+            filerWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
