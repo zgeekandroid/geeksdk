@@ -44,7 +44,7 @@ public class ImageLoaderManager {
 
     public void init(Context context) {
 
-        File cachefile = new File(SystemConfig.getSystemImageDir());
+        File cachefile = new File(SystemConfig.getSystemCacheDir());
 
         if (!cachefile.canWrite()) {
             cachefile = context.getCacheDir();
