@@ -71,6 +71,7 @@ public class CommonSampleFragment extends BaseSampleFragment {
         parameters.put("user_id", "TUser8e466d7145084cc1859a3dfe8c13d317");
         parameters.put("h_userid", "TUser8e466d7145084cc1859a3dfe8c13d317");
 //        model.setMainThread(false);
+        LogUtils.isfomat = false;
         model.doPost(url, parameters, new RequestCallBack<String>() {
             @Override
             public void onSuccess(String result) {

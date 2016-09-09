@@ -35,7 +35,7 @@ public class LogUtils {
     private static String className;
     private static String methodName;
     private static int lineNumber;
-
+    public static boolean isfomat = false;
     private static String createLog(String log) {
 
         StringBuffer buffer = new StringBuffer();
@@ -49,7 +49,11 @@ public class LogUtils {
         buffer.append(".java:");
         buffer.append(lineNumber);
         buffer.append(") ]\n");
-        buffer.append(prettyJson(log));
+        if (isfomat){
+            buffer.append(prettyJson(log));
+        }else{
+            buffer.append(log);
+        }
 
         return buffer.toString();
     }
