@@ -16,7 +16,6 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         //权限框架
         bindClick(R.id.rxpermissions, new RxPermissionsSampleFragment());
 
