@@ -15,7 +15,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
-import com.commonslibrary.commons.utils.DeviceUtils;
+import com.commonslibrary.commons.utils.AppUtils;
 
 import java.io.File;
 import java.util.HashMap;
@@ -66,8 +66,11 @@ public class BaseRemoteModel implements IRequestRemote {
         Map<String, Object> parameters = new HashMap<>();
 
         if (mContext != null) {
-            parameters.put("app_version", DeviceUtils.getAppVersionName(mContext));
-            parameters.put("app_code", DeviceUtils.getAppVersionCode(mContext));
+            AppUtils.AppInfo appInfo = AppUtils.getAppInfo(mContext);
+            if (appInfo != null){
+                parameters.put("app_version", appInfo.getVersionName());
+                parameters.put("app_code", appInfo.getVersionCode());
+            }
         }
         return parameters;
     }

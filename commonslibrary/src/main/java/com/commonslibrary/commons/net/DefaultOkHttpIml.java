@@ -16,6 +16,7 @@ import android.text.TextUtils;
 
 import com.commonslibrary.commons.config.SystemConfig;
 import com.commonslibrary.commons.handler.WeakHandlerNew;
+import com.commonslibrary.commons.utils.EncryptionUtils;
 import com.commonslibrary.commons.utils.LogUtils;
 import com.commonslibrary.commons.utils.StringUtils;
 import com.google.gson.Gson;
@@ -226,7 +227,7 @@ public class DefaultOkHttpIml implements IRequestRemote {
 
         final String fileMd5 = md5;
 
-        final String destFileName = StringUtils.formatValue(parameters, "fileName");
+        final String destFileName = StringUtils.optionValue(parameters, "fileName");
 
         //clear 多余的参数
         parameters.remove("fileName");
@@ -478,7 +479,7 @@ public class DefaultOkHttpIml implements IRequestRemote {
     }
 
     private boolean checkFileIsDownloadSuccess(String fileMd5, File file, long total) throws IOException {
-        return (file != null && file.exists()) && (total == file.length()) && (TextUtils.isEmpty(fileMd5) || (!TextUtils.isEmpty(fileMd5) && MD5.checkPassword(MD5.getFileMD5(file), fileMd5)));
+        return (file != null && file.exists()) && (total == file.length()) && (TextUtils.isEmpty(fileMd5) || (!TextUtils.isEmpty(fileMd5) && TextUtils.equals(EncryptionUtils.encryptMD5File2String(file),fileMd5)));
     }
 
     /**
