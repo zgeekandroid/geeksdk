@@ -6,7 +6,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,10 +13,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * @describle huangshiyang
- */
 public class JsonUtils {
+    private JsonUtils() {
+        throw new UnsupportedOperationException("cannot be instantiated");
+    }
     /**
      * 获取JsonObject
      *
@@ -25,9 +24,13 @@ public class JsonUtils {
      * @return
      */
     public static JsonObject parseJson(String json) {
-        JsonParser parser = new JsonParser();
-        JsonObject jsonObj = parser.parse(json).getAsJsonObject();
-        return jsonObj;
+       try {
+           JsonParser parser = new JsonParser();
+           JsonObject jsonObj = parser.parse(json).getAsJsonObject();
+           return jsonObj;
+       }catch (Exception e){
+           return null;
+       }
     }
 
     /**
@@ -71,6 +74,9 @@ public class JsonUtils {
      */
     public static List<Object> toList(JsonArray json) {
         List<Object> list = new ArrayList<Object>();
+        if (json == null){
+            return list;
+        }
         for (int i = 0; i < json.size(); i++) {
             Object value = json.get(i);
             if (value instanceof JsonArray) {
@@ -85,7 +91,11 @@ public class JsonUtils {
     }
 
     public static String mapToString(Map map) {
-        return new Gson().toJson(map);
+       try{
+           return new Gson().toJson(map);
+       }catch (Exception e){
+           return "";
+       }
     }
 
     /**
@@ -95,19 +105,12 @@ public class JsonUtils {
      * @return
      */
     public static String toJson(Object obj) {
-        Gson gson = new Gson();
-        return gson.toJson(obj);
+       try {
+           Gson gson = new Gson();
+           return gson.toJson(obj);
+       }catch (Exception e){
+           return "";
+       }
     }
 
-    /**
-     * json字符串转成对象
-     *
-     * @param str
-     * @param type
-     * @return
-     */
-    public static <T> T fromJson(String str, Type type) {
-        Gson gson = new Gson();
-        return gson.fromJson(str, type);
-    }
 }

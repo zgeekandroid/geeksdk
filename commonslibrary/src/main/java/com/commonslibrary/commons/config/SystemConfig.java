@@ -33,6 +33,10 @@ public class SystemConfig {
 
     private static boolean debug = false;
 
+    private SystemConfig() {
+        throw new UnsupportedOperationException("cannot be instantiated");
+    }
+
     public static void setSystemRootDir(String systemRootDir) {
         SystemConfig.systemRootDir = systemRootDir;
     }
@@ -127,13 +131,31 @@ public class SystemConfig {
         File localFile = new File(fileDir);
 
         if (!localFile.exists()) {
-             if (localFile.mkdirs()){
-                 //
-             }
+            if (localFile.mkdirs()) {
+                //
+            }
         }
 
     }
 
+    /**
+     * 判断SD卡是否可用
+     *
+     * @return true : 可用<br>false : 不可用
+     */
+    public static boolean isSDCardEnable() {
+        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
+    }
+
+    /**
+     * 获取SD卡路径
+     * <p>一般是/storage/emulated/0/</p>
+     *
+     * @return SD卡路径
+     */
+    public static String getSDCardPath() {
+        return Environment.getExternalStorageDirectory().getPath() + File.separator;
+    }
 
     /**
      * 获取扩展SD卡存储目录
@@ -145,7 +167,7 @@ public class SystemConfig {
      */
     public static String getExternalSdCardPath() {
 
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+        if (isSDCardEnable()) {
             StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
             long bytesAvailable = (long) stat.getBlockSize() * (long) stat.getBlockCount();
             long megAvailable = bytesAvailable / 1048576;
@@ -155,7 +177,7 @@ public class SystemConfig {
                 if (sdCardFile.isDirectory() && sdCardFile.canWrite()) {
                     path = sdCardFile.getAbsolutePath();
 
-                    String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmmss",Locale.CHINA).format(new Date());
+                    String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmmss", Locale.CHINA).format(new Date());
                     File testWritable = new File(sdCardFile, "test_" + timeStamp);
 
                     if (testWritable.mkdirs()) {

@@ -1,9 +1,7 @@
 package com.commonslibrary.commons.utils;
 
 import java.text.NumberFormat;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,6 +10,10 @@ import java.util.Map;
  * description :
  */
 public class StringUtils {
+
+    private StringUtils() {
+        throw new UnsupportedOperationException("cannot be instantiated");
+    }
     /**
      * 格式化下载速度字符串
      *
@@ -47,12 +49,7 @@ public class StringUtils {
         return (int) kb;
     }
 
-    public static List<String> stringsToList(final String[] src) {
-        if (src == null || src.length == 0) {
-            return null;
-        }
-        return Arrays.asList(src);
-    }
+
 
 
     public static Map<String, Object> getUrlParams(String param) {
@@ -90,7 +87,7 @@ public class StringUtils {
         return s;
     }
 
-    public static String formatValue(Map<String, Object> parameters, String key) {
+    public static String optionValue(Map<String, Object> parameters, String key) {
         if (parameters == null || !parameters.containsKey(key)) {
             return "";
         }

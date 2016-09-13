@@ -2,38 +2,30 @@ package com.commonslibrary.commons.utils;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.TrafficStats;
-import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Build;
-import android.os.Bundle;
+import android.os.StatFs;
 import android.provider.Settings;
 import android.telephony.CellLocation;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.view.View;
 
-import java.io.File;
+import com.commonslibrary.commons.config.SystemConfig;
+
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
-import java.util.List;
 
 /**
  * date        :  2016-01-27  13:27
@@ -127,16 +119,36 @@ public class DeviceUtils {
 
 
     /**
-     * 检查是否具有获取某些设备信息的权限
-     * Check ther permission required;
+     * 计算SD卡的剩余空间
      *
-     * @param context
-     * @param permName 权限名; Permission name;
-     * @return
+     * @param unit <ul>
+     *             <li>{@link MemoryUnit#BYTE}: 字节</li>
+     *             <li>{@link MemoryUnit#KB}  : 千字节</li>
+     *             <li>{@link MemoryUnit#MB}  : 兆</li>
+     *             <li>{@link MemoryUnit#GB}  : GB</li>
+     *             </ul>
+     * @return 返回-1，说明SD卡不可用，否则返回SD卡剩余空间
      */
-    public static boolean checkPermission(Context context, String permName) {
-        return context.getPackageManager().checkPermission(permName, context.getPackageName())
-                == PackageManager.PERMISSION_GRANTED;
+    public static double getFreeSpace(FileUtils.MemoryUnit unit) {
+        if (SystemConfig.isSDCardEnable()) {
+            try {
+                StatFs stat = new StatFs(SystemConfig.getSDCardPath());
+                long blockSize, availableBlocks;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                    availableBlocks = stat.getAvailableBlocksLong();
+                    blockSize = stat.getBlockSizeLong();
+                } else {
+                    availableBlocks = stat.getAvailableBlocks();
+                    blockSize = stat.getBlockSize();
+                }
+                return FileUtils.byte2Size(availableBlocks * blockSize, unit);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return -1.0;
+            }
+        } else {
+            return -1.0;
+        }
     }
 
     /**
@@ -148,7 +160,7 @@ public class DeviceUtils {
      */
     public static String getMacAddress(Context context) {
         String macAddress = null;
-        if (!checkPermission(context, Manifest.permission.ACCESS_WIFI_STATE)) {
+        if (!AppUtils.checkPermission(context, Manifest.permission.ACCESS_WIFI_STATE)) {
             return macAddress;
         }
 
@@ -175,19 +187,72 @@ public class DeviceUtils {
      */
     public static String getDeviceIMEI(Context context) {
         String imei = null;
-        if (!checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+        if (!AppUtils.checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
             return imei;
         }
-
-        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        if (null == telephonyManager) {
-            return imei;
+        String deviceId;
+        if (isPhone(context)) {
+            TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            deviceId = tm.getDeviceId();
+        } else {
+            deviceId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         }
-
-        imei = telephonyManager.getDeviceId();
-        return imei.toUpperCase();
+        return deviceId;
     }
 
+    /**
+     * 获取手机状态信息
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.READ_PHONE_STATE"/>}</p>
+     *
+     * @param context 上下文
+     * @return DeviceId(IMEI) = 99000311726612<br>
+     * DeviceSoftwareVersion = 00<br>
+     * Line1Number =<br>
+     * NetworkCountryIso = cn<br>
+     * NetworkOperator = 46003<br>
+     * NetworkOperatorName = 中国电信<br>
+     * NetworkType = 6<br>
+     * honeType = 2<br>
+     * SimCountryIso = cn<br>
+     * SimOperator = 46003<br>
+     * SimOperatorName = 中国电信<br>
+     * SimSerialNumber = 89860315045710604022<br>
+     * SimState = 5<br>
+     * SubscriberId(IMSI) = 460030419724900<br>
+     * VoiceMailNumber = *86<br>
+     */
+    public static String getPhoneStatus(Context context) {
+        TelephonyManager tm = (TelephonyManager) context
+                .getSystemService(Context.TELEPHONY_SERVICE);
+        String str = "";
+        str += "DeviceId(IMEI) = " + tm.getDeviceId() + "\n";
+        str += "DeviceSoftwareVersion = " + tm.getDeviceSoftwareVersion() + "\n";
+        str += "Line1Number = " + tm.getLine1Number() + "\n";
+        str += "NetworkCountryIso = " + tm.getNetworkCountryIso() + "\n";
+        str += "NetworkOperator = " + tm.getNetworkOperator() + "\n";
+        str += "NetworkOperatorName = " + tm.getNetworkOperatorName() + "\n";
+        str += "NetworkType = " + tm.getNetworkType() + "\n";
+        str += "honeType = " + tm.getPhoneType() + "\n";
+        str += "SimCountryIso = " + tm.getSimCountryIso() + "\n";
+        str += "SimOperator = " + tm.getSimOperator() + "\n";
+        str += "SimOperatorName = " + tm.getSimOperatorName() + "\n";
+        str += "SimSerialNumber = " + tm.getSimSerialNumber() + "\n";
+        str += "SimState = " + tm.getSimState() + "\n";
+        str += "SubscriberId(IMSI) = " + tm.getSubscriberId() + "\n";
+        str += "VoiceMailNumber = " + tm.getVoiceMailNumber() + "\n";
+        return str;
+    }
+
+    /**
+     * 判断设备是否是手机
+     *
+     * @param context 上下文
+     * @return {@code true}: 是<br>{@code false}: 否
+     */
+    public static boolean isPhone(Context context) {
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        return tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE;
+    }
     /**
      * 获取IMSI
      * Get IMSI
@@ -197,7 +262,7 @@ public class DeviceUtils {
      */
     public static String getDeviceIMSI(Context context) {
         String imsi = null;
-        if (!checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+        if (!AppUtils.checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
             return imsi;
         }
 
@@ -250,98 +315,7 @@ public class DeviceUtils {
         return displayMetrics.widthPixels;
     }
 
-    /**
-     * 获取APP的版本名
-     *
-     * @param context
-     * @return
-     */
-    public static String getAppVersionName(Context context) {
-        String versionName = "";
-        PackageManager packageManager = context.getPackageManager();
-        try {
-            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
-            versionName = packageInfo.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            LogUtils.e("Cannot get app version name" + e);
-        }
-        return versionName;
-    }
 
-    /**
-     * 获取APP的版本号
-     *
-     * @param context
-     * @return
-     */
-    public static int getAppVersionCode(Context context) {
-        int versionCode = -1;
-        PackageManager packageManager = context.getPackageManager();
-        try {
-            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
-            versionCode = packageInfo.versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            LogUtils.e("Cannot get app version name" + e);
-        }
-        return versionCode;
-    }
-
-    /**
-     * 获取联网状态
-     *
-     * @param context
-     * @return
-     */
-    public static String getNetworkType(Context context) {
-
-        if (!isNetworkConnected(context)) {
-            return "NONE";
-        }
-
-        ConnectivityManager connectivityManager = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (null == connectivityManager) {
-            return null;
-        }
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (ConnectivityManager.TYPE_WIFI == networkInfo.getType()) {
-            return "WIFI";
-        }
-
-        if (!checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
-            return null;
-        }
-
-        TelephonyManager telephonyManager = (TelephonyManager) context
-                .getSystemService(Context.TELEPHONY_SERVICE);
-
-        if (null == telephonyManager) {
-            return null;
-        }
-
-        switch (telephonyManager.getNetworkType()) {
-            case TelephonyManager.NETWORK_TYPE_GPRS:
-            case TelephonyManager.NETWORK_TYPE_EDGE:
-            case TelephonyManager.NETWORK_TYPE_CDMA:
-            case TelephonyManager.NETWORK_TYPE_IDEN:
-                return "MOBILE-2G";
-            case TelephonyManager.NETWORK_TYPE_UMTS:
-            case TelephonyManager.NETWORK_TYPE_HSDPA:
-            case TelephonyManager.NETWORK_TYPE_HSUPA:
-            case TelephonyManager.NETWORK_TYPE_HSPA:
-            case TelephonyManager.NETWORK_TYPE_EVDO_0:
-            case TelephonyManager.NETWORK_TYPE_EVDO_A:
-            case TelephonyManager.NETWORK_TYPE_EVDO_B:
-            case TelephonyManager.NETWORK_TYPE_1xRTT:
-            case TelephonyManager.NETWORK_TYPE_EHRPD:
-            case TelephonyManager.NETWORK_TYPE_HSPAP:
-                return "MOBILE-3G";
-            case TelephonyManager.NETWORK_TYPE_LTE:
-                return "MOBILE-4G";
-            default:
-                return "MOBILE-UNKNOWN";
-        }
-    }
 
     /**
      * 获取本地IP
@@ -350,7 +324,7 @@ public class DeviceUtils {
      * @return
      */
     public static String getLocalIpAddress(Context context) {
-        if (!checkPermission(context, Manifest.permission.INTERNET)) {
+        if (!AppUtils.checkPermission(context, Manifest.permission.INTERNET)) {
             return null;
         }
 
@@ -381,13 +355,6 @@ public class DeviceUtils {
 
 
     /**
-     * 获取包名
-     */
-    public static String getAppPackageName(Context context) {
-        return context.getPackageName();
-    }
-
-    /**
      * 获取系统版本号
      *
      * @return
@@ -405,27 +372,7 @@ public class DeviceUtils {
         return "Android";
     }
 
-    /**
-     * 检查网络是否连接
-     *
-     * @param context
-     * @return
-     */
-    private static boolean isNetworkConnected(Context context) {
-        boolean isNetworkConnected = false;
 
-        if (!checkPermission(context, Manifest.permission.ACCESS_NETWORK_STATE)) {
-            return false;
-        }
-
-        ConnectivityManager connectivityManager = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (null == connectivityManager) {
-            return false;
-        }
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        return (null != networkInfo && networkInfo.isConnected());
-    }
 
     /**
      * 获取Android的版本号
@@ -445,9 +392,9 @@ public class DeviceUtils {
      * @param context
      * @return
      */
-    public static String getPhoneNo(Context context) {
+    public static String getNativePhoneNumber(Context context) {
 
-        if (!checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+        if (!AppUtils.checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
             return "";
         }
 
@@ -468,7 +415,7 @@ public class DeviceUtils {
      * @return
      */
     public static boolean isEmulator(Context context) {
-        if (!checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+        if (!AppUtils.checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
             return false;
         }
 
@@ -496,7 +443,7 @@ public class DeviceUtils {
      */
     public static String getCellLocation(Context context) {
 
-        if (!checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+        if (!AppUtils.checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
             return "";
         }
 
@@ -553,57 +500,54 @@ public class DeviceUtils {
     }
 
 
+
+
+
     /**
-     * 判断当前应用程序处于前台还是后台
+     * dp转px
      *
-     * @param context
-     * @return
+     * @param context 上下文
+     * @param dpValue dp值
+     * @return px值
      */
-    public static boolean isRunningInFront(final Context context) {
-        ActivityManager am = (ActivityManager) context
-                .getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
-        if (!tasks.isEmpty()) {
-            ComponentName topActivity = tasks.get(0).topActivity;
-            String packageName = topActivity.getPackageName().toString().trim();
-            String packageName2 = context.getPackageName().toString().trim();
-            if (packageName.equals(packageName2)) {
-                return true;
-            }
-        }
-        return false;
+    public static int dp2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 
     /**
-     * 安装
+     * px转dp
      *
-     * @param context 接收外部传进来的context
+     * @param context 上下文
+     * @param pxValue px值
+     * @return dp值
      */
-    public static void install(Context context,String url) {
-        // 核心是下面几句代码
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(new File(url)),
-                "application/vnd.android.package-archive");
-        context.startActivity(intent);
+    public static int px2dp(Context context, float pxValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
     }
-    public static String getMetaValue(Context context, String metaKey) {
-        Bundle metaData = null;
-        String metaValue = null;
-        if (context == null || metaKey == null) {
-            return null;
-        }
-        try {
-            ApplicationInfo ai = context.getPackageManager().getApplicationInfo(
-                    context.getPackageName(), PackageManager.GET_META_DATA);
-            if (null != ai) {
-                metaData = ai.metaData;
-            }
-            if (null != metaData) {
-                metaValue = String.valueOf(metaData.get(metaKey));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
 
-        }
-        return metaValue;
+    /**
+     * sp转px
+     *
+     * @param context 上下文
+     * @param spValue sp值
+     * @return px值
+     */
+    public static int sp2px(Context context, float spValue) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (spValue * fontScale + 0.5f);
+    }
+
+    /**
+     * px转sp
+     *
+     * @param context 上下文
+     * @param pxValue px值
+     * @return sp值
+     */
+    public static int px2sp(Context context, float pxValue) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (pxValue / fontScale + 0.5f);
     }
 }

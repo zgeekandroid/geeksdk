@@ -11,14 +11,35 @@ import android.widget.Toast;
  * description :
  */
 public class ToastUtils {
-    public static void show(Context context,String message) {
+    private ToastUtils() {
+        throw new UnsupportedOperationException("cannot be instantiated");
+    }
 
-        if (null == context || TextUtils.isEmpty(message)){
+    public static void show(Context context, String message) {
+
+        if (null == context || TextUtils.isEmpty(message)) {
+            return;
+        }
+        show(context, message, Gravity.CENTER);
+    }
+
+    public static void showDefault(Context context, String message) {
+
+        if (null == context || TextUtils.isEmpty(message)) {
+            return;
+        }
+        Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    public static void show(Context context, String message, int gravity) {
+
+        if (null == context || TextUtils.isEmpty(message)) {
             return;
         }
 
         Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 10);
+        toast.setGravity(gravity, 0, 10);
         toast.show();
     }
 }

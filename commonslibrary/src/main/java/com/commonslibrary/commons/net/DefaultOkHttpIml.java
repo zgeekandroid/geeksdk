@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import com.commonslibrary.commons.config.SystemConfig;
 import com.commonslibrary.commons.handler.WeakHandlerNew;
 import com.commonslibrary.commons.utils.LogUtils;
-import com.commonslibrary.commons.utils.MD5;
 import com.commonslibrary.commons.utils.StringUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;

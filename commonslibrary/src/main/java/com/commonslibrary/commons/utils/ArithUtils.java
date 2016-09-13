@@ -2,16 +2,14 @@ package com.commonslibrary.commons.utils;
 
 import java.math.BigDecimal;
 
-/**
- * @author duanhui
- * 
- */
 public class ArithUtils {
 	// 默认除法运算精度
 	private static final int DEF_DIV_SCALE = 10;
 
 	// 这个类不能实例化
 	private ArithUtils() {
+        /* cannot be instantiated */
+		throw new UnsupportedOperationException("cannot be instantiated");
 	}
 	/**
 	 * 提供精确的加法运算。

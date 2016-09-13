@@ -10,9 +10,10 @@ public class SharePreferenceUtil {
 
 	private volatile static SharePreferenceUtil instance;
 	public SharedPreferences preferences;
-
 	private SharePreferenceUtil() {
+		throw new UnsupportedOperationException("cannot be instantiated");
 	}
+
 
 	/** Returns singleton class instance */
 	public static synchronized SharePreferenceUtil getInstance(Context context) {

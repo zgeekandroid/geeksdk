@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,17 +12,20 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 
 import com.commonslibrary.commons.R;
 import com.commonslibrary.commons.config.SystemConfig;
@@ -29,8 +33,10 @@ import com.commonslibrary.commons.config.SystemConfig;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * date        :  2015-12-02  11:26
@@ -143,7 +149,7 @@ public class ImageSelectorUtils {
 
 
     public File generateImagePath() {
-        return new File(SystemConfig.getSystemImageDir(), "img_" + String.valueOf(DateUtils.timeStampToFormatString(System.currentTimeMillis(), "yyyyMMddhhmmss")) + ".png");
+        return new File(SystemConfig.getSystemImageDir(), "img_" + String.valueOf(TimeUtils.milliseconds2String(System.currentTimeMillis(), new SimpleDateFormat("yyyyMMddhhmmss", Locale.getDefault()))) + ".png");
     }
 
 
@@ -345,5 +351,40 @@ public class ImageSelectorUtils {
         return returnBm;
     }
 
+    public class CropOption {
+        public CharSequence title;
+        public Drawable icon;
+        public Intent appIntent;
+    }
 
+    public class CropOptionAdapter extends ArrayAdapter<CropOption> {
+
+        private ArrayList<CropOption> mOptions;
+        private LayoutInflater mInflater;
+
+        public CropOptionAdapter(Context context, ArrayList<CropOption> options) {
+            super(context, R.layout.timepicker_crop_selector, options);
+            mOptions = options;
+            mInflater = LayoutInflater.from(context);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup group) {
+            if (convertView == null)
+                convertView = mInflater.inflate(R.layout.timepicker_crop_selector, null);
+
+            CropOption item = mOptions.get(position);
+
+            if (item != null) {
+                ((ImageView) convertView.findViewById(R.id.iv_icon))
+                        .setImageDrawable(item.icon);
+                ((TextView) convertView.findViewById(R.id.tv_name))
+                        .setText(item.title);
+
+                return convertView;
+            }
+
+            return null;
+        }
+    }
 }
