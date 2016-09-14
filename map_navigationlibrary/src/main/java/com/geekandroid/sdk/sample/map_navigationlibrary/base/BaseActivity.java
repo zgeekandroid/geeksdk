@@ -15,8 +15,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.commonslibrary.commons.utils.LogUtils;
-import com.commonslibrary.commons.utils.ToastUtils;
 
 
 /**
@@ -40,9 +38,6 @@ public class BaseActivity extends Activity {
     }
 
 
-    public void showToast(String message) {
-        ToastUtils.show(this, message);
-    }
 
     public void startActivity(Class<?> cls) {
         Intent intent = new Intent(this, cls);
@@ -66,16 +61,6 @@ public class BaseActivity extends Activity {
         startActivityForResult(intent, requestCode);
     }
 
-    /**
-     * 打印log ，并且自动加上类名
-     * @param log 打印的日志
-     */
-    public void logI(Object log){
-        LogUtils.i("[" + getLocalClassName() + "] " + String.valueOf(log));
-    }
-    public void logE(Object log){
-        LogUtils.e("[" + getLocalClassName() + "] " + String.valueOf(log));
-    }
 
 
 

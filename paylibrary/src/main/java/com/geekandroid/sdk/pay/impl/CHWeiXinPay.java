@@ -19,13 +19,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Xml;
 
-import com.commonslibrary.commons.handler.WeakHandlerNew;
-import com.commonslibrary.commons.net.RequestCallBack;
-import com.commonslibrary.commons.utils.ArithUtils;
-import com.commonslibrary.commons.utils.LogUtils;
-import com.commonslibrary.commons.utils.MD5;
 import com.geekandroid.sdk.pay.IPay;
+import com.geekandroid.sdk.pay.utils.MD5;
 import com.geekandroid.sdk.pay.utils.Util;
+import com.geekandroid.sdk.pay.utils.WeakHandlerNew;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -35,6 +32,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.xmlpull.v1.XmlPullParser;
 
 import java.io.StringReader;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -87,15 +85,19 @@ public abstract class CHWeiXinPay extends IPay {
         if (msgApi.isWXAppInstalled()) {
             registerApp();
         } else {
-            LogUtils.e("没有安装微信");
+            Log.e("init","没有安装微信");
         }
 
+    }public static double mul(double v1, double v2) {
+        BigDecimal b1 = new BigDecimal(Double.toString(v1));
+        BigDecimal b2 = new BigDecimal(Double.toString(v2));
+        return b1.multiply(b2).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     public void doRealPay(final Map<String, Object> parameters) {
 
         if (TextUtils.isEmpty(APP_ID) || TextUtils.isEmpty(MCH_ID) || TextUtils.isEmpty(API_KEY)) {
-            LogUtils.e("必须指定APP_ID ， MCH_ID，API_KEY");
+            Log.e("doRealPay","必须指定APP_ID ， MCH_ID，API_KEY");
             return;
         }
         //check request
@@ -105,19 +107,19 @@ public abstract class CHWeiXinPay extends IPay {
                 isEmpty(parameters.get("spbill_create_ip")) ||
                 isEmpty(parameters.get("notify_url"))) {
 
-            LogUtils.e("必须指定参数：[ detail, out_trade_no, spbill_create_ip, total_fee, notify_url]");
+            Log.e("doRealPay","必须指定参数：[ detail, out_trade_no, spbill_create_ip, total_fee, notify_url]");
             return;
         }
 
         if (parameters.get("out_trade_no").toString().length() > 32) {
-            LogUtils.e("订单长度不能超过 32 位");
+            Log.e("doRealPay","订单长度不能超过 32 位");
             return;
         }
 
         //微信支付的金额转换，将传过来的 “元” 转为  “分” 如果传入的是double 类型，就将其转换成分，因为微信支付的单位是分
         if (parameters.get("total_fee") instanceof Double){
             String totalfee = parameters.get("total_fee").toString();
-            int realMoney = (int) ArithUtils.mul(Double.parseDouble(totalfee), 100);
+            int realMoney = (int) mul(Double.parseDouble(totalfee), 100);
             parameters.put("total_fee", realMoney);
         }
 

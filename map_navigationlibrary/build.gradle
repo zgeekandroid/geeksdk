@@ -29,7 +29,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
     //    compile project(':commonslibrary')
-    compile 'com.zgeekandroid.sdk:commonslibrary:1.0.0'
+//    compile 'com.zgeekandroid.sdk:commonslibrary:1.0.0'
 }
 /*******************************************************************************
  *

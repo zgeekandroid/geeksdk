@@ -463,7 +463,7 @@ public class DefaultRxJavaOkHttpIml implements IRequestRemote,IRxRequestRemote {
                 }
             });
     }
-
+    @SuppressWarnings("unchecked")
     private <T> void success(Response response, String result, RequestCallBack<T> callBack) {
         callBack.onSuccess(response.body().charStream());
         Type type = getSuperClassGenricType(callBack.getClass(), 0);
@@ -484,9 +484,9 @@ public class DefaultRxJavaOkHttpIml implements IRequestRemote,IRxRequestRemote {
 
         }
     }
-
+@SuppressWarnings("unchecked")
     public <T> T fromJson(String json, Type typeOfT) throws JsonSyntaxException {
-        T t = null;
+        T t ;
         try {
             if (typeOfT == String.class) {//如果是string 就直接返回
                 return (T) json;
@@ -497,8 +497,9 @@ public class DefaultRxJavaOkHttpIml implements IRequestRemote,IRxRequestRemote {
         }
         return t;
     }
+    @SuppressWarnings("unchecked")
     public <T> T fromJson(Reader json, Type typeOfT) throws JsonSyntaxException {
-        T t = null;
+        T t ;
         try {
             if (typeOfT == String.class) {//如果是string 就直接返回
                 return (T) json;
@@ -517,7 +518,6 @@ public class DefaultRxJavaOkHttpIml implements IRequestRemote,IRxRequestRemote {
      * @param response     请求返回响应
      * @param destFileName 存入的文件名称
      * @param callBack     进度回调
-     * @return 保存的文件
      * @throws IOException
      */
     public <T> void saveFile(final Response response, String destFileName, final RequestCallBack<T> callBack, final String fileMd5) throws IOException {

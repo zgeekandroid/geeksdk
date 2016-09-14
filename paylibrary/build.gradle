@@ -32,7 +32,8 @@ dependencies {
     compile files('libs/alipaySingle-20160120.jar')
     compile files('libs/libammsdk.jar')
     compile files('libs/org.apache.http.legacy.jar')
-    compile 'com.zgeekandroid.sdk:commonslibrary:1.0.0'
+//    compile 'com.zgeekandroid.sdk:commonslibrary:1.0.0'
+//    compile project(path: ':commonslibrary')
 }
 /*******************************************************************************
  *

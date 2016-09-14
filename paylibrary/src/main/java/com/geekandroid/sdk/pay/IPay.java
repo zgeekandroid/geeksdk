@@ -13,11 +13,12 @@ package com.geekandroid.sdk.pay;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.widget.Toast;
 
-import com.commonslibrary.commons.net.RequestCallBack;
-import com.commonslibrary.commons.utils.ToastUtils;
-
+import java.io.Reader;
 import java.util.Map;
 
 /**
@@ -50,9 +51,19 @@ public abstract class IPay {
 
     protected void hideProgress(String errorMessage) {
         if (!TextUtils.isEmpty(errorMessage)) {
-            ToastUtils.show(activity, errorMessage);
+            show(activity, errorMessage);
         }
         progressDialog.dismiss();
+    }
+    public static void show(Context context, String message) {
+
+        if (null == context || TextUtils.isEmpty(message)) {
+            return;
+        }
+
+        Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 10);
+        toast.show();
     }
 
     public boolean isEmpty(Object object){
@@ -95,4 +106,24 @@ public abstract class IPay {
      * 请求后台服务器得到支付结果
      */
     public abstract void getPayResult(Map<String, Object> params,RequestCallBack<String> callBack);
+
+    public abstract class RequestCallBack<T> {
+
+        public void onStart() {
+        }
+
+        public abstract void onSuccess(T result);
+
+        public void onSuccess(Reader reader) {
+        }
+
+        public abstract void onFailure(String errorMessage, Exception exception);
+
+        public void onCancel() {
+        }
+
+        public void onProgress(long byteWrite, long contentLength, boolean isDone) {
+        }
+
+    }
 }

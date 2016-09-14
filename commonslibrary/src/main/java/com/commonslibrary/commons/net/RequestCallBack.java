@@ -36,6 +36,4 @@ public abstract class RequestCallBack<T> {
     public void onProgress(long byteWrite, long contentLength, boolean isDone) {
     }
 
-    ;
-
 }

@@ -11,7 +11,6 @@
 
 package com.geekandroid.sdk.pay.impl;
 
-import com.commonslibrary.commons.net.RequestCallBack;
 import com.geekandroid.sdk.pay.IPay;
 
 import java.util.Map;

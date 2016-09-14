@@ -33,6 +33,7 @@ import java.lang.reflect.Type;
 import java.net.FileNameMap;
 import java.net.URLConnection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.GZIPOutputStream;
@@ -96,7 +97,7 @@ public class DefaultOkHttpIml implements IRequestRemote {
             long t1 = System.nanoTime();
             Response response = chain.proceed(request);
             long t2 = System.nanoTime();
-            LogUtils.i(String.format("%s take %.1fms%s", response.request().url(), (t2 - t1) / 1e6d, ""/*response.headers()*/));
+            LogUtils.i(String.format(Locale.getDefault(),"%s take %.1fms%s", response.request().url(), (t2 - t1) / 1e6d, ""/*response.headers()*/));
 
             return response;
         }
@@ -351,7 +352,7 @@ public class DefaultOkHttpIml implements IRequestRemote {
                 }
             });
     }
-
+@SuppressWarnings("unchecked")
     private <T> void success(Response response, String result, RequestCallBack<T> callBack) {
         callBack.onSuccess(response.body().charStream());
         Type type = getSuperClassGenricType(callBack.getClass(), 0);
@@ -372,9 +373,9 @@ public class DefaultOkHttpIml implements IRequestRemote {
 
         }
     }
-
+    @SuppressWarnings("unchecked")
     public <T> T fromJson(String json, Type typeOfT) throws JsonSyntaxException {
-        T t = null;
+        T t ;
         try {
             if (typeOfT == String.class) {//如果是string 就直接返回
                 return (T) json;
@@ -385,8 +386,9 @@ public class DefaultOkHttpIml implements IRequestRemote {
         }
         return t;
     }
+    @SuppressWarnings("unchecked")
     public <T> T fromJson(Reader json, Type typeOfT) throws JsonSyntaxException {
-        T t = null;
+        T t;
         try {
             if (typeOfT == String.class) {//如果是string 就直接返回
                 return (T) json;
@@ -405,7 +407,6 @@ public class DefaultOkHttpIml implements IRequestRemote {
      * @param response     请求返回响应
      * @param destFileName 存入的文件名称
      * @param callBack     进度回调
-     * @return 保存的文件
      * @throws IOException
      */
     public <T> void saveFile(final Response response, String destFileName, final RequestCallBack<T> callBack, final String fileMd5) throws IOException {

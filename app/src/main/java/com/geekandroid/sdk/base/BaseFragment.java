@@ -23,7 +23,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.commonslibrary.commons.utils.LogUtils;
 import com.commonslibrary.commons.utils.ToastUtils;
 
 
@@ -89,16 +88,6 @@ public class BaseFragment extends Fragment {
         startActivityForResult(intent, requestCode);
     }
 
-    /**
-     * 打印log ，并且自动加上类名
-     * @param log 打印的日志
-     */
-    public void logI(Object log){
-        LogUtils.i("[" + getActivity().getLocalClassName() + "] " + String.valueOf(log));
-    }
-    public void logE(Object log){
-        LogUtils.e("[" + getActivity().getLocalClassName() + "] " + String.valueOf(log));
-    }
 
     public void setDrawablePosition(TextView textView, int left, int top, int right, int bottom) {
         Drawable drawableTop = null;

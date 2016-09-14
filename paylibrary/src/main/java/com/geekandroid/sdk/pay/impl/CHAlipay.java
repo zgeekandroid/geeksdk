@@ -14,13 +14,12 @@ package com.geekandroid.sdk.pay.impl;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.alipay.sdk.app.PayTask;
-import com.commonslibrary.commons.handler.WeakHandlerNew;
-import com.commonslibrary.commons.net.RequestCallBack;
-import com.commonslibrary.commons.utils.LogUtils;
 import com.geekandroid.sdk.pay.IPay;
 import com.geekandroid.sdk.pay.utils.SignUtils;
+import com.geekandroid.sdk.pay.utils.WeakHandlerNew;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -138,7 +137,7 @@ public abstract class CHAlipay extends IPay {
     protected void doRealPay(Map<String, Object> param) {
 
         if (TextUtils.isEmpty(private_key)) {
-            LogUtils.e("必须指定支付宝的private_key");
+            Log.e("doRealPay","必须指定支付宝的private_key");
             return;
         }
 
@@ -150,7 +149,7 @@ public abstract class CHAlipay extends IPay {
                 isEmpty(param.get("body")) ||
                 isEmpty(param.get("notify_url"))
                 ) {
-            LogUtils.e("必须指定参数：[partner,seller_id,out_trade_no,total_fee,notify_url,subject,body]");
+            Log.e("doRealPay","必须指定参数：[partner,seller_id,out_trade_no,total_fee,notify_url,subject,body]");
             return;
         }
 

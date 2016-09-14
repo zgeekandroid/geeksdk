@@ -15,7 +15,6 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.widget.AbsListView;
 
-import com.commonslibrary.commons.config.SystemConfig;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
@@ -53,9 +52,9 @@ public class ImageLoaderManager {
         this.resIdOnFailUri = resIdOnFailUri;
     }
 
-    public void init(Context context) {
+    public void init(Context context,String cacheDir,boolean isDebug) {
 
-        File cachefile = new File(SystemConfig.getSystemCacheDir());
+        File cachefile = new File(cacheDir);
 
         if (!cachefile.canWrite()) {
             cachefile = context.getCacheDir();
@@ -76,7 +75,7 @@ public class ImageLoaderManager {
 
                 ;
 
-        if (SystemConfig.isDebug()) {
+        if (isDebug) {
             builder.writeDebugLogs();// 打印日志
         }
 

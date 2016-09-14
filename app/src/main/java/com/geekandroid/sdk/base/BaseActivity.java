@@ -26,7 +26,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import com.commonslibrary.commons.utils.LogUtils;
 import com.commonslibrary.commons.utils.ToastUtils;
 import com.geekandroid.sdk.sample.R;
 
@@ -181,19 +180,6 @@ public class BaseActivity extends FragmentActivity implements View.OnTouchListen
         Intent intent = new Intent(this, cls);
         intent.putExtras(extras);
         startActivityForResult(intent, requestCode);
-    }
-
-    /**
-     * 打印log ，并且自动加上类名
-     *
-     * @param log 打印的日志
-     */
-    public void logI(Object log) {
-        LogUtils.i("[" + getLocalClassName() + "] " + String.valueOf(log));
-    }
-
-    public void logE(Object log) {
-        LogUtils.e("[" + getLocalClassName() + "] " + String.valueOf(log));
     }
 
 

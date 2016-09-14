@@ -17,15 +17,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.util.Log;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.Poi;
-import com.commonslibrary.commons.net.RequestCallBack;
-import com.commonslibrary.commons.utils.LogUtils;
 import com.geekandroid.sdk.maplibrary.ILocation;
 import com.geekandroid.sdk.maplibrary.Location;
 
+import java.io.Reader;
 import java.util.ArrayList;
 
 
@@ -157,7 +157,25 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
         }
     }
 
+    public abstract class RequestCallBack<T> {
 
+        public void onStart() {
+        }
+
+        public abstract void onSuccess(T result);
+
+        public void onSuccess(Reader reader) {
+        }
+
+        public abstract void onFailure(String errorMessage, Exception exception);
+
+        public void onCancel() {
+        }
+
+        public void onProgress(long byteWrite, long contentLength, boolean isDone) {
+        }
+
+    }
     private RequestCallBack<Location> callBack;
 
     public void setCallBack(RequestCallBack<Location> callBack){
@@ -304,6 +322,6 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
             sb.append("无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机");
         }
 
-        LogUtils.i(sb.toString());
+        Log.i("BDLocationImpl",sb.toString());
     }
 }
