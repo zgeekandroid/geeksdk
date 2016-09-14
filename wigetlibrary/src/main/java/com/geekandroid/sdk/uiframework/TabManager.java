@@ -63,9 +63,21 @@ public class TabManager {
         }
 
         if (isFragment()) {
+
+           /* tabHost = new FragmentTabHost(this.fragment.getActivity());
+            LayoutInflater inflater = LayoutInflater.from(this.fragment.getContext());
+            int resLayoutId = 0;
+            inflater.inflate(resLayoutId, tabHost);*/
+
             tabHost = (FragmentTabHost) this.view.findViewById(tabHostResourceId);
             tabHost.setup(fragment.getContext(), fragment.getChildFragmentManager(), tabContentResourceId);
         } else {
+           /*
+           tabHost = new FragmentTabHost(this.activity);
+           LayoutInflater inflater = LayoutInflater.from(this.activity);
+            int resLayoutId = 0;
+            inflater.inflate(resLayoutId, tabHost);*/
+
             tabHost = (FragmentTabHost) this.activity.findViewById(tabHostResourceId);
             tabHost.setup(activity, activity.getSupportFragmentManager(), tabContentResourceId);
         }
