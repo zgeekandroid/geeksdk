@@ -131,7 +131,7 @@ public class TabManager {
         if (tabHost == null) {
             return null;
         }
-        return getTableFragment(tabHost.getCurrentTab());
+        return getTableFragment(tabHost.getCurrentTab() + 1);
     }
 
     public int getCurrentTab() {
@@ -154,12 +154,15 @@ public class TabManager {
 
 
     public Fragment getTableFragment(int index) {
+
+
         try {
+
             if (isFragment()) {
                 if (fragment.getChildFragmentManager().getFragments() == null || fragment.getChildFragmentManager().getFragments().isEmpty()) {
                     return null;
                 }
-                if (fragment.getChildFragmentManager().getFragments().size() <= index) {
+                if (fragment.getChildFragmentManager().getFragments().size() < index) {
                     return null;
                 }
                 return fragment.getChildFragmentManager().getFragments().get(index);
@@ -167,7 +170,7 @@ public class TabManager {
                 if (activity.getSupportFragmentManager().getFragments() == null || activity.getSupportFragmentManager().getFragments().isEmpty()) {
                     return null;
                 }
-                if (activity.getSupportFragmentManager().getFragments().size() <= index) {
+                if (activity.getSupportFragmentManager().getFragments().size() < index) {
                     return null;
                 }
                 return activity.getSupportFragmentManager().getFragments().get(index);
