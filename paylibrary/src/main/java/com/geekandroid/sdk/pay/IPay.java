@@ -1,7 +1,6 @@
 /*******************************************************************************
- *
  * Copyright (c) 2016 Mickael Gizthon . All rights reserved. Email:2013mzhou@gmail.com
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,7 +17,6 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.widget.Toast;
 
-import java.io.Reader;
 import java.util.Map;
 
 /**
@@ -55,6 +53,7 @@ public abstract class IPay {
         }
         progressDialog.dismiss();
     }
+
     public static void show(Context context, String message) {
 
         if (null == context || TextUtils.isEmpty(message)) {
@@ -66,15 +65,15 @@ public abstract class IPay {
         toast.show();
     }
 
-    public boolean isEmpty(Object object){
-        if (object == null){
+    public boolean isEmpty(Object object) {
+        if (object == null) {
             return true;
         }
-        if (object instanceof Integer){
-            return  (int)object == 0;
+        if (object instanceof Integer) {
+            return (int) object == 0;
         }
 
-        if (object instanceof String && TextUtils.isEmpty(object.toString())){
+        if (object instanceof String && TextUtils.isEmpty(object.toString())) {
             return true;
         }
 
@@ -89,41 +88,27 @@ public abstract class IPay {
     /**
      * 支付结果内部自己实现
      */
-    public abstract void pay(Map<String, Object> params,RequestCallBack<String> callBack);
+    public abstract void pay(Map<String, Object> params, RequestCallBack<String> callBack);
 
     /**
      * 请求订单号
      */
-    public abstract void requestOrder(Map<String, Object> params,RequestCallBack<String> callBack);
+    public abstract void requestOrder(Map<String, Object> params, RequestCallBack<String> callBack);
 
     /**
      * 请求支付参数
      */
-    public abstract void getPayParam(Map<String, Object> params,RequestCallBack<String> callBack);
+    public abstract void getPayParam(Map<String, Object> params, RequestCallBack<String> callBack);
 
 
     /**
      * 请求后台服务器得到支付结果
      */
-    public abstract void getPayResult(Map<String, Object> params,RequestCallBack<String> callBack);
+    public abstract void getPayResult(Map<String, Object> params, RequestCallBack<String> callBack);
 
-    public abstract class RequestCallBack<T> {
+    public interface RequestCallBack<T> {
+        void onSuccess(T result);
 
-        public void onStart() {
-        }
-
-        public abstract void onSuccess(T result);
-
-        public void onSuccess(Reader reader) {
-        }
-
-        public abstract void onFailure(String errorMessage, Exception exception);
-
-        public void onCancel() {
-        }
-
-        public void onProgress(long byteWrite, long contentLength, boolean isDone) {
-        }
-
+        void onFailure(String errorMessage, Exception exception);
     }
 }

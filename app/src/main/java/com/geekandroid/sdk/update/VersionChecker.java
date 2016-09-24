@@ -14,7 +14,7 @@ package com.geekandroid.sdk.update;
 import android.content.Context;
 
 import com.commonslibrary.commons.net.RequestCallBack;
-import com.commonslibrary.commons.utils.DeviceUtils;
+import com.commonslibrary.commons.utils.AppUtils;
 import com.commonslibrary.commons.utils.EncryptionUtils;
 import com.geekandroid.sdk.update.domain.VersionBean;
 import com.geekandroid.sdk.update.net.NetUtils;
@@ -41,7 +41,7 @@ public class VersionChecker {
     }
 
     public static int getLocalVersionCode(Context context) {
-        localVersionCode = DeviceUtils.getAppVersionCode(context);
+        localVersionCode = AppUtils.getAppInfo(context).getVersionCode();
         return localVersionCode;
     }
 
@@ -55,6 +55,6 @@ public class VersionChecker {
     }
 
     public static String generatePortPasswordNoLogin(String encryptionFiled) {
-        return EncryptionUtils.md5(securityCode + encryptionFiled);
+        return EncryptionUtils.encryptMD5ToString(securityCode + encryptionFiled);
     }
 }

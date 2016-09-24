@@ -34,7 +34,7 @@ public class SampleApplication extends Application {
 
 		initImageLoader(getApplicationContext());
 		// 初始化ImageLoader
-		ImageLoaderManager.getInstance().init(this);
+		ImageLoaderManager.getInstance().init(this,SystemConfig.getSystemCacheDir(),BuildConfig.DEBUG);
 		SystemConfig.setDebug(true);
 		JPushImpl.getInstance().setDebugMode(SystemConfig.isDebug());
 		JPushImpl.getInstance().init(this);

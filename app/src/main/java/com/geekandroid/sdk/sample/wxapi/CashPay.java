@@ -14,7 +14,6 @@ package com.geekandroid.sdk.sample.wxapi;
 
 
 import com.commonslibrary.commons.net.BaseRemoteModel;
-import com.commonslibrary.commons.net.RequestCallBack;
 import com.geekandroid.sdk.pay.impl.CHYuEPay;
 
 import java.util.Map;
@@ -39,7 +38,7 @@ public class CashPay extends CHYuEPay {
         params.remove("url");//移除掉url
 
 
-        model.doPost(url, params, new RequestCallBack<String>() {
+        model.doPost(url, params, new com.commonslibrary.commons.net.RequestCallBack<String>() {
             @Override
             public void onSuccess(String result) {
                 hideProgress();

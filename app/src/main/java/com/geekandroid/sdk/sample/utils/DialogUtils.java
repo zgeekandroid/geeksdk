@@ -19,7 +19,9 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.commonslibrary.commons.utils.AppUtils;
 import com.commonslibrary.commons.utils.DeviceUtils;
+import com.commonslibrary.commons.utils.NetWorkUtils;
 import com.commonslibrary.commons.utils.ToastUtils;
 import com.geekandroid.sdk.sample.R;
 import com.geekandroid.sdk.update.onDialogBtnListerner;
@@ -62,7 +64,7 @@ public class DialogUtils {
     }
 
     public static ProgressDialog showDownLoadDialog(Activity activity) {
-        String netSate = DeviceUtils.getNetworkType(activity);
+        String netSate = NetWorkUtils.getNetWorkTypeName(activity);
         pd = new ProgressDialog(activity);
         if ("WIFI".equals(netSate)) {
             //WIFI环境,提示用户后台下载，通知Service进行下载
@@ -126,7 +128,7 @@ public class DialogUtils {
             @Override
             public void onClick(View v) {
                 //安装
-                DeviceUtils.install(activity, filePath);
+                AppUtils.installApp(activity, filePath);
                 builder.dismiss();
             }
         });

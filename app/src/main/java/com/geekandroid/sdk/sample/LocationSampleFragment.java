@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.commonslibrary.commons.net.RequestCallBack;
 import com.commonslibrary.commons.utils.ToastUtils;
 import com.geekandroid.sdk.maplibrary.Location;
 import com.geekandroid.sdk.maplibrary.impl.BDLocationImpl;
@@ -64,7 +63,7 @@ public class LocationSampleFragment extends BaseSampleFragment {
 
 
 
-        BDLocationImpl.getInstance().start(getActivity(),new RequestCallBack<Location>() {
+        BDLocationImpl.getInstance().start(getActivity(),new BDLocationImpl.RequestCallBack<Location>() {
             @Override
             public void onSuccess(Location result) {
                 ToastUtils.show(getActivity(),result.toString());

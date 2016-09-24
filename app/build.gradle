@@ -71,7 +71,7 @@ dependencies {
     //
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0'
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
-//            compile project(path: ':commonslibrary')
+            compile project(path: ':commonslibrary')
                 compile project(path: ':locationlibrary')
                 compile project(path: ':imageloaderlibrary')
             compile project(path: ':paylibrary')

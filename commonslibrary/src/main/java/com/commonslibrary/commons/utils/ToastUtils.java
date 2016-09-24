@@ -12,6 +12,7 @@
 package com.commonslibrary.commons.utils;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.widget.Toast;
@@ -34,13 +35,31 @@ public class ToastUtils {
         show(context, message, Gravity.CENTER);
     }
 
-    public static void showDefault(Context context, String message) {
+    public static void show(Object object, String message) {
 
-        if (null == context || TextUtils.isEmpty(message)) {
+        if (null == object || TextUtils.isEmpty(message)) {
             return;
         }
-        Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
-        toast.show();
+        if (object instanceof Context){
+            show((Context)object, message, Gravity.CENTER);
+        }else if (object instanceof Fragment){
+            show(((Fragment) object).getActivity(),message,Gravity.CENTER);
+        }
+
+    }
+
+    public static void showDefault(Object object, String message) {
+
+        if (null == object || TextUtils.isEmpty(message)) {
+            return;
+        }
+
+        if (object instanceof Context){
+            show((Context)object, message, Gravity.BOTTOM);
+        }else if (object instanceof Fragment){
+            show(((Fragment) object).getActivity(),message,Gravity.BOTTOM);
+        }
+
     }
 
     public static void show(Context context, String message, int gravity) {

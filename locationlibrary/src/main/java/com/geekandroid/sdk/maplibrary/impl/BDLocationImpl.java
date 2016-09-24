@@ -157,23 +157,12 @@ public class BDLocationImpl implements ILocation, BDLocationListener {
         }
     }
 
-    public abstract class RequestCallBack<T> {
+    public interface  RequestCallBack<T> {
 
-        public void onStart() {
-        }
 
         public abstract void onSuccess(T result);
 
-        public void onSuccess(Reader reader) {
-        }
-
         public abstract void onFailure(String errorMessage, Exception exception);
-
-        public void onCancel() {
-        }
-
-        public void onProgress(long byteWrite, long contentLength, boolean isDone) {
-        }
 
     }
     private RequestCallBack<Location> callBack;
