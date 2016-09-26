@@ -14,21 +14,13 @@
 
 <resources>
 
-
-    <declare-styleable name="ChartTagView">
-
-        <attr name="chartLabelText" format="string" />
-        <attr name="chartLabelColor" format="color" />
-        <attr name="chartLabelSize" format="dimension" />
-        <attr name="chartLabelPadding" format="dimension"/>
-
-        <attr name="chartValueText" format="string" />
-        <attr name="chartValueColor" format="color" />
-        <attr name="chartValueSize" format="dimension" />
-        <attr name="chartValuePadding" format="dimension"/>
-
-
-        <attr name="chartBackGroundColor" format="color" />
-        <attr name="chartLinePadding" format="dimension"/>
+    <declare-styleable name="WheelView">
+        <attr name="selectedColor" format="reference|color"/>
+        <attr name="selectedSize" format="reference|dimension"/>
+        <attr name="unSelectedColor" format="reference|color"/>
+       <!-- <attr name="unSelectedSize" format="reference|dimension"/>-->
+        <attr name="centerLineColor" format="reference|color"/>
+        <attr name="centerColor" format="reference|color"/>
+        <attr name="centerLineHeight" format="reference|dimension"/>
     </declare-styleable>
 </resources>

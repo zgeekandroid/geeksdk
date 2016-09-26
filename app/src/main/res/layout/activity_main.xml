@@ -35,6 +35,13 @@
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text=" tabmanager"
         />
+
+        <Button
+            android:id="@+id/widget"
+
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text=" widget"
+            />
         <Button
             android:id="@+id/common"
             android:layout_width="match_parent" android:layout_height="wrap_content"

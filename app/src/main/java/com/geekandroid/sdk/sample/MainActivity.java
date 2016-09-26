@@ -40,6 +40,7 @@ public class MainActivity extends BaseActivity {
         bindClick(R.id.qrcode, MipcaActivityCapture.class);
 //        bindClick(R.id.image_crop, CropSampleActivity.class);
         bindClick(R.id.app_update, new AppUpdateSampleFragment());
+        bindClick(R.id.widget, new WidgetSampleFragment());
 //        bindClick(R.id.citylist, CityListActivity.class);
 
  
