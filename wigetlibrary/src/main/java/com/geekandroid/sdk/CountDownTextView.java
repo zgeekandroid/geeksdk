@@ -81,4 +81,10 @@ public class CountDownTextView extends TextView {
         timer.start();
     }
 
+
+    public void stop(){
+        timer.cancel();
+        timer.onFinish();
+    }
+
 }

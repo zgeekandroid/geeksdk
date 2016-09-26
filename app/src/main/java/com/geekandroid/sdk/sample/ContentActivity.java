@@ -11,6 +11,7 @@
 
 package com.geekandroid.sdk.sample;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -49,7 +50,12 @@ public class ContentActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        showFragment.onActivityResult(requestCode,resultCode,data);
 
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

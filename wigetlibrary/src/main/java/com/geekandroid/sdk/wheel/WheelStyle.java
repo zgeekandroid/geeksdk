@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class WheelStyle {
 
-    public static final int minYear = 1980;
+    public static final int minYear = 1910;
     public static final int maxYear = 2050;
 
     /**

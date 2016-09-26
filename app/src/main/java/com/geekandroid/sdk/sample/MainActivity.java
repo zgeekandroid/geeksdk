@@ -31,6 +31,7 @@ public class MainActivity extends BaseActivity {
         bindClick(R.id.rxpermissions, new RxPermissionsSampleFragment());
 
         bindClick(R.id.common, new CommonSampleFragment());
+        bindClick(R.id.select_image, new SelectImageSampleFragment());
 //        bindClick(R.id.mapnavigation, MapActivity.class);
         bindClick(R.id.location, new LocationSampleFragment());
         bindClick(R.id.pay, new PaySampleFragment());
@@ -97,6 +98,8 @@ public class MainActivity extends BaseActivity {
 
 
     }
+
+
 
     public void bindClick(int resId, Class<?> cls) {
         try {
